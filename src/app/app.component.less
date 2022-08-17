@@ -1,0 +1,33 @@
+:host {
+	display: block;
+}
+
+mat-toolbar {
+	position: sticky;
+	top: 0;
+	z-index: 501;
+
+	.toolbar-title {
+		margin: 0 var(--spacing-x-small);
+	}
+	.toolbar-spacer {
+		flex: 1 1 auto;
+	}
+}
+
+main {
+	position: relative;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: var(--spacing-small) var(--spacing-large);
+
+	& > router-outlet {
+		display: none;
+	}
+
+	::ng-deep > * {
+		display: block;
+		min-height: 100%;
+		min-width: 100%;
+	}
+}

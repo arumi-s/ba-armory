@@ -1,0 +1,36 @@
+<div class="base mat-elevation-z1">
+	<div class="figure mat-elevation-z2" mat-ripple [title]="name" [attr.tier]="tier">
+		<img class="icon" loading="lazy" [src]="iconUrl" />
+		<div *ngIf="tier != null" class="tier">T{{ tier }}</div>
+		<div *ngIf="rate != null" class="rate">{{ rate | percent }}</div>
+	</div>
+	<div class="name">{{ name }}</div>
+	<div class="amounts">
+		<div class="amount required">
+			<!-- TODO: i18n -->
+			<div class="amount-label">需要:</div>
+			<div class="amount-value">{{ dataService.deck.required[id] }}</div>
+		</div>
+		<div class="amount">
+			<!-- TODO: i18n -->
+			<div class="amount-label">{{ deficit ? "缺少" : "溢出" }}:</div>
+			<div class="amount-value difference">
+				{{
+					deficit ? dataService.deck.required[id] - dataService.deck.stocks[id] : dataService.deck.stocks[id] - dataService.deck.required[id]
+				}}
+			</div>
+		</div>
+		<div class="amount stock">
+			<div class="amount-value">
+				<input
+					class="stock-input"
+					type="number"
+					[(ngModel)]="dataService.deck.stocks[id]"
+					[min]="0"
+					[step]="1"
+					(focus)="handleFocusStock($event)"
+				/>
+			</div>
+		</div>
+	</div>
+</div>

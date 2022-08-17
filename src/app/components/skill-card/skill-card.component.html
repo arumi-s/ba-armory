@@ -1,0 +1,12 @@
+<div
+	mat-ripple
+	class="figure mat-elevation-z2"
+	[class.is_target-show]="isTarget"
+	[title]="name"
+	[attr.level]="level"
+	(hoverinput)="level = $event"
+>
+	<div class="skill_type">{{ skillTypeText }}</div>
+	<img [class]="'icon ' + typeClass" loading="lazy" [src]="iconUrl" />
+	<div class="level">{{ level === model.levelMax ? "MAX" : "Lv." + level }}</div>
+</div>

@@ -1,0 +1,41 @@
+.grid {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: stretch;
+	margin: var(--spacing-small) 0;
+}
+
+.options {
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	margin: var(--spacing-small) 0;
+}
+
+.mat-tab-group {
+	::ng-deep .mat-tab-header {
+		border-top: 1px solid rgba(0, 0, 0, 0.12);
+	}
+
+	::ng-deep .mat-tab-label-content {
+		user-select: none;
+	}
+}
+
+ba-student-card {
+	margin: var(--spacing-xx-small);
+}
+
+ba-item-icon {
+	margin: var(--spacing-xx-small);
+
+	.hide-surplus &.surplus {
+		display: none;
+	}
+}
+
+ba-campaign-card {
+	margin: var(--spacing-small) var(--spacing-x-small);
+}

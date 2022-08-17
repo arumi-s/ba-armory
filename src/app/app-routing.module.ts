@@ -1,10 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ArmoryComponent } from './pages/armory/armory.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+	{
+		path: '',
+		pathMatch: 'full',
+		component: ArmoryComponent,
+	},
+	{
+		path: '**',
+		redirectTo: '',
+	},
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

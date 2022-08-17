@@ -1,0 +1,42 @@
+<div class="options">
+	<!-- TODO: i18n -->
+	<button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">
+		{{ dataService.localization.ui["sortby"] }} {{ currentSortOption?.label }}
+	</button>
+	<mat-menu #menu="matMenu">
+		<button
+			*ngFor="let sortOptions of dataService.studentSortOptions"
+			[value]="sortOptions.id"
+			mat-menu-item
+			(click)="handleClickSortOption(sortOptions.id)"
+		>
+			{{ sortOptions.label }}
+		</button>
+	</mat-menu>
+</div>
+<div class="grid students" [sortablejs]="dataService.deck.students" [sortablejsOptions]="sortableOptions">
+	<ba-student-card *ngFor="let student of dataService.deck.students" [model]="student"></ba-student-card>
+</div>
+<mat-tab-group [animationDuration]="0" [disablePagination]="true" selectedIndex="0">
+	<mat-tab>
+		<ng-template mat-tab-label>{{ dataService.localization.ui["navbar_items"] }}</ng-template>
+		<ng-template matTabContent>
+			<div class="options">
+				<!-- TODO: i18n -->
+				<mat-slide-toggle [(ngModel)]="dataService.deck.options.showSurplusItems">显示溢出</mat-slide-toggle>
+			</div>
+			<div class="grid required" [class.hide-surplus]="!dataService.deck.options.showSurplusItems">
+				<ba-item-icon *ngFor="let item of dataService.stockables" [id]="item"></ba-item-icon>
+			</div>
+		</ng-template>
+	</mat-tab>
+	<mat-tab>
+		<ng-template mat-tab-label>{{ dataService.localization.ui["navbar_stages"] }}</ng-template>
+		<ng-template matTabContent>
+			<div class="options"></div>
+			<div class="list">
+				<ba-campaign-card *ngFor="let stage of dataService.deck.stages" [id]="stage.id" [amount]="stage.amount"></ba-campaign-card>
+			</div>
+		</ng-template>
+	</mat-tab>
+</mat-tab-group>

@@ -1,0 +1,58 @@
+:host {
+	display: block;
+}
+
+.mat-card {
+	display: flex;
+	align-items: center;
+	padding: 0;
+}
+
+.mat-card-header {
+	flex-direction: column;
+	flex-basis: 12rem;
+	flex-grow: 0;
+	flex-shrink: 0;
+	max-width: 30%;
+	padding: var(--spacing-x-small) var(--spacing-medium);
+
+	.mat-card-avatar {
+		width: 100%;
+		height: auto;
+		margin: 0;
+		border-radius: var(--border-radius-medium);
+		margin-bottom: var(--spacing-x-small);
+	}
+
+	::ng-deep .mat-card-header-text {
+		margin: 0;
+	}
+
+	.mat-card-subtitle {
+		font-size: 14px;
+		font-style: italic;
+	}
+
+	.mat-card-title.stats {
+		display: flex;
+		justify-content: space-between;
+		font-size: 1rem;
+		margin-bottom: 0;
+	}
+}
+
+.mat-card-content {
+	flex: 1;
+	overflow-x: auto;
+	margin-bottom: 0;
+}
+
+.rewards {
+	display: flex;
+	flex-direction: row;
+}
+
+ba-item-icon {
+	margin: 0 var(--spacing-xx-small);
+	width: 128px;
+}

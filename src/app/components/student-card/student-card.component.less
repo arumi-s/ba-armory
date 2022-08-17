@@ -1,0 +1,250 @@
+:host {
+	display: block;
+	width: 240px;
+
+	&.is_target {
+		::ng-deep .is_target-hide {
+			display: none;
+		}
+		::ng-deep .is_target-show {
+			outline: 2px solid #ee5e84;
+		}
+	}
+
+	&:not(.is_target) {
+		::ng-deep .is_target-show {
+			display: none;
+		}
+	}
+}
+
+.mat-card {
+	padding: 0;
+	padding-bottom: 8px;
+}
+
+.mat-card-header {
+	position: relative;
+	background-color: #d9e9f3;
+	padding: var(--spacing-x-small);
+
+	::ng-deep {
+		.mat-card-title {
+			font-size: 18px;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		.mat-card-header-text {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+		}
+		.mat-card-subtitle {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.mat-card-header,
+.mat-card-content,
+.mat-card-actions {
+	margin-bottom: var(--spacing-x-small);
+	padding-left: var(--spacing-x-small);
+	padding-right: var(--spacing-x-small);
+}
+
+.mat-card-avatar {
+	height: 48px;
+	width: 48px;
+	cursor: grab;
+}
+
+.mat-card-title {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-x-small);
+}
+
+.tags {
+	flex-basis: min-content;
+	flex-grow: 0;
+	flex-shrink: 1;
+
+	button {
+		border-radius: 0;
+		min-width: min-content;
+		padding-left: var(--spacing-x-small) !important;
+		padding-right: var(--spacing-x-small) !important;
+	}
+}
+
+.school_icon {
+	filter: invert(1);
+	opacity: 0.25;
+	height: 100%;
+	position: absolute;
+	right: 50px;
+	top: 0;
+	pointer-events: none;
+	user-select: none;
+}
+
+.stats {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: var(--spacing-x-small);
+
+	bar-rating {
+		--br-font-size: 18px;
+
+		.mat-icon {
+			display: block;
+			font-size: var(--br-font-size);
+			width: 1em;
+			height: 1em;
+		}
+
+		&[disabled] {
+			pointer-events: none;
+			user-select: none;
+			filter: grayscale(1) brightness(1.5);
+		}
+
+		&:not([disabled]) {
+			&[value="1"] {
+				::ng-deep {
+					.br-unit:nth-child(n + 2) {
+						.mat-ratingActive {
+							opacity: 0.5;
+						}
+					}
+				}
+			}
+			&[value="2"] {
+				::ng-deep {
+					.br-unit:nth-child(n + 3) {
+						.mat-ratingActive {
+							opacity: 0.5;
+						}
+					}
+				}
+			}
+			&[value="3"] {
+				::ng-deep {
+					.br-unit:nth-child(n + 4) {
+						.mat-ratingActive {
+							opacity: 0.5;
+						}
+					}
+				}
+			}
+			&[value="4"] {
+				::ng-deep {
+					.br-unit:nth-child(n + 5) {
+						.mat-ratingActive {
+							opacity: 0.5;
+						}
+					}
+				}
+			}
+
+			&[value="5"] {
+				::ng-deep {
+					.br-unit:nth-child(-n + 5) {
+						.mat-ratingInactive {
+							opacity: 0.5;
+						}
+					}
+				}
+			}
+			&[value="4"] {
+				::ng-deep {
+					.br-unit:nth-child(-n + 4) {
+						.mat-ratingInactive {
+							opacity: 0.5;
+						}
+					}
+				}
+			}
+			&[value="3"] {
+				::ng-deep {
+					.br-unit:nth-child(-n + 3) {
+						.mat-ratingInactive {
+							opacity: 0.5;
+						}
+					}
+				}
+			}
+			&[value="2"] {
+				::ng-deep {
+					.br-unit:nth-child(-n + 2) {
+						.mat-ratingInactive {
+							opacity: 0.5;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.stats-level {
+	font-size: 18px;
+	display: flex;
+	align-items: center;
+
+	&::before {
+		content: "Lv.";
+		display: block;
+	}
+	button {
+		font-size: 18px !important;
+		padding: 0 4px !important;
+		min-width: unset !important;
+	}
+	input {
+		border: none;
+		background-image: none;
+		background-color: transparent;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+		display: block;
+		color: inherit;
+		font-size: 1em;
+		padding: 0;
+		width: 2em;
+		padding-top: 2px;
+	}
+}
+
+.skills,
+.equipments {
+	display: flex;
+	flex-direction: row;
+	gap: var(--spacing-x-small);
+	margin-bottom: var(--spacing-x-small);
+}
+
+ba-skill-card[skill_type="weaponpassive"],
+ba-skill-card[skill_type="gearnormal"] {
+	display: none;
+}
+
+.mat-card-actions {
+	display: flex;
+	flex-direction: row;
+	margin-left: 0;
+	margin-right: 0;
+	padding: var(--spacing-x-small);
+
+	.mat-button {
+		margin: 0;
+	}
+
+	.action-target {
+		margin-left: auto;
+	}
+}

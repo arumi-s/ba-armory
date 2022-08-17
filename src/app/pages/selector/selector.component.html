@@ -1,0 +1,4 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<div class="students" mat-dialog-content>
+	<ba-student-icon *ngFor="let id of missingStudents" [id]="id" (click)="handleClickStudent(id)"></ba-student-icon>
+</div>

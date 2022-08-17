@@ -1,1 +1,341 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+	--border-radius-small: 0.125rem;
+	--border-radius-medium: 0.25rem;
+	--border-radius-large: 0.5rem;
+	--border-radius-x-large: 1rem;
+	--border-radius-circle: 50%;
+	--border-radius-pill: 9999px;
+	--shadow-x-small: 0 1px 0 rgba(0, 0, 0, 0.25);
+	--shadow-small: 0 1px 2px rgba(0, 0, 0, 0.5);
+	--shadow-medium: 0 2px 4px rgba(0, 0, 0, 0.5);
+	--shadow-large: 0 2px 8px rgba(0, 0, 0, 0.5);
+	--shadow-x-large: 0 4px 16px rgba(0, 0, 0, 0.5);
+	--spacing-xxx-small: 0.125rem;
+	--spacing-xx-small: 0.25rem;
+	--spacing-x-small: 0.5rem;
+	--spacing-small: 0.75rem;
+	--spacing-medium: 1rem;
+	--spacing-large: 1.25rem;
+	--spacing-x-large: 1.75rem;
+	--spacing-xx-large: 2.25rem;
+	--spacing-xxx-large: 3rem;
+	--spacing-xxxx-large: 4.5rem;
+	--border-width: 1px;
+	--border-color: #e3e6e8;
+	--border-radius: 0.25rem;
+}
+
+*,
+::after,
+::before {
+	box-sizing: inherit;
+}
+
+html {
+	font-family: sans-serif;
+	line-height: 1.15;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-ms-overflow-style: scrollbar;
+	-webkit-tap-highlight-color: transparent;
+	box-sizing: border-box;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	text-align: left;
+	background-color: #fff;
+	height: 100%;
+}
+
+a {
+	color: inherit;
+}
+
+img {
+	display: block;
+	-webkit-user-drag: none;
+	-webkit-tap-highlight-color: transparent;
+	user-select: none;
+}
+
+.mat-dialog-container {
+	height: auto !important;
+}
+
+button[size="small"] {
+	font-size: 12px !important;
+	padding: 0 4px !important;
+	line-height: 24px !important;
+
+	.mat-icon {
+		font-size: 16px !important;
+		height: 16px !important;
+		width: 16px !important;
+		margin-top: -4px;
+	}
+
+	&.mat-standard-chip {
+		min-height: 24px;
+	}
+}
+
+bar-rating {
+	display: block;
+}
+
+.mat-color(@color, @text) {
+	.mat-option.mat-selected:not(.mat-option-disabled) {
+		color: @color;
+	}
+	.mat-pseudo-checkbox-checked,
+	.mat-pseudo-checkbox-indeterminate {
+		background: @color;
+	}
+
+	.mat-slider-track-fill,
+	.mat-slider-thumb,
+	.mat-slider-thumb-label {
+		background-color: @color;
+	}
+
+	.mat-slider-thumb-label-text {
+		color: @text;
+	}
+
+	.mat-slider-focus-ring {
+		background-color: fade(@color, 0.2);
+	}
+
+	&.mat-button,
+	&.mat-icon-button {
+		color: @color;
+		&.mat-button-disabled {
+			color: rgba(0, 0, 0, 0.26);
+		}
+		.mat-button-focus-overlay {
+			background-color: @color;
+		}
+	}
+
+	&.mat-stroked-button {
+		border-color: @color;
+		&.mat-button-disabled {
+			color: rgba(0, 0, 0, 0.26);
+		}
+		.mat-button-focus-overlay {
+			background-color: @color;
+		}
+	}
+
+	&.mat-flat-button,
+	&.mat-raised-button,
+	&.mat-fab,
+	&.mat-mini-fab {
+		color: @text;
+		background-color: @color;
+		&.mat-button-disabled {
+			color: rgba(0, 0, 0, 0.26);
+			background-color: rgba(0, 0, 0, 0.12);
+		}
+		.mat-ripple-element {
+			background-color: rgba(255, 255, 255, 0.1);
+		}
+	}
+
+	&.mat-checkbox-indeterminate,
+	&.mat-checkbox-checked {
+		.mat-checkbox-background {
+			background-color: @color;
+		}
+	}
+
+	&.mat-checkbox-checked:not(.mat-checkbox-disabled),
+	&.mat-checkbox:active:not(.mat-checkbox-disabled) {
+		.mat-ripple-element {
+			background: @color;
+		}
+	}
+
+	&.mat-chip.mat-standard-chip.mat-chip-selected {
+		background-color: @color;
+		color: @text;
+		.mat-chip-remove {
+			color: @text;
+			opacity: 0.4;
+		}
+		.mat-ripple-element {
+			background-color: rgba(255, 255, 255, 0.1);
+		}
+	}
+
+	&.mat-icon {
+		color: @color;
+	}
+	&.mat-radio-button {
+		.mat-radio-outer-circle {
+			border-color: @color;
+		}
+
+		.mat-radio-inner-circle,
+		.mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+		&.mat-radio-checked .mat-radio-persistent-ripple,
+		&:active .mat-radio-persistent-ripple {
+			background-color: @color;
+		}
+	}
+
+	&.mat-form-field.mat-focused .mat-select-arrow {
+		color: @color;
+	}
+
+	&.mat-slide-toggle.mat-checked {
+		.mat-slide-toggle-thumb {
+			background-color: @color;
+		}
+		.mat-slide-toggle-bar {
+			background-color: fade(@color, 0.54);
+		}
+		.mat-ripple-element {
+			background-color: @color;
+		}
+	}
+
+	&.mat-tab-group,
+	&.mat-tab-nav-bar {
+		.mat-tab-label,
+		.mat-tab-link {
+			&.cdk-keyboard-focused,
+			&.cdk-program-focused {
+				&:not(.mat-tab-disabled) {
+					background-color: fade(lighten(@color, 36), 0.3);
+				}
+			}
+		}
+	}
+
+	&.mat-tab-group,
+	&.mat-tab-nav-bar {
+		.mat-ink-bar {
+			background-color: @color;
+		}
+	}
+
+	&.mat-tab-group,
+	&.mat-tab-nav-bar {
+		&.mat-background-primary .mat-ink-bar {
+			background-color: @text;
+		}
+	}
+
+	&.mat-toolbar {
+		background: @color;
+		color: @text;
+	}
+
+	&.mat-chip.mat-standard-chip {
+		color: @text;
+		background-color: @color;
+	}
+
+	&.icon {
+		color: @text;
+		background-color: @color;
+	}
+}
+
+.mat-Explosion {
+	.mat-color(#9b291f, #fff);
+}
+.mat-badge-Explosion .mat-badge-content {
+	background: #9b291f;
+	color: #fff;
+}
+.mat-Pierce {
+	.mat-color(#aa712c, #fff);
+}
+.mat-badge-Pierce .mat-badge-content {
+	background: #aa712c;
+	color: #fff;
+}
+.mat-Mystic {
+	.mat-color(#4a7ca3, #fff);
+}
+.mat-badge-Mystic .mat-badge-content {
+	background: #4a7ca3;
+	color: #fff;
+}
+.mat-LightArmor {
+	.mat-color(#9b291f, #fff);
+}
+.mat-badge-LightArmor .mat-badge-content {
+	background: #9b291f;
+	color: #fff;
+}
+.mat-HeavyArmor {
+	.mat-color(#aa712c, #fff);
+}
+.mat-badge-HeavyArmor .mat-badge-content {
+	background: #aa712c;
+	color: #fff;
+}
+.mat-Unarmed {
+	.mat-color(#4a7ca3, #fff);
+}
+.mat-badge-Unarmed .mat-badge-content {
+	background: #4a7ca3;
+	color: #fff;
+}
+.mat-squadType {
+	.mat-color(#bcbfcc, #fff);
+}
+.mat-badge-squadType .mat-badge-content {
+	background: #bcbfcc;
+	color: #fff;
+}
+.mat-position {
+	.mat-color(#304561, #fff);
+}
+.mat-badge-position .mat-badge-content {
+	background: #304561;
+	color: #fff;
+}
+
+.mat-ratingActive {
+	.mat-color(#edb731, #fff);
+}
+.mat-badge-ratingActive .mat-badge-content {
+	background: #edb731;
+	color: #fff;
+}
+
+.mat-ratingActiveAlt {
+	.mat-color(#51c0f2, #fff);
+}
+.mat-badge-ratingActiveAlt .mat-badge-content {
+	background: #51c0f2;
+	color: #fff;
+}
+
+.mat-ratingInactive {
+	.mat-color(#95949b, #fff);
+}
+.mat-badge-ratingInactive .mat-badge-content {
+	background: #95949b;
+	color: #fff;
+}
+
+.mat-success {
+	.mat-color(#6ed33f, #fff);
+}
+.mat-badge-success .mat-badge-content {
+	background: #6ed33f;
+	color: #fff;
+}

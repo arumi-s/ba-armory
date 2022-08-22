@@ -30,11 +30,8 @@ export class SkillCardComponent implements OnInit, OnDestroy {
 	}
 
 	set level(level: number) {
-		if (this.isTarget) {
-			this.model.levelTarget = level;
-		} else {
-			this.model.level = level;
-		}
+		if (this.isTarget) this.model.levelTarget = level;
+		else this.model.level = level;
 	}
 
 	private changeSubscription: Subscription;
@@ -51,13 +48,13 @@ export class SkillCardComponent implements OnInit, OnDestroy {
 		this.skillTypeText = this.dataService.localization.ui[`student_skill_${skill.skillType.toLowerCase()}`];
 		this.typeClass = 'mat-' + student.bulletType;
 
-		this.changeSubscription = this.model.change$.subscribe((change) => {
-			this.changeDetectorRef.detectChanges();
+		this.changeSubscription = this.model.change$.subscribe(() => {
+			this.changeDetectorRef.markForCheck();
 		});
 	}
 
 	ngOnDestroy(): void {
-		this.changeSubscription.unsubscribe();
+		this.changeSubscription?.unsubscribe();
 	}
 
 	@HostListener('click', ['$event'])

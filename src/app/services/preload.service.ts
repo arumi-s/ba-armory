@@ -35,12 +35,14 @@ export class PreloadService {
 		this.dataService.setStage(stages);
 		this.dataService.setLocalization(localization);
 
+		this.dataService.setOthers();
+
 		await this.loadDeck();
 	}
 
 	async saveDeck() {
-		const json = instanceToPlain(this.dataService.deck);
-		const compressed = compressToUTF16(JSON.stringify(json));
+		const json = JSON.stringify(instanceToPlain(this.dataService.deck));
+		const compressed = compressToUTF16(json);
 		localStorage.setItem(STORAGE_DECK_KEY, compressed);
 	}
 

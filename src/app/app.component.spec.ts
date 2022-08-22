@@ -24,10 +24,8 @@ describe('AppComponent', () => {
 
 	it('should render title', () => {
 		const fixture = TestBed.createComponent(AppComponent);
-		fixture.detectChanges();
+		fixture.markForCheck();
 		const compiled = fixture.nativeElement as HTMLElement;
-		expect(compiled.querySelector('.content span')?.textContent).toContain(
-			'ba-armory app is running!'
-		);
+		expect(compiled.querySelector('.content span')?.textContent).toContain('ba-armory app is running!');
 	});
 });

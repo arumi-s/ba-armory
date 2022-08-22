@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Subscription } from 'rxjs';
 import { SortableOptions } from 'sortablejs';
-import { DeckStudent } from '../../entities/deck-student';
-import { DataService, StudentSortOption } from '../../services/data.service';
+import { SelectorComponent } from '../selector/selector.component';
+import { ItemSortOption, StudentSortOption } from '../../entities/types';
+import { DataService } from '../../services/data.service';
 
 @Component({
 	selector: 'ba-armory',
@@ -17,47 +20,112 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 		swapThreshold: 1,
 	};
 
-	currentSortOption: StudentSortOption;
+	isTarget: boolean = false;
+	selectedStudentSortOption: StudentSortOption = undefined;
+	selectedStudentSortDirection: -1 | 1 = 1;
+
+	selectedItemSortOption: ItemSortOption = undefined;
+	selectedItemSortDirection: -1 | 1 = 1;
 
 	private requiredUpdatedSubscription: Subscription;
 
-	constructor(public readonly dataService: DataService, private readonly changeDetectorRef: ChangeDetectorRef) {}
+	constructor(
+		public readonly dataService: DataService,
+		private readonly dialog: MatDialog,
+		private readonly changeDetectorRef: ChangeDetectorRef
+	) {}
 
 	ngOnInit(): void {
-		console.log(this.dataService.deck);
-
-		this.requiredUpdatedSubscription = this.dataService.deck.requiredUpdated$.subscribe(() => {
-			this.changeDetectorRef.detectChanges();
+		this.dataService.deck.change$.subscribe((changes) => {
+			if (changes.hasOwnProperty('selectedSquadId')) {
+				this.handleChangeSquad();
+			}
 		});
+		this.handleChangeSquad();
 	}
 
 	ngOnDestroy(): void {
-		this.requiredUpdatedSubscription.unsubscribe();
+		this.requiredUpdatedSubscription?.unsubscribe();
 	}
 
-	handleClickSortOption(sortOptionId: string) {
-		this.currentSortOption = this.dataService.studentSortOptions.find((so) => so.id === sortOptionId);
-
-		{
-			const random = new WeakMap<DeckStudent, number>();
-			this.dataService.deck.students.forEach((deckStudent) => random.set(deckStudent, Math.random()));
-			this.dataService.deck.students.sort((a, b) => random.get(a) - random.get(b));
-		}
-
-		const option = this.currentSortOption;
-
-		this.dataService.deck.students.sort((a, b) => {
-			for (const key of option.key) {
-				const aValue = key(a);
-				const bValue = key(b);
-				const diff = compare(aValue, bValue);
-				if (diff !== 0) return diff;
-			}
-			return 0;
+	handleChangeSquad() {
+		this.isTarget = false;
+		this.selectedStudentSortOption = undefined;
+		this.selectedItemSortOption = undefined;
+		this.requiredUpdatedSubscription?.unsubscribe();
+		this.requiredUpdatedSubscription = this.dataService.deck.selectedSquad.requiredUpdated$.subscribe(() => {
+			this.changeDetectorRef.markForCheck();
 		});
+		this.dataService.deck.selectedSquad.updateRequiredItems(this.dataService);
+		this.handleClickItemSortOption('basic');
+	}
+
+	handleClickSelector() {
+		const dialogRef = this.dialog.open(SelectorComponent, {
+			width: '100%',
+			height: 'auto',
+			maxHeight: 'calc(100% - var(--spacing-xx-large))',
+			autoFocus: false,
+			restoreFocus: false,
+		});
+
+		dialogRef.afterClosed();
+	}
+
+	handleClickStudentSortOption(sortOptionId: string) {
+		this.selectedStudentSortOption = this.dataService.studentSortOptions.find((so) => so.id === sortOptionId);
+
+		this.dataService.deck.selectedSquad.sortStudents(this.dataService, this.selectedStudentSortOption, this.selectedStudentSortDirection);
+	}
+
+	handleClickStudentSortDirection() {
+		this.selectedStudentSortDirection = this.selectedStudentSortDirection === -1 ? 1 : -1;
+
+		this.dataService.deck.selectedSquad.sortStudents(this.dataService, this.selectedStudentSortOption, this.selectedStudentSortDirection);
+	}
+
+	handleClickItemSortOption(sortOptionId: string) {
+		this.selectedItemSortOption = this.dataService.itemSortOptions.find((so) => so.id === sortOptionId);
+
+		this.dataService.deck.selectedSquad.sortItems(this.dataService, this.selectedItemSortOption, this.selectedItemSortDirection);
+	}
+
+	handleClickItemSortDirection() {
+		this.selectedItemSortDirection = this.selectedItemSortDirection === -1 ? 1 : -1;
+
+		this.dataService.deck.selectedSquad.sortItems(this.dataService, this.selectedItemSortOption, this.selectedItemSortDirection);
+	}
+
+	handleClickTarget() {
+		this.isTarget = !this.isTarget;
+
+		for (const studentId of this.dataService.deck.selectedSquad.students) {
+			const student = this.dataService.deck.students.get(studentId);
+			student.isTarget = this.isTarget;
+		}
+	}
+
+	handleTabChangeSquad(event: MatTabChangeEvent) {
+		this.dataService.deck.selectedSquadId = event.index;
+	}
+
+	handleClickSquadAdd() {
+		this.dataService.deck.addSquad(this.dataService);
+	}
+
+	handleClickSquadRemove() {
+		this.dataService.deck.removeSquad(this.dataService);
+	}
+
+	handleMousedownSquadMove(event: MouseEvent) {
+		event.stopPropagation();
+	}
+
+	handleClickSquadMoveLeft() {
+		this.dataService.deck.moveSquad(this.dataService, -1);
+	}
+
+	handleClickSquadMoveRight() {
+		this.dataService.deck.moveSquad(this.dataService, 1);
 	}
 }
-
-const compare = (a: string | number, b: string | number) => {
-	return typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : +a - +b;
-};

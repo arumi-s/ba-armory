@@ -57,21 +57,21 @@ export class EquipmentCardComponent implements OnInit, OnChanges, OnDestroy {
 		this.equipmentMap = this.dataService.equipmentsByCategory.get(this.category) ?? new Map();
 		this.handleTierChange();
 
-		this.changeSubscription = this.model.change$.subscribe((change) => {
-			if (Object.prototype.hasOwnProperty.call(change, this.isTarget ? 'tierTarget' : 'tier')) {
+		this.changeSubscription = this.model.change$.subscribe((changes) => {
+			if (changes.hasOwnProperty(this.isTarget ? 'tierTarget' : 'tier')) {
 				this.handleTierChange();
 			}
-			this.changeDetectorRef.detectChanges();
+			this.changeDetectorRef.markForCheck();
 		});
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes['isTarget'] && !changes['isTarget'].firstChange) {
+		if (changes.hasOwnProperty('isTarget') && !changes['isTarget'].firstChange) {
 			this.handleTierChange();
 		}
 	}
 	ngOnDestroy(): void {
-		this.changeSubscription.unsubscribe();
+		this.changeSubscription?.unsubscribe();
 	}
 
 	@HostListener('click', ['$event'])

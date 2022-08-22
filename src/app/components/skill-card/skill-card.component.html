@@ -2,6 +2,7 @@
 	mat-ripple
 	class="figure mat-elevation-z2"
 	[class.is_target-show]="isTarget"
+	[class.is_target-reached]="model.level === model.levelTarget"
 	[title]="name"
 	[attr.level]="level"
 	(hoverinput)="level = $event"

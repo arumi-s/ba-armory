@@ -1,0 +1,9 @@
+<div class="item">
+	<ba-item-icon [id]="id"></ba-item-icon>
+</div>
+<div *ngIf="users.length" class="users">
+	<div *ngFor="let user of users" class="user">
+		<ba-student-icon [id]="user[0]"></ba-student-icon>
+		<div class="amount">{{ user[1] }}</div>
+	</div>
+</div>

@@ -42,12 +42,23 @@ export class CampaignCardComponent implements OnInit, OnDestroy {
 		this.rewards = campaign.rewards?.default.filter((reward) => reward[0] < CURRENCY_OFFSET) ?? [];
 		this.cost = campaign.entryCost.find(([itemId]) => itemId === ACTION_POINT_ID)?.[1] ?? 0;
 
-		this.requiredUpdatedSubscription = this.dataService.deck.requiredUpdated$.subscribe(() => {
-			this.changeDetectorRef.detectChanges();
+		this.dataService.deck.change$.subscribe((changes) => {
+			if (changes.hasOwnProperty('selectedSquadId')) {
+				this.handleChangeSquad();
+			}
 		});
+		this.handleChangeSquad();
 	}
 
 	ngOnDestroy(): void {
-		this.requiredUpdatedSubscription.unsubscribe();
+		this.requiredUpdatedSubscription?.unsubscribe();
+	}
+
+	handleChangeSquad() {
+		this.requiredUpdatedSubscription?.unsubscribe();
+		this.requiredUpdatedSubscription = this.dataService.deck.selectedSquad.requiredUpdated$.subscribe(() => {
+			this.changeDetectorRef.markForCheck();
+		});
+		this.changeDetectorRef.markForCheck();
 	}
 }

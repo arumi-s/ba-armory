@@ -2,7 +2,7 @@ import { Expose, Exclude } from 'class-transformer';
 import { Subject } from 'rxjs';
 import type { DataService } from '../services/data.service';
 import { SkillType } from './enum';
-import { DeckChange } from './types';
+import { Change, Changes } from './change';
 
 export class DeckSkill {
 	@Expose({ name: 'studentId' })
@@ -19,14 +19,20 @@ export class DeckSkill {
 	}
 
 	set level(level: number) {
+		if (isNaN(level)) level = 0;
 		level = Math.max(Math.min(Math.floor(level), this.levelMax), this.levelMin);
 		if (this.__level__ !== level) {
+			const levelOld = this.__level__;
 			this.__level__ = level;
 			if (this.__levelTarget__ < this.__level__) {
+				const levelTargetOld = this.__levelTarget__;
 				this.__levelTarget__ = this.__level__;
-				this.change$.next({ level, levelTarget: this.__levelTarget__ });
+				this.change$.next({
+					level: new Change(levelOld, this.__level__),
+					levelTarget: new Change(levelTargetOld, this.__levelTarget__),
+				});
 			} else {
-				this.change$.next({ level });
+				this.change$.next({ level: new Change(levelOld, this.__level__) });
 			}
 		}
 	}
@@ -39,10 +45,12 @@ export class DeckSkill {
 	}
 
 	set levelTarget(levelTarget: number) {
+		if (isNaN(levelTarget)) levelTarget = 0;
 		levelTarget = Math.max(Math.min(Math.floor(levelTarget), this.levelMax), this.level, this.levelMin);
 		if (this.__levelTarget__ !== levelTarget) {
+			const levelTargetOld = this.__levelTarget__;
 			this.__levelTarget__ = levelTarget;
-			this.change$.next({ levelTarget });
+			this.change$.next({ levelTarget: new Change(levelTargetOld, this.__levelTarget__) });
 		}
 	}
 
@@ -53,7 +61,7 @@ export class DeckSkill {
 	readonly levelMax: number = 0;
 
 	@Exclude()
-	readonly change$ = new Subject<DeckChange<DeckSkill>>();
+	readonly change$ = new Subject<Changes<DeckSkill>>();
 
 	hydrate(dataService: DataService) {
 		const skill = dataService.students.get(this.studentId).skills[this.index];

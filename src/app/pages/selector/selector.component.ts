@@ -12,38 +12,44 @@ export class SelectorComponent implements OnInit, OnDestroy {
 	title = '';
 	missingStudents: number[] = [];
 
-	private studentAddedSubscription: Subscription;
-	private studentRemovedSubscription: Subscription;
+	private changeSubscription: Subscription;
 
 	constructor(private readonly dataService: DataService) {}
 
 	ngOnInit(): void {
 		this.title = this.dataService.localization.ui['navbar_students'];
 
-		this.studentAddedSubscription = this.dataService.deck.studentAdded$.subscribe(() => {
-			this.updateMissingStudents();
+		this.dataService.deck.change$.subscribe((changes) => {
+			if (changes.hasOwnProperty('selectedSquadId')) {
+				this.handleChangeSquad();
+			}
 		});
-		this.studentRemovedSubscription = this.dataService.deck.studentRemoved$.subscribe(() => {
-			this.updateMissingStudents();
-		});
-
-		this.updateMissingStudents();
+		this.handleChangeSquad();
 	}
 
 	ngOnDestroy(): void {
-		this.studentAddedSubscription.unsubscribe();
-		this.studentRemovedSubscription.unsubscribe();
+		this.changeSubscription?.unsubscribe();
+	}
+
+	handleChangeSquad() {
+		this.changeSubscription?.unsubscribe();
+		this.changeSubscription = this.dataService.deck.selectedSquad.change$.subscribe((changes) => {
+			if (Array.isArray(changes.students)) {
+				this.updateMissingStudents();
+			}
+		});
+		this.updateMissingStudents();
 	}
 
 	handleClickStudent(id: number) {
-		this.dataService.deck.addStudent(this.dataService, id);
+		this.dataService.deck.selectedSquad.addStudent(this.dataService, id);
 	}
 
 	updateMissingStudents() {
 		this.missingStudents = [];
 
 		for (const [, student] of this.dataService.students) {
-			if (!this.dataService.deck.findStudent(student.id)) this.missingStudents.push(student.id);
+			if (!this.dataService.deck.selectedSquad.hasStudent(student.id)) this.missingStudents.push(student.id);
 		}
 	}
 }

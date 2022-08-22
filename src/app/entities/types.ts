@@ -1,9 +1,11 @@
-import type { Subject } from 'rxjs';
+import type { DeckStudent } from './deck-student';
+import type { Equipment } from './equipment';
 
-export type DeckChange<T> = T extends Subject<any>
-	? T
-	: T extends object
-	? {
-			[P in keyof T]?: DeckChange<T[P]>;
-	  }
-	: T;
+export interface SortOption<T> {
+	id: string;
+	label: string;
+	key: ((item: T) => number)[];
+}
+
+export type StudentSortOption = SortOption<DeckStudent>;
+export type ItemSortOption = SortOption<Equipment>;

@@ -1,19 +1,17 @@
 <mat-card class="mat-elevation-z3">
 	<mat-card-header>
-		<img mat-card-avatar loading="lazy" [src]="student.collectionTextureUrl" [alt]="student.name" />
-		<mat-card-title>{{ student.name }}</mat-card-title>
+		<img mat-card-avatar loading="lazy" [src]="collectionTextureUrl" [alt]="name" />
+		<mat-card-title>{{ name }}</mat-card-title>
 		<mat-card-subtitle>{{ school }}</mat-card-subtitle>
 		<div class="tags">
-			<button mat-flat-button tabindex="-1" size="small" [color]="student.bulletType" [title]="bulletType">
-				<mat-icon svgIcon="bullet_type"></mat-icon> {{ bulletType.substring(0, 1) }}
+			<button mat-flat-button tabindex="-1" size="small" [color]="bulletType" [title]="bulletTypeText">
+				<mat-icon svgIcon="bullet_type"></mat-icon> {{ bulletTypeText.substring(0, 1) }}
 			</button>
-			<button mat-flat-button tabindex="-1" size="small" [color]="student.armorType" [title]="armorType">
-				<mat-icon svgIcon="armor_type"></mat-icon> {{ armorType.substring(0, 1) }}
+			<button mat-flat-button tabindex="-1" size="small" [color]="armorType" [title]="armorTypeText">
+				<mat-icon svgIcon="armor_type"></mat-icon> {{ armorTypeText.substring(0, 1) }}
 			</button>
-			<!-- <button mat-flat-button size="small" color="squadType">{{ squadType }}</button> -->
-			<!-- <button mat-flat-button size="small" color="position">{{ position }}</button> -->
 		</div>
-		<img class="school_icon" loading="lazy" [src]="student.schoolIconUrl" />
+		<img class="school_icon" loading="lazy" [src]="schoolIconUrl" />
 	</mat-card-header>
 	<mat-card-content>
 		<div class="stats">
@@ -25,11 +23,10 @@
 					[max]="model.levelMax"
 					[step]="1"
 					(focus)="handleFocusLevel($event)"
-					(wheel)="handleWheelLevel($event)"
 				/>
 			</div>
 			<div class="stats-star">
-				<bar-rating class="is_target-hide" [(rate)]="model.star" [max]="5" [attr.value]="model.star">
+				<bar-rating *ngIf="!isTarget; else isTargetStar" [(rate)]="model.star" [max]="5" [attr.value]="model.star">
 					<ng-template ratingActive>
 						<mat-icon color="ratingActive">star</mat-icon>
 					</ng-template>
@@ -37,17 +34,30 @@
 						<mat-icon color="ratingInactive">star</mat-icon>
 					</ng-template>
 				</bar-rating>
-				<bar-rating class="is_target-show" [(rate)]="model.starTarget" [max]="5" [attr.value]="model.starTarget">
-					<ng-template ratingActive>
-						<mat-icon color="ratingActive">star</mat-icon>
-					</ng-template>
-					<ng-template ratingInactive>
-						<mat-icon color="ratingInactive">star</mat-icon>
-					</ng-template>
-				</bar-rating>
+				<ng-template #isTargetStar>
+					<bar-rating
+						class="is_target-show"
+						[class.is_target-reached]="model.star === model.starTarget"
+						[(rate)]="model.starTarget"
+						[max]="5"
+						[attr.value]="model.starTarget"
+					>
+						<ng-template ratingActive>
+							<mat-icon color="ratingActive">star</mat-icon>
+						</ng-template>
+						<ng-template ratingInactive>
+							<mat-icon color="ratingInactive">star</mat-icon>
+						</ng-template>
+					</bar-rating>
+				</ng-template>
 			</div>
 			<div class="stats-weapon">
-				<bar-rating class="is_target-hide" [attr.disabled]="model.star === 5 ? null : 'disabled'" [(rate)]="model.weapon" [max]="3">
+				<bar-rating
+					*ngIf="!isTarget; else isTargetWeapon"
+					[attr.disabled]="model.star === 5 ? null : 'disabled'"
+					[(rate)]="model.weapon"
+					[max]="3"
+				>
 					<ng-template ratingActive>
 						<mat-icon color="ratingActiveAlt">star</mat-icon>
 					</ng-template>
@@ -55,14 +65,21 @@
 						<mat-icon color="ratingInactive">star</mat-icon>
 					</ng-template>
 				</bar-rating>
-				<bar-rating class="is_target-show" [attr.disabled]="model.star === 5 ? null : 'disabled'" [(rate)]="model.weaponTarget" [max]="3">
-					<ng-template ratingActive>
-						<mat-icon color="ratingActiveAlt">star</mat-icon>
-					</ng-template>
-					<ng-template ratingInactive>
-						<mat-icon color="ratingInactive">star</mat-icon>
-					</ng-template>
-				</bar-rating>
+				<ng-template #isTargetWeapon>
+					<bar-rating
+						class="is_target-show"
+						[class.is_target-reached]="model.weapon === model.weaponTarget"
+						[(rate)]="model.weaponTarget"
+						[max]="3"
+					>
+						<ng-template ratingActive>
+							<mat-icon color="ratingActiveAlt">star</mat-icon>
+						</ng-template>
+						<ng-template ratingInactive>
+							<mat-icon color="ratingInactive">star</mat-icon>
+						</ng-template>
+					</bar-rating>
+				</ng-template>
 			</div>
 		</div>
 		<div class="skills">
@@ -74,8 +91,12 @@
 	</mat-card-content>
 	<mat-card-actions>
 		<!-- TODO: i18n -->
-		<button class="action-delete" mat-button color="warn" tabindex="-1" size="small" (click)="handleClickDelete()">
-			<mat-icon>delete</mat-icon> 移除
+		<button class="action-remove" mat-button color="warn" tabindex="-1" size="small" (click)="handleClickDelete()">
+			<mat-icon>block</mat-icon> 移除
+		</button>
+		<!-- TODO: i18n -->
+		<button class="action-upgrade" mat-button color="basic" tabindex="-1" size="small" [disabled]="isUpgraded" (click)="handleClickUpgrade()">
+			<mat-icon>upgrade</mat-icon> 当前最高
 		</button>
 		<!-- TODO: i18n -->
 		<button
@@ -86,7 +107,7 @@
 			size="small"
 			(click)="handleClickTarget()"
 		>
-			<mat-icon>adjust</mat-icon> 目标
+			<mat-icon>gps_fixed</mat-icon> 目标
 		</button>
 	</mat-card-actions>
 	<mat-card-footer></mat-card-footer>

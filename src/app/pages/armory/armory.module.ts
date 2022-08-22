@@ -8,10 +8,10 @@ import { ComponentsModule } from '../../components/components.module';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
 	declarations: [ArmoryComponent],
@@ -21,10 +21,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 		SortablejsModule,
 		MatIconModule,
 		MatButtonModule,
+		MatCheckboxModule,
 		MatMenuModule,
 		MatTabsModule,
 		MatDividerModule,
-		MatSlideToggleModule,
 		ComponentsModule,
 	],
 })

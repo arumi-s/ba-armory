@@ -1,31 +1,138 @@
+<mat-tab-group
+	class="squad-tabs"
+	[animationDuration]="0"
+	[disablePagination]="true"
+	[selectedIndex]="dataService.deck.selectedSquadId"
+	(selectedTabChange)="handleTabChangeSquad($event)"
+>
+	<mat-tab *ngFor="let squad of dataService.deck.squads">
+		<ng-template mat-tab-label>
+			<button
+				mat-icon-button
+				class="squad_action-move_left"
+				(mousedown)="handleMousedownSquadMove($event)"
+				(click)="handleClickSquadMoveLeft()"
+			>
+				<mat-icon>chevron_left</mat-icon>
+			</button>
+			<input class="squad_action-input_name" type="text" [(ngModel)]="squad.name" />
+			<div class="squad_action-name">{{ squad.name }}</div>
+			<button
+				mat-icon-button
+				class="squad_action-move_right"
+				(mousedown)="handleMousedownSquadMove($event)"
+				(click)="handleClickSquadMoveRight()"
+			>
+				<mat-icon>chevron_right</mat-icon>
+			</button>
+		</ng-template>
+	</mat-tab>
+	<mat-tab disabled>
+		<ng-template mat-tab-label>
+			<!-- TODO: i18n -->
+			<button mat-icon-button color="primary" class="squad_action-add" (click)="handleClickSquadAdd()"><mat-icon>add_circle</mat-icon></button>
+		</ng-template>
+	</mat-tab>
+</mat-tab-group>
+
 <div class="options">
 	<!-- TODO: i18n -->
-	<button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">
-		{{ dataService.localization.ui["sortby"] }} {{ currentSortOption?.label }}
+	<button
+		class="squad_action-remove"
+		mat-stroked-button
+		color="warn"
+		(click)="handleClickSquadRemove()"
+		[disabled]="dataService.deck.squads.length === 1"
+	>
+		<mat-icon>block</mat-icon> 移除
 	</button>
-	<mat-menu #menu="matMenu">
+
+	<!-- TODO: i18n -->
+	<button class="student_action-target" mat-stroked-button [color]="isTarget ? 'accent' : 'basic'" (click)="handleClickTarget()">
+		<mat-icon>gps_fixed</mat-icon> 目标
+	</button>
+
+	<!-- TODO: i18n -->
+	<button class="student_action-add" mat-stroked-button color="primary" (click)="handleClickSelector()">
+		<mat-icon>person_add</mat-icon> {{ dataService.localization.ui["student"] }}
+	</button>
+
+	<div class="options-spacer"></div>
+
+	<!-- TODO: i18n -->
+	<button class="student_action-sort" mat-stroked-button [matMenuTriggerFor]="studentSortMenu">
+		<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
+		<mat-icon *ngIf="selectedStudentSortOption?.label === 'star'; else selectedStudentSortOptionsTextLabel" color="ratingActive"
+			>star</mat-icon
+		>
+		<ng-template #selectedStudentSortOptionsTextLabel>{{ selectedStudentSortOption?.label }}</ng-template>
+	</button>
+
+	<mat-menu #studentSortMenu="matMenu" class="student_sort-options">
 		<button
 			*ngFor="let sortOptions of dataService.studentSortOptions"
+			class="student_sort-option"
 			[value]="sortOptions.id"
 			mat-menu-item
-			(click)="handleClickSortOption(sortOptions.id)"
+			(click)="handleClickStudentSortOption(sortOptions.id)"
 		>
-			{{ sortOptions.label }}
+			<mat-icon *ngIf="sortOptions?.label === 'star'; else sortOptionsTextLabel" color="ratingActive">star</mat-icon>
+			<ng-template #sortOptionsTextLabel>{{ sortOptions?.label }}</ng-template>
 		</button>
 	</mat-menu>
+
+	<button class="student_action-direction" mat-stroked-button (click)="handleClickStudentSortDirection()">
+		<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedStudentSortDirection === -1 ? "north" : "south" }}</mat-icon>
+	</button>
 </div>
-<div class="grid students" [sortablejs]="dataService.deck.students" [sortablejsOptions]="sortableOptions">
-	<ba-student-card *ngFor="let student of dataService.deck.students" [model]="student"></ba-student-card>
+
+<div class="grid students" [sortablejs]="dataService.deck.selectedSquad.students" [sortablejsOptions]="sortableOptions">
+	<ba-student-card *ngFor="let student of dataService.deck.selectedSquad.students" [id]="student"></ba-student-card>
 </div>
+
 <mat-tab-group [animationDuration]="0" [disablePagination]="true" selectedIndex="0">
 	<mat-tab>
 		<ng-template mat-tab-label>{{ dataService.localization.ui["navbar_items"] }}</ng-template>
 		<ng-template matTabContent>
 			<div class="options">
 				<!-- TODO: i18n -->
-				<mat-slide-toggle [(ngModel)]="dataService.deck.options.showSurplusItems">显示溢出</mat-slide-toggle>
+				<mat-checkbox class="item_action-show_surplus_items" [(ngModel)]="dataService.deck.options.showSurplusItems" color="accent">
+					显示溢出
+				</mat-checkbox>
+				<!-- TODO: i18n -->
+				<mat-checkbox class="item_action-show_secret_stones" [(ngModel)]="dataService.deck.options.showSecretStones" color="accent">
+					显示神名文字
+				</mat-checkbox>
+
+				<div class="options-spacer"></div>
+
+				<!-- TODO: i18n -->
+				<button class="item_action-sort" mat-stroked-button [matMenuTriggerFor]="itemSortMenu">
+					<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
+					{{ selectedItemSortOption?.label }}
+				</button>
+
+				<mat-menu #itemSortMenu="matMenu" class="item_sort-options">
+					<button
+						*ngFor="let sortOptions of dataService.itemSortOptions"
+						class="item_sort-option"
+						[value]="sortOptions.id"
+						mat-menu-item
+						(click)="handleClickItemSortOption(sortOptions.id)"
+					>
+						{{ sortOptions?.label }}
+					</button>
+				</mat-menu>
+
+				<button class="item_action-direction" mat-stroked-button (click)="handleClickItemSortDirection()">
+					<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedItemSortDirection === -1 ? "north" : "south" }}</mat-icon>
+				</button>
 			</div>
-			<div class="grid required" [class.hide-surplus]="!dataService.deck.options.showSurplusItems">
+			<div
+				class="grid required"
+				[class.hide-surplus]="!dataService.deck.options.showSurplusItems"
+				[class.hide-secret_stones]="!dataService.deck.options.showSecretStones"
+			>
 				<ba-item-icon *ngFor="let item of dataService.stockables" [id]="item"></ba-item-icon>
 			</div>
 		</ng-template>
@@ -33,9 +140,18 @@
 	<mat-tab>
 		<ng-template mat-tab-label>{{ dataService.localization.ui["navbar_stages"] }}</ng-template>
 		<ng-template matTabContent>
-			<div class="options"></div>
+			<div class="options">
+				<!-- TODO: i18n -->
+				<mat-checkbox class="student_action-show_campaign_hard" [(ngModel)]="dataService.deck.options.showCampaignHard" color="accent">
+					显示Hard任务
+				</mat-checkbox>
+			</div>
 			<div class="list">
-				<ba-campaign-card *ngFor="let stage of dataService.deck.stages" [id]="stage.id" [amount]="stage.amount"></ba-campaign-card>
+				<ba-campaign-card
+					*ngFor="let stage of dataService.deck.selectedSquad.stages"
+					[id]="stage.id"
+					[amount]="stage.amount"
+				></ba-campaign-card>
 			</div>
 		</ng-template>
 	</mat-tab>

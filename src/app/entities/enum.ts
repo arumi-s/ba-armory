@@ -74,6 +74,7 @@ export enum StuffCategory {
 	WeaponExpGrowthZ = 'WeaponExpGrowthZ',
 }
 
+export const ItemCategory = Object.assign({}, StuffCategory, EquipmentCategory);
 export type ItemCategory = EquipmentCategory | StuffCategory;
 
 export enum ArmorType {

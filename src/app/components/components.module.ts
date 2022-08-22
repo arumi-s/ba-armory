@@ -19,6 +19,7 @@ import { StudentIconComponent } from './student-icon/student-icon.component';
 import { SkillCardComponent } from './skill-card/skill-card.component';
 import { ItemIconComponent } from './item-icon/item-icon.component';
 import { CampaignCardComponent } from './campaign-card/campaign-card.component';
+import { ItemUserComponent } from './item-user/item-user.component';
 
 @NgModule({
 	declarations: [
@@ -28,6 +29,7 @@ import { CampaignCardComponent } from './campaign-card/campaign-card.component';
 		SkillCardComponent,
 		ItemIconComponent,
 		CampaignCardComponent,
+		ItemUserComponent,
 	],
 	imports: [
 		CommonModule,
@@ -50,6 +52,7 @@ import { CampaignCardComponent } from './campaign-card/campaign-card.component';
 		SkillCardComponent,
 		ItemIconComponent,
 		CampaignCardComponent,
+		ItemUserComponent,
 	],
 })
 export class ComponentsModule {}

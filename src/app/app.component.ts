@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
-import { SelectorComponent } from './pages/selector/selector.component';
 import { PreloadService } from './services/preload.service';
 
 @Component({
@@ -14,12 +13,7 @@ import { PreloadService } from './services/preload.service';
 export class AppComponent implements OnInit {
 	title = 'ba-armory';
 
-	constructor(
-		private readonly preloadService: PreloadService,
-		private readonly dialog: MatDialog,
-		iconRegistry: MatIconRegistry,
-		sanitizer: DomSanitizer
-	) {
+	constructor(private readonly preloadService: PreloadService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
 		iconRegistry.addSvgIconLiteral(
 			'bullet_type',
 			sanitizer.bypassSecurityTrustHtml(
@@ -44,17 +38,5 @@ export class AppComponent implements OnInit {
 
 	handleClickSave() {
 		this.preloadService.saveDeck();
-	}
-
-	handleClickSelector() {
-		const dialogRef = this.dialog.open(SelectorComponent, {
-			width: '100%',
-			height: 'auto',
-			maxHeight: 'calc(100% - var(--spacing-xx-large))',
-			autoFocus: false,
-			restoreFocus: false,
-		});
-
-		dialogRef.afterClosed();
 	}
 }

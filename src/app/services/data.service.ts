@@ -1,48 +1,12 @@
 import { Injectable } from '@angular/core';
 import { plainToClassFromExist, plainToInstance } from 'class-transformer';
-import { Deck, EQUIPMENT_OFFSET } from '../entities/deck';
-import { DeckStudent } from '../entities/deck-student';
-import { ArmorType, BulletType, EquipmentCategory, ItemCategory, StuffCategory, TacticRole } from '../entities/enum';
+import { Deck, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities/deck';
+import { ArmorType, BulletType, EquipmentCategory, ItemCategory, StuffCategory } from '../entities/enum';
 import { Equipment } from '../entities/equipment';
 import { Localization } from '../entities/localization';
 import { Stage } from '../entities/stage';
 import { Student } from '../entities/student';
-
-/*
-"Stat": {
-		"Level": "等级",
-		"MaxHP": "最大体力",
-		"AttackPower": "攻击力",
-		"DefensePower": "防御力",
-		"HealPower": "治愈力",
-		"AccuracyPoint": "准确度",
-		"DodgePoint": "回避值",
-		"CriticalPoint": "暴击值",
-		"CriticalDamageRate": "暴击伤害",
-		"HealEffectivenessRate": "回复强化率",
-		"OppressionPower": "群控强化力",
-		"OppressionResist": "群控抵抗力",
-		"CriticalChanceResistPoint": "暴击抵抗力",
-		"CriticalDamageResistRate": "暴击伤害抵抗率",
-		"StabilityPoint": "稳定值",
-		"Range": "射程",
-		"AmmoCount": "载弹量",
-		"MoveSpeed": "移速",
-		"DamagedRatio": "承受伤害量",
-		"AttackSpeed": "攻速",
-		"BlockRate": "掩护成功率",
-		"DefensePenetration": "防御貫穿",
-		"RegenCost": "COST回复力",
-		"SightPoint": "视野"
-},
-*/
-export interface SortOption<T> {
-	id: string;
-	label: string;
-	key: ((item: T) => number)[];
-}
-
-export type StudentSortOption = SortOption<DeckStudent>;
+import { ItemSortOption, StudentSortOption } from '../entities/types';
 
 @Injectable({
 	providedIn: 'root',
@@ -65,69 +29,12 @@ export class DataService {
 
 	starSecretStoneAmount = [0, 0, 30, 110, 210, 330];
 	weaponSecretStoneAmount = [0, 0, 120, 300];
+	skillExUpgradeCredits = [0, 0, 80000, 580000, 3580000, 13580000];
+	skillUpgradeCredits = [0, 0, 5000, 12500, 72500, 162500, 462500, 912500, 2412500, 4812500, 8812500];
+	weaponUpgradeCredits = [0, 0, 500000];
 
-	studentSortOptions: StudentSortOption[] = [
-		{
-			id: 'level',
-			label: 'Level',
-			key: [(deckStudent) => -deckStudent.level, (deckStudent) => -deckStudent.star, (deckStudent) => deckStudent.id],
-		},
-		{
-			id: 'star',
-			label: 'Star',
-			key: [(deckStudent) => -deckStudent.star, (deckStudent) => -deckStudent.level, (deckStudent) => deckStudent.id],
-		},
-		{
-			id: 'streetBattleAdaptation',
-			label: 'Street',
-			key: [
-				(deckStudent) => -this.students.get(deckStudent.id).streetBattleAdaptation,
-				(deckStudent) => -deckStudent.star,
-				(deckStudent) => -deckStudent.level,
-				(deckStudent) => deckStudent.id,
-			],
-		},
-		{
-			id: 'outdoorBattleAdaptation',
-			label: 'Outdoor',
-			key: [
-				(deckStudent) => -this.students.get(deckStudent.id).outdoorBattleAdaptation,
-				(deckStudent) => -deckStudent.star,
-				(deckStudent) => -deckStudent.level,
-				(deckStudent) => deckStudent.id,
-			],
-		},
-		{
-			id: 'indoorBattleAdaptation',
-			label: 'Indoor',
-			key: [
-				(deckStudent) => -this.students.get(deckStudent.id).indoorBattleAdaptation,
-				(deckStudent) => -deckStudent.star,
-				(deckStudent) => -deckStudent.level,
-				(deckStudent) => deckStudent.id,
-			],
-		},
-		{
-			id: 'bulletType',
-			label: 'attacktype',
-			key: [
-				(deckStudent) => -Object.keys(BulletType).indexOf(this.students.get(deckStudent.id).bulletType),
-				(deckStudent) => -deckStudent.star,
-				(deckStudent) => -deckStudent.level,
-				(deckStudent) => deckStudent.id,
-			],
-		},
-		{
-			id: 'armorType',
-			label: 'defensetype',
-			key: [
-				(deckStudent) => -Object.keys(ArmorType).indexOf(this.students.get(deckStudent.id).armorType),
-				(deckStudent) => -deckStudent.star,
-				(deckStudent) => -deckStudent.level,
-				(deckStudent) => deckStudent.id,
-			],
-		},
-	];
+	studentSortOptions: StudentSortOption[] = [];
+	itemSortOptions: ItemSortOption[] = [];
 
 	constructor() {}
 
@@ -185,8 +92,6 @@ export class DataService {
 		);
 
 		for (const [id, item] of this.items) {
-			if (!item.isReleased[1]) continue;
-
 			if (
 				(item.category === StuffCategory.Material &&
 					(item.tags.includes('MaterialItem') ||
@@ -211,6 +116,97 @@ export class DataService {
 		this.localization = json;
 	}
 
+	setOthers() {
+		this.studentSortOptions = [
+			{
+				id: 'level',
+				label: this.localization.Stat['Level'],
+				key: [(deckStudent) => -deckStudent.level, (deckStudent) => -deckStudent.star, (deckStudent) => deckStudent.id],
+			},
+			{
+				id: 'star',
+				label: 'star',
+				key: [(deckStudent) => -deckStudent.star, (deckStudent) => -deckStudent.level, (deckStudent) => deckStudent.id],
+			},
+			{
+				id: 'streetBattleAdaptation',
+				label: this.localization.AdaptationType['Street'],
+				key: [
+					(deckStudent) => -this.students.get(deckStudent.id).streetBattleAdaptation,
+					(deckStudent) => -deckStudent.star,
+					(deckStudent) => -deckStudent.level,
+					(deckStudent) => deckStudent.id,
+				],
+			},
+			{
+				id: 'outdoorBattleAdaptation',
+				label: this.localization.AdaptationType['Outdoor'],
+				key: [
+					(deckStudent) => -this.students.get(deckStudent.id).outdoorBattleAdaptation,
+					(deckStudent) => -deckStudent.star,
+					(deckStudent) => -deckStudent.level,
+					(deckStudent) => deckStudent.id,
+				],
+			},
+			{
+				id: 'indoorBattleAdaptation',
+				label: this.localization.AdaptationType['Indoor'],
+				key: [
+					(deckStudent) => -this.students.get(deckStudent.id).indoorBattleAdaptation,
+					(deckStudent) => -deckStudent.star,
+					(deckStudent) => -deckStudent.level,
+					(deckStudent) => deckStudent.id,
+				],
+			},
+			{
+				id: 'bulletType',
+				label: this.localization.ui['attacktype'],
+				key: [
+					(deckStudent) => -Object.keys(BulletType).indexOf(this.students.get(deckStudent.id).bulletType),
+					(deckStudent) => -deckStudent.star,
+					(deckStudent) => -deckStudent.level,
+					(deckStudent) => deckStudent.id,
+				],
+			},
+			{
+				id: 'armorType',
+				label: this.localization.ui['defensetype'],
+				key: [
+					(deckStudent) => -Object.keys(ArmorType).indexOf(this.students.get(deckStudent.id).armorType),
+					(deckStudent) => -deckStudent.star,
+					(deckStudent) => -deckStudent.level,
+					(deckStudent) => deckStudent.id,
+				],
+			},
+		];
+
+		this.itemSortOptions = [
+			{
+				id: 'basic',
+				label: '基本',
+				key: [
+					(equipment) => (equipment.category in StuffCategory ? -Object.keys(StuffCategory).indexOf(equipment.category) : -1000),
+					(equipment) => -equipment.id,
+				],
+			},
+			{
+				id: 'deficit',
+				label: '缺少',
+				key: [(equipment) => this.deck.stocks[equipment.id] - this.deck.selectedSquad.required[equipment.id], (equipment) => -equipment.id],
+			},
+			{
+				id: 'required',
+				label: '需要',
+				key: [(equipment) => -this.deck.selectedSquad.required[equipment.id], (equipment) => -equipment.id],
+			},
+			{
+				id: 'stock',
+				label: '库存',
+				key: [(equipment) => -this.deck.stocks[equipment.id], (equipment) => -equipment.id],
+			},
+		];
+	}
+
 	setDeck(json: any) {
 		plainToClassFromExist(this.deck, json, {
 			excludeExtraneousValues: true,
@@ -221,5 +217,15 @@ export class DataService {
 	getEquipmentTier(equipmentCategory: EquipmentCategory, tier: number) {
 		const categoryMap = this.equipmentsByCategory.get(equipmentCategory);
 		return categoryMap?.get(tier) ?? 0;
+	}
+
+	getStuff(id: number) {
+		if (id >= EQUIPMENT_OFFSET) {
+			return this.equipments.get(id);
+		} else if (id >= FURNITURE_OFFSET) {
+			return null;
+		} else {
+			return this.items.get(id);
+		}
 	}
 }

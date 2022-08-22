@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { DeckStudent } from '../../entities/deck-student';
-import { Student } from '../../entities/student';
+import { ArmorType, BulletType } from '../../entities/enum';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -12,48 +11,88 @@ import { DataService } from '../../services/data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StudentCardComponent implements OnInit, OnDestroy {
-	student: Student;
-
 	@Input()
+	id: number;
+
 	model: DeckStudent;
 
+	name: string;
 	school: string;
-	bulletType: string;
-	armorType: string;
+	bulletType: BulletType;
+	bulletTypeText: string;
+	armorType: ArmorType;
+	armorTypeText: string;
 	squadType: string;
 	position: string;
+	collectionTextureUrl: string;
+	schoolIconUrl: string;
 
 	@HostBinding('class.is_target')
 	isTarget = false;
 
+	isUpgraded: boolean = false;
+
+	get star() {
+		return this.isTarget ? this.model.starTarget : this.model.star;
+	}
+
+	set star(star: number) {
+		if (this.isTarget) this.model.starTarget = star;
+		else this.model.star = star;
+	}
+
+	get weapon() {
+		return this.isTarget ? this.model.weaponTarget : this.model.weapon;
+	}
+
+	set weapon(weapon: number) {
+		if (this.isTarget) this.model.weaponTarget = weapon;
+		else this.model.weapon = weapon;
+	}
+
 	private changeSubscription: Subscription;
 
-	constructor(
-		private readonly dataService: DataService,
-		private readonly dialog: MatDialog,
-		private readonly changeDetectorRef: ChangeDetectorRef
-	) {}
+	constructor(private readonly dataService: DataService, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
-		this.student = this.dataService.students.get(this.model.id) ?? new Student();
+		this.model = this.dataService.deck.students.get(this.id);
+		const student = this.dataService.students.get(this.id);
 
-		this.school = this.dataService.localization.School[this.student.school];
-		this.bulletType = this.dataService.localization.BulletType[this.student.bulletType];
-		this.armorType = this.dataService.localization.ArmorType[this.student.armorType];
-		this.squadType = this.dataService.localization.SquadType[this.student.squadType];
-		this.position = this.student.position.toUpperCase();
+		this.name = student.name;
+		this.school = this.dataService.localization.School[student.school];
+		this.bulletType = student.bulletType;
+		this.bulletTypeText = this.dataService.localization.BulletType[this.bulletType];
+		this.armorType = student.armorType;
+		this.armorTypeText = this.dataService.localization.ArmorType[this.armorType];
+		this.collectionTextureUrl = student.collectionTextureUrl;
+		this.schoolIconUrl = student.schoolIconUrl;
+		this.isTarget = this.model.isTarget;
 
-		this.changeSubscription = this.model.change$.subscribe(() => {
-			this.changeDetectorRef.detectChanges();
+		this.updateIsUpgraded();
+
+		this.changeSubscription = this.model.change$.subscribe((changes) => {
+			if (changes.hasOwnProperty('equipments')) {
+				this.updateIsUpgraded();
+			}
+			if (changes.hasOwnProperty('isTarget')) {
+				this.isTarget = changes.isTarget.currentValue;
+			}
+			this.changeDetectorRef.markForCheck();
 		});
 	}
 
 	ngOnDestroy(): void {
-		this.changeSubscription.unsubscribe();
+		this.changeSubscription?.unsubscribe();
 	}
 
 	handleClickDelete() {
-		this.dataService.deck.removeStudent(this.model.id);
+		this.dataService.deck.selectedSquad.removeStudent(this.model.id);
+	}
+
+	handleClickUpgrade() {
+		for (const equipment of this.model.equipments) {
+			equipment.tierTarget = equipment.tierMax;
+		}
 	}
 
 	handleClickTarget() {
@@ -66,17 +105,7 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	handleWheelLevel(event: WheelEvent) {
-		if (event.target instanceof HTMLInputElement) {
-			event.preventDefault();
-			event.stopPropagation();
-
-			const delta = event.ctrlKey ? 1000 : 1;
-			if (event.deltaY > 0) {
-				this.model.level = this.model.level - delta;
-			} else {
-				this.model.level = this.model.level + delta;
-			}
-		}
+	private updateIsUpgraded() {
+		this.isUpgraded = this.model.equipments.every((equipment) => equipment.tierTarget === equipment.tierMax);
 	}
 }

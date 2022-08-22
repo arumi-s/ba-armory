@@ -1,13 +1,17 @@
 :host {
 	display: block;
 	width: 240px;
+	height: 305px;
 
 	&.is_target {
-		::ng-deep .is_target-hide {
-			display: none;
-		}
 		::ng-deep .is_target-show {
-			outline: 2px solid #ee5e84;
+			outline-style: solid;
+			outline-width: 2px;
+			outline-color: #f44336;
+
+			&.is_target-reached {
+				outline-color: #f6cf30;
+			}
 		}
 	}
 
@@ -34,12 +38,15 @@
 			white-space: nowrap;
 			overflow: hidden;
 		}
+
 		.mat-card-header-text {
 			flex-grow: 1;
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-end;
+			margin: 0 var(--spacing-x-small);
 		}
+
 		.mat-card-subtitle {
 			margin-bottom: 0;
 		}
@@ -205,16 +212,6 @@
 		min-width: unset !important;
 	}
 	input {
-		border: none;
-		background-image: none;
-		background-color: transparent;
-		-webkit-box-shadow: none;
-		-moz-box-shadow: none;
-		box-shadow: none;
-		display: block;
-		color: inherit;
-		font-size: 1em;
-		padding: 0;
 		width: 2em;
 		padding-top: 2px;
 	}
@@ -244,7 +241,7 @@ ba-skill-card[skill_type="gearnormal"] {
 		margin: 0;
 	}
 
-	.action-target {
+	.action-upgrade {
 		margin-left: auto;
 	}
 }

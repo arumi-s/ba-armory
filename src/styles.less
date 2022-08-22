@@ -66,6 +66,19 @@ img {
 	user-select: none;
 }
 
+input {
+	display: block;
+	border: none;
+	background-image: none;
+	background-color: transparent;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	color: inherit;
+	font-size: inherit;
+	padding: 0;
+}
+
 .mat-dialog-container {
 	height: auto !important;
 }
@@ -89,6 +102,30 @@ button[size="small"] {
 
 bar-rating {
 	display: block;
+}
+
+.mat-checkbox:not(.mat-button-disabled) {
+	border: 1px solid currentColor;
+	border-color: rgba(0, 0, 0, 0.12);
+	padding: 0 15px;
+	line-height: 34px;
+	min-width: 64px;
+	border-radius: 4px;
+	text-align: center;
+	overflow: visible;
+}
+
+.mat-stroked-button,
+.mat-checkbox {
+	transform: skewX(-10deg);
+	transform-origin: center center;
+
+	& > .mat-button-wrapper,
+	& > .mat-checkbox-layout {
+		transform: skewX(10deg);
+		display: block;
+		transform-origin: center center;
+	}
 }
 
 .mat-color(@color, @text) {

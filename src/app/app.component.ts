@@ -1,8 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
+import { SettingComponent } from './pages/setting/setting.component';
+import { DataService } from './services/data.service';
 import { PreloadService } from './services/preload.service';
 
 @Component({
@@ -11,9 +13,19 @@ import { PreloadService } from './services/preload.service';
 	styleUrls: ['./app.component.less'],
 })
 export class AppComponent implements OnInit {
-	title = 'ba-armory';
+	title = '';
 
-	constructor(private readonly preloadService: PreloadService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+	constructor(
+		private titleService: Title,
+		private readonly preloadService: PreloadService,
+		private readonly dataService: DataService,
+		iconRegistry: MatIconRegistry,
+		sanitizer: DomSanitizer,
+		private readonly dialog: MatDialog
+	) {
+		this.title = this.dataService.i18n.app_title;
+		this.titleService.setTitle(this.title);
+
 		iconRegistry.addSvgIconLiteral(
 			'bullet_type',
 			sanitizer.bypassSecurityTrustHtml(
@@ -34,6 +46,16 @@ export class AppComponent implements OnInit {
 				event.preventDefault();
 			});
 		}
+	}
+
+	handleClickSetting() {
+		const dialogRef = this.dialog.open(SettingComponent, {
+			height: 'auto',
+			autoFocus: false,
+			restoreFocus: false,
+		});
+
+		dialogRef.afterClosed();
 	}
 
 	handleClickSave() {

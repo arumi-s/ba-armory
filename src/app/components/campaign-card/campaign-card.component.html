@@ -4,10 +4,10 @@
 		<mat-card-title>{{ type }} {{ difficulty }}{{ area }}-{{ stage }}</mat-card-title>
 		<mat-card-subtitle>{{ name }}</mat-card-subtitle>
 		<mat-card-title class="stats">
-			<!-- TODO: i18n -->
-			<div class="stat">刷图: {{ amount }}</div>
-			<!-- TODO: i18n -->
-			<div class="stat">AP: {{ cost }}</div>
+			<!-- i18n -->
+			<div class="stat">{{ campaign_amount }}: {{ amount }}</div>
+			<!-- i18n -->
+			<div class="stat">{{ campaign_cost }}: {{ cost }}</div>
 		</mat-card-title>
 	</mat-card-header>
 	<mat-card-content>
@@ -15,5 +15,4 @@
 			<ba-item-icon *ngFor="let reward of rewards" [id]="reward[0]" [rate]="reward[1]"></ba-item-icon>
 		</div>
 	</mat-card-content>
-	<!-- TODO: i18n -->
 </mat-card>

@@ -2,19 +2,6 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { Terrain, SchoolDungeonType, WeekDungeonType, EntryCost, Reward, CampaignDifficulty } from './enum';
 import type { DataService } from '../services/data.service';
 
-//function getStageIcon(stage, type) {
-//	switch (type) {
-//			case "Event":
-//					return `Campaign_Event_${stage.EventId > 10000 ? stage.EventId - 10000 : stage.EventId}_${stage.Difficulty == 1 ? 'Normal' : 'Hard'}`
-//			case "Campaign":
-//					return `Campaign_Image_${stage.Area.toString().padStart(2,'0')}_${stage.Difficulty == 1 ? 'Hard' : 'Normal'}`
-//			case "WeekDungeon":
-//					return `WeekDungeon_Image_${stage.Type}`
-//			case "SchoolDungeon":
-//					return `SchoolDungeon_Image_${stage.Type}`
-//	}
-//}
-
 export class Stage {
 	@Expose({ name: 'Campaign' })
 	@Type(() => Campaign)
@@ -38,8 +25,12 @@ export class Stage {
 		if (this.schoolDungeon == null) this.schoolDungeon = [];
 		if (this.conquest == null) this.conquest = [];
 
+		const languageName: 'nameEn' | 'nameJp' | 'nameKr' | 'nameTh' | 'nameTw' | 'nameCn' = ('name' +
+			dataService.language.substring(0, 1).toUpperCase() +
+			dataService.language.substring(1)) as any;
+
 		for (const campaign of this.campaign) {
-			campaign.name = campaign.nameCn ?? campaign.nameJp;
+			campaign.name = campaign[languageName] ?? campaign.nameJp;
 		}
 		for (const campaign of this.weekDungeon) {
 			campaign.name = '';
@@ -48,7 +39,7 @@ export class Stage {
 			campaign.name = '';
 		}
 		for (const campaign of this.conquest) {
-			campaign.name = campaign.nameCn ?? campaign.nameJp;
+			campaign.name = campaign[languageName] ?? campaign.nameJp;
 		}
 	}
 }

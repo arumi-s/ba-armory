@@ -44,7 +44,7 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		const item = this.dataService.getStuff(this.id);
 
-		this.name = item.name;
+		this.name = item.name.replace(/&#x([0-9a-f]{1,4});/gi, (_, hex: string) => String.fromCharCode(parseInt(hex, 16)));
 		this.category = item.category.toLowerCase();
 		this.tier = item.tier;
 		this.iconUrl = item.iconUrl;

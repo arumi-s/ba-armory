@@ -17,6 +17,7 @@ export class SelectorComponent implements OnInit, OnDestroy {
 	constructor(private readonly dataService: DataService) {}
 
 	ngOnInit(): void {
+		// i18n
 		this.title = this.dataService.localization.ui['navbar_students'];
 
 		this.dataService.deck.change$.subscribe((changes) => {

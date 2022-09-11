@@ -10,18 +10,12 @@ import { PreloadService } from './services/preload.service';
 
 import { ArmoryModule } from './pages/armory/armory.module';
 import { SelectorModule } from './pages/selector/selector.module';
+import { SettingModule } from './pages/setting/setting.module';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-//import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-//import { MatDialogModule } from '@angular/material/dialog';
-//import { MatCardModule } from '@angular/material/card';
-//import { MatFormFieldModule } from '@angular/material/form-field';
-//import { MatInputModule } from '@angular/material/input';
-//import { MatDividerModule } from '@angular/material/divider';
-//import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -33,17 +27,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 		HoverinputModule.forRoot(),
 		ArmoryModule,
 		SelectorModule,
+		SettingModule,
 
 		MatDialogModule,
 		MatIconModule,
 		MatButtonModule,
 		MatToolbarModule,
-		//MatProgressSpinnerModule,
-		//MatCardModule,
-		//MatFormFieldModule,
-		//MatInputModule,
-		//MatDividerModule,
-		//MatSnackBarModule,
 	],
 	providers: [
 		PreloadService,

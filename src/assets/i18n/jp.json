@@ -1,0 +1,22 @@
+{
+	"app_title": "ブルアカアーモリー",
+	"campaign_amount": "周回",
+	"campaign_cost": "AP",
+	"item_required": "必要",
+	"item_deficit": "足りない",
+	"item_surplus": "オーバー",
+	"student_action_remove": "削除",
+	"student_action_upgrade": "最先端",
+	"student_action_target": "ターゲット",
+	"squad_name": "分隊",
+	"squad_action_remove": "分隊を削除",
+	"item_show_surplus_items": "オーバーを表示",
+	"item_show_secret_stones": "神名文字を表示",
+	"campaign_show_campaign_hard": "Hard任務を表示",
+	"setting_save": "設定を適用",
+	"setting_save_notice": "*設定を適用すると、ページがリロードされます",
+	"item_sort_basic": "基本",
+	"item_sort_deficit": "足りない",
+	"item_sort_required": "必要",
+	"item_sort_stock": "在庫"
+}

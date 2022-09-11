@@ -102,94 +102,94 @@
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: var(--spacing-x-small);
+}
 
-	bar-rating {
-		--br-font-size: 18px;
+bar-rating {
+	--br-font-size: 18px;
 
-		.mat-icon {
-			display: block;
-			font-size: var(--br-font-size);
-			width: 1em;
-			height: 1em;
+	.mat-icon {
+		display: block;
+		font-size: var(--br-font-size);
+		width: 1em;
+		height: 1em;
+	}
+
+	&[disabled] {
+		pointer-events: none;
+		user-select: none;
+		filter: grayscale(1) brightness(1.5);
+	}
+
+	&:not([disabled]) {
+		&[value="1"] {
+			::ng-deep {
+				.br-unit:nth-child(n + 2) {
+					.mat-ratingActive {
+						opacity: 0.5;
+					}
+				}
+			}
+		}
+		&[value="2"] {
+			::ng-deep {
+				.br-unit:nth-child(n + 3) {
+					.mat-ratingActive {
+						opacity: 0.5;
+					}
+				}
+			}
+		}
+		&[value="3"] {
+			::ng-deep {
+				.br-unit:nth-child(n + 4) {
+					.mat-ratingActive {
+						opacity: 0.5;
+					}
+				}
+			}
+		}
+		&[value="4"] {
+			::ng-deep {
+				.br-unit:nth-child(n + 5) {
+					.mat-ratingActive {
+						opacity: 0.5;
+					}
+				}
+			}
 		}
 
-		&[disabled] {
-			pointer-events: none;
-			user-select: none;
-			filter: grayscale(1) brightness(1.5);
+		&[value="5"] {
+			::ng-deep {
+				.br-unit:nth-child(-n + 5) {
+					.mat-ratingInactive {
+						opacity: 0.5;
+					}
+				}
+			}
 		}
-
-		&:not([disabled]) {
-			&[value="1"] {
-				::ng-deep {
-					.br-unit:nth-child(n + 2) {
-						.mat-ratingActive {
-							opacity: 0.5;
-						}
+		&[value="4"] {
+			::ng-deep {
+				.br-unit:nth-child(-n + 4) {
+					.mat-ratingInactive {
+						opacity: 0.5;
 					}
 				}
 			}
-			&[value="2"] {
-				::ng-deep {
-					.br-unit:nth-child(n + 3) {
-						.mat-ratingActive {
-							opacity: 0.5;
-						}
+		}
+		&[value="3"] {
+			::ng-deep {
+				.br-unit:nth-child(-n + 3) {
+					.mat-ratingInactive {
+						opacity: 0.5;
 					}
 				}
 			}
-			&[value="3"] {
-				::ng-deep {
-					.br-unit:nth-child(n + 4) {
-						.mat-ratingActive {
-							opacity: 0.5;
-						}
-					}
-				}
-			}
-			&[value="4"] {
-				::ng-deep {
-					.br-unit:nth-child(n + 5) {
-						.mat-ratingActive {
-							opacity: 0.5;
-						}
-					}
-				}
-			}
-
-			&[value="5"] {
-				::ng-deep {
-					.br-unit:nth-child(-n + 5) {
-						.mat-ratingInactive {
-							opacity: 0.5;
-						}
-					}
-				}
-			}
-			&[value="4"] {
-				::ng-deep {
-					.br-unit:nth-child(-n + 4) {
-						.mat-ratingInactive {
-							opacity: 0.5;
-						}
-					}
-				}
-			}
-			&[value="3"] {
-				::ng-deep {
-					.br-unit:nth-child(-n + 3) {
-						.mat-ratingInactive {
-							opacity: 0.5;
-						}
-					}
-				}
-			}
-			&[value="2"] {
-				::ng-deep {
-					.br-unit:nth-child(-n + 2) {
-						.mat-ratingInactive {
-							opacity: 0.5;
-						}
+		}
+		&[value="2"] {
+			::ng-deep {
+				.br-unit:nth-child(-n + 2) {
+					.mat-ratingInactive {
+						opacity: 0.5;
 					}
 				}
 			}

@@ -42,7 +42,7 @@ export class DeckSquad {
 
 		// i18n
 		if (this.name == null || this.name === '') {
-			this.name = `队伍 #${this.id + 1}`;
+			this.name = `${dataService.i18n.squad_name} #${this.id + 1}`;
 		}
 
 		this.students = (this.students ?? []).filter((studentId) => dataService.students.has(studentId));

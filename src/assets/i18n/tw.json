@@ -1,0 +1,22 @@
+{
+	"app_title": "蔚藍檔案軍械庫",
+	"campaign_amount": "刷圖",
+	"campaign_cost": "AP",
+	"item_required": "需要",
+	"item_deficit": "缺少",
+	"item_surplus": "溢出",
+	"student_action_remove": "移除",
+	"student_action_upgrade": "當前最高",
+	"student_action_target": "目標",
+	"squad_name": "隊伍",
+	"squad_action_remove": "移除隊伍",
+	"item_show_surplus_items": "顯示溢出",
+	"item_show_secret_stones": "顯示神名文字",
+	"campaign_show_campaign_hard": "顯示Hard任務",
+	"setting_save": "應用設置",
+	"setting_save_notice": "*應用設置將會重新加載頁面",
+	"item_sort_basic": "基本",
+	"item_sort_deficit": "缺少",
+	"item_sort_required": "需要",
+	"item_sort_stock": "庫存"
+}

@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import { plainToClassFromExist, plainToInstance } from 'class-transformer';
+import { Common } from '../entities/common';
 import { Deck, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities/deck';
 import { ArmorType, BulletType, EquipmentCategory, ItemCategory, StuffCategory } from '../entities/enum';
 import { Equipment } from '../entities/equipment';
+import { I18N } from '../entities/i18n';
 import { Localization } from '../entities/localization';
 import { Stage } from '../entities/stage';
 import { Student } from '../entities/student';
-import { ItemSortOption, StudentSortOption } from '../entities/types';
+import { ItemSortOption, LanguageOption, RegionOption, StudentSortOption } from '../entities/types';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class DataService {
+	language = 'cn';
+	region = 0;
+
 	students = new Map<number, Student>();
 	equipments = new Map<number, Equipment>();
 	items = new Map<number, Equipment>();
@@ -23,7 +28,9 @@ export class DataService {
 
 	stages: Stage = new Stage();
 
+	common: Common;
 	localization: Localization;
+	i18n: I18N;
 
 	deck: Deck = new Deck();
 
@@ -33,10 +40,33 @@ export class DataService {
 	skillUpgradeCredits = [0, 0, 5000, 12500, 72500, 162500, 462500, 912500, 2412500, 4812500, 8812500];
 	weaponUpgradeCredits = [0, 0, 500000];
 
+	studentLevelMax = 0;
+	weaponLevelMax = 0;
+
+	regionOptions: RegionOption[] = [
+		{ id: 0, label: 'Japan' },
+		{ id: 1, label: 'Global' },
+	];
+	languageOptions: LanguageOption[] = [
+		{ id: 'cn', label: '简体中文' },
+		{ id: 'en', label: 'English' },
+		{ id: 'jp', label: '日本語' },
+		{ id: 'tw', label: '繁體中文' },
+	];
+
 	studentSortOptions: StudentSortOption[] = [];
 	itemSortOptions: ItemSortOption[] = [];
 
 	constructor() {}
+
+	setCommon(json: any) {
+		this.common = json;
+
+		const region = this.common.regions[this.region];
+
+		this.studentLevelMax = region.studentlevel_max;
+		this.weaponLevelMax = region.weaponlevel_max;
+	}
 
 	setStudents(json: any[]) {
 		this.students = new Map(
@@ -57,7 +87,7 @@ export class DataService {
 		);
 
 		for (const [id, equipment] of this.equipments) {
-			if (!equipment.isReleased[1]) continue;
+			if (!equipment.isReleased[this.region]) continue;
 
 			const category = equipment.category;
 			let categoryMap = this.equipmentsByCategory.get(category);
@@ -116,10 +146,15 @@ export class DataService {
 		this.localization = json;
 	}
 
+	setI18N(json: any) {
+		this.i18n = json;
+	}
+
 	setOthers() {
 		this.studentSortOptions = [
 			{
 				id: 'level',
+				// i18n
 				label: this.localization.Stat['Level'],
 				key: [(deckStudent) => -deckStudent.level, (deckStudent) => -deckStudent.star, (deckStudent) => deckStudent.id],
 			},
@@ -130,6 +165,7 @@ export class DataService {
 			},
 			{
 				id: 'streetBattleAdaptation',
+				// i18n
 				label: this.localization.AdaptationType['Street'],
 				key: [
 					(deckStudent) => -this.students.get(deckStudent.id).streetBattleAdaptation,
@@ -140,6 +176,7 @@ export class DataService {
 			},
 			{
 				id: 'outdoorBattleAdaptation',
+				// i18n
 				label: this.localization.AdaptationType['Outdoor'],
 				key: [
 					(deckStudent) => -this.students.get(deckStudent.id).outdoorBattleAdaptation,
@@ -150,6 +187,7 @@ export class DataService {
 			},
 			{
 				id: 'indoorBattleAdaptation',
+				// i18n
 				label: this.localization.AdaptationType['Indoor'],
 				key: [
 					(deckStudent) => -this.students.get(deckStudent.id).indoorBattleAdaptation,
@@ -160,6 +198,7 @@ export class DataService {
 			},
 			{
 				id: 'bulletType',
+				// i18n
 				label: this.localization.ui['attacktype'],
 				key: [
 					(deckStudent) => -Object.keys(BulletType).indexOf(this.students.get(deckStudent.id).bulletType),
@@ -170,6 +209,7 @@ export class DataService {
 			},
 			{
 				id: 'armorType',
+				// i18n
 				label: this.localization.ui['defensetype'],
 				key: [
 					(deckStudent) => -Object.keys(ArmorType).indexOf(this.students.get(deckStudent.id).armorType),
@@ -183,7 +223,8 @@ export class DataService {
 		this.itemSortOptions = [
 			{
 				id: 'basic',
-				label: '基本',
+				// i18n
+				label: this.i18n.item_sort_basic,
 				key: [
 					(equipment) => (equipment.category in StuffCategory ? -Object.keys(StuffCategory).indexOf(equipment.category) : -1000),
 					(equipment) => -equipment.id,
@@ -191,17 +232,20 @@ export class DataService {
 			},
 			{
 				id: 'deficit',
-				label: '缺少',
+				// i18n
+				label: this.i18n.item_sort_deficit,
 				key: [(equipment) => this.deck.stocks[equipment.id] - this.deck.selectedSquad.required[equipment.id], (equipment) => -equipment.id],
 			},
 			{
 				id: 'required',
-				label: '需要',
+				// i18n
+				label: this.i18n.item_sort_required,
 				key: [(equipment) => -this.deck.selectedSquad.required[equipment.id], (equipment) => -equipment.id],
 			},
 			{
 				id: 'stock',
-				label: '库存',
+				// i18n
+				label: this.i18n.item_sort_stock,
 				key: [(equipment) => -this.deck.stocks[equipment.id], (equipment) => -equipment.id],
 			},
 		];

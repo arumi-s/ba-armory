@@ -17,6 +17,8 @@ export class CampaignCardComponent implements OnInit, OnDestroy {
 	@Input()
 	amount: number;
 
+	campaign_amount: string = '';
+	campaign_cost: string = '';
 	type: string = '';
 	difficulty: string = '';
 	area: number = 0;
@@ -32,6 +34,10 @@ export class CampaignCardComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		const campaign = this.dataService.stages.campaign.find((campaign) => campaign.id === this.id);
+
+		// i18n
+		this.campaign_amount = this.dataService.i18n.campaign_amount;
+		this.campaign_cost = this.dataService.i18n.campaign_cost;
 
 		this.type = this.dataService.localization.StageType['Campaign'];
 		this.difficulty = campaign.difficulty === CampaignDifficulty.Hard ? 'H' : 'N';

@@ -92,11 +92,11 @@
 	<mat-card-actions>
 		<!-- TODO: i18n -->
 		<button class="action-remove" mat-button color="warn" tabindex="-1" size="small" (click)="handleClickDelete()">
-			<mat-icon>block</mat-icon> 移除
+			<mat-icon>block</mat-icon> {{ action_remove }}
 		</button>
 		<!-- TODO: i18n -->
 		<button class="action-upgrade" mat-button color="basic" tabindex="-1" size="small" [disabled]="isUpgraded" (click)="handleClickUpgrade()">
-			<mat-icon>upgrade</mat-icon> 当前最高
+			<mat-icon>upgrade</mat-icon> {{ action_upgrade }}
 		</button>
 		<!-- TODO: i18n -->
 		<button
@@ -107,7 +107,7 @@
 			size="small"
 			(click)="handleClickTarget()"
 		>
-			<mat-icon>gps_fixed</mat-icon> 目标
+			<mat-icon>gps_fixed</mat-icon> {{ action_target }}
 		</button>
 	</mat-card-actions>
 	<mat-card-footer></mat-card-footer>

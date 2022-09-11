@@ -9,6 +9,8 @@ mat-toolbar {
 
 	.toolbar-title {
 		margin: 0 var(--spacing-x-small);
+		display: flex;
+		gap: var(--spacing-x-small);
 	}
 	.toolbar-spacer {
 		flex: 1 1 auto;
@@ -29,5 +31,26 @@ main {
 		display: block;
 		min-height: 100%;
 		min-width: 100%;
+	}
+}
+
+footer {
+	padding: var(--spacing-large);
+	color: #6e6e6e;
+	background-color: #e0e0e0;
+
+	ul {
+		list-style: none none;
+		margin: var(--spacing-x-small) 0;
+		padding: 0;
+	}
+
+	li {
+		text-align: center;
+	}
+
+	a {
+		font-weight: bold;
+		text-decoration: none;
 	}
 }

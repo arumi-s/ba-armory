@@ -23,7 +23,9 @@ export class StudentIconComponent implements OnInit {
 		this.student = this.dataService.students.get(this.id) ?? null;
 
 		if (this.student) {
+			// i18n
 			this.bulletType = this.dataService.localization.BulletType[this.student.bulletType];
+			// i18n
 			this.armorType = this.dataService.localization.ArmorType[this.student.armorType];
 		}
 	}

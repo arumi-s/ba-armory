@@ -1,27 +1,15 @@
-# BaArmory
+# Blue Archive Armory
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.1.
+## About this tool
 
-## Development server
+Blue Archive Armory helps "Blue Archive" players to manage thier students and resources, record squads, optimize equipment farming, etc.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This tool is for non commercial use only.
 
-## Code scaffolding
+## Acknowledgements
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This tool is heavily inspired by the famous [蘭德索爾圖書館](https://pcredivewiki.tw/Armory), a tool for PCR players.
 
-## Build
+All game data are acquired from [SchaleDB](https://github.com/lonqie/SchaleDB).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+All game artwork, information and assets used in this tool are the property and copyright of Nexon Games & Yostar.

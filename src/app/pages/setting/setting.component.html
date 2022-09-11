@@ -1,0 +1,55 @@
+<h2 mat-dialog-title><mat-icon>settings</mat-icon> {{ title }}</h2>
+<div class="settings" mat-dialog-content>
+	<div class="setting setting-language">
+		<div class="setting-label">{{ languageLabel }}</div>
+		<div class="setting-value">
+			<button mat-stroked-button [matMenuTriggerFor]="languageMenu">
+				{{ selectedLanguageOption.label }}
+			</button>
+
+			<mat-menu #languageMenu="matMenu">
+				<button
+					*ngFor="let option of dataService.languageOptions"
+					class="student_sort-option"
+					[value]="option.id"
+					mat-menu-item
+					(click)="handleClickLanguageOption(option.id)"
+				>
+					{{ option.label }}
+				</button>
+			</mat-menu>
+		</div>
+	</div>
+	<div class="setting setting-region">
+		<div class="setting-label">{{ regionLabel }}</div>
+		<div class="setting-value">
+			<button mat-stroked-button [matMenuTriggerFor]="regionMenu">
+				{{ selectedRegionOption.label }}
+			</button>
+
+			<mat-menu #regionMenu="matMenu">
+				<button
+					*ngFor="let option of dataService.regionOptions"
+					class="student_sort-option"
+					[value]="option.id"
+					mat-menu-item
+					(click)="handleClickRegionOption(option.id)"
+				>
+					{{ option.label }}
+				</button>
+			</mat-menu>
+		</div>
+	</div>
+
+	<mat-divider></mat-divider>
+	<div class="setting setting-save">
+		<!-- TODO: i18n -->
+		<div class="setting-label">{{ dataService.i18n.setting_save_notice }}</div>
+		<div class="setting-value">
+			<!-- TODO: i18n -->
+			<button mat-stroked-button color="primary" (click)="handleClickSave()">
+				<mat-icon>save</mat-icon> {{ dataService.i18n.setting_save }}
+			</button>
+		</div>
+	</div>
+</div>

@@ -16,6 +16,10 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 
 	model: DeckStudent;
 
+	action_remove: string;
+	action_upgrade: string;
+	action_target: string;
+
 	name: string;
 	school: string;
 	bulletType: BulletType;
@@ -58,11 +62,18 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 		this.model = this.dataService.deck.students.get(this.id);
 		const student = this.dataService.students.get(this.id);
 
+		this.action_remove = this.dataService.i18n.student_action_remove;
+		this.action_upgrade = this.dataService.i18n.student_action_upgrade;
+		this.action_target = this.dataService.i18n.student_action_target;
+
 		this.name = student.name;
+		// i18n
 		this.school = this.dataService.localization.School[student.school];
 		this.bulletType = student.bulletType;
+		// i18n
 		this.bulletTypeText = this.dataService.localization.BulletType[this.bulletType];
 		this.armorType = student.armorType;
+		// i18n
 		this.armorTypeText = this.dataService.localization.ArmorType[this.armorType];
 		this.collectionTextureUrl = student.collectionTextureUrl;
 		this.schoolIconUrl = student.schoolIconUrl;

@@ -1,0 +1,22 @@
+{
+	"app_title": "Blue Archive Armory",
+	"campaign_amount": "Times",
+	"campaign_cost": "AP",
+	"item_required": "Required",
+	"item_deficit": "Deficit",
+	"item_surplus": "Surplus",
+	"student_action_remove": "Remove",
+	"student_action_upgrade": "Latest",
+	"student_action_target": "Target",
+	"squad_name": "Squad",
+	"squad_action_remove": "Remove Squad",
+	"item_show_surplus_items": "Show Surplus",
+	"item_show_secret_stones": "Show Eleph",
+	"campaign_show_campaign_hard": "Show Hard Campaign",
+	"setting_save": "Apply setting",
+	"setting_save_notice": "*Apply setting will reload the page",
+	"item_sort_basic": "Basic",
+	"item_sort_deficit": "Deficit",
+	"item_sort_required": "Required",
+	"item_sort_stock": "Stock"
+}

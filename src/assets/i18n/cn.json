@@ -1,0 +1,22 @@
+{
+	"app_title": "蔚蓝档案军械库",
+	"campaign_amount": "刷图",
+	"campaign_cost": "AP",
+	"item_required": "需要",
+	"item_deficit": "缺少",
+	"item_surplus": "溢出",
+	"student_action_remove": "移除",
+	"student_action_upgrade": "当前最高",
+	"student_action_target": "目标",
+	"squad_name": "队伍",
+	"squad_action_remove": "移除队伍",
+	"item_show_surplus_items": "显示溢出",
+	"item_show_secret_stones": "显示神名文字",
+	"campaign_show_campaign_hard": "显示Hard任务",
+	"setting_save": "应用设定",
+	"setting_save_notice": "*应用设定将会重新加载页面",
+	"item_sort_basic": "基本",
+	"item_sort_deficit": "缺少",
+	"item_sort_required": "需要",
+	"item_sort_stock": "库存"
+}

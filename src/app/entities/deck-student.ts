@@ -216,7 +216,7 @@ export class DeckStudent {
 		const student = dataService.students.get(this.id);
 
 		(this as any).levelMin = 1;
-		(this as any).levelMax = 75;
+		(this as any).levelMax = dataService.studentLevelMax;
 		(this as any).starMin = student.starGrade;
 		(this as any).starMax = 5;
 		(this as any).weaponMin = 0;

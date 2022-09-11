@@ -11,7 +11,6 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-content: center;
-	justify-content: center;
 	gap: var(--spacing-x-small);
 	margin: var(--spacing-small) 0;
 	padding: 0 var(--spacing-x-small);
@@ -109,12 +108,14 @@ ba-student-card {
 	margin: var(--spacing-xx-small);
 }
 
+.items-tabs {
+	min-height: 300px;
+}
+
 ba-item-icon {
 	margin: var(--spacing-xx-small);
 
-	.hide-surplus &.surplus {
-		display: none;
-	}
+	.hide-surplus &.surplus,
 	.hide-secret_stones &[category="secretstone"] {
 		display: none;
 	}

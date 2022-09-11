@@ -8,12 +8,12 @@
 	<div class="amounts">
 		<div class="amount required">
 			<!-- TODO: i18n -->
-			<div class="amount-label">需要:</div>
+			<div class="amount-label">{{ dataService.i18n.item_required }}:</div>
 			<div class="amount-value">{{ dataService.deck.selectedSquad.required[id] }}</div>
 		</div>
 		<div class="amount">
 			<!-- TODO: i18n -->
-			<div class="amount-label">{{ deficit ? "缺少" : "溢出" }}:</div>
+			<div class="amount-label">{{ deficit ? dataService.i18n.item_deficit : dataService.i18n.item_surplus }}:</div>
 			<div class="amount-value difference">
 				{{
 					deficit

@@ -3,6 +3,8 @@ import { instanceToPlain } from 'class-transformer';
 import { compressToUTF16, decompressFromUTF16 } from 'lz-string';
 import { DataService } from './data.service';
 
+const STORAGE_LANGUAGE_KEY = 'language';
+const STORAGE_REGION_KEY = 'region';
 const STORAGE_DECK_KEY = 'deck';
 
 @Injectable({
@@ -16,28 +18,76 @@ export class PreloadService {
 	}
 
 	async load() {
-		const language = 'cn';
-		const itemsDataSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/items.min.json`;
-		const equipmentsDataSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/equipment.min.json`;
-		const studentsDataSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/students.min.json`;
-		const stagesDataSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/stages.min.json`;
-		const localizationDataSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/localization.min.json`;
+		await this.loadSetting();
 
-		const items = await (await fetch(itemsDataSource)).json();
-		const equipments = await (await fetch(equipmentsDataSource)).json();
-		const students = await (await fetch(studentsDataSource)).json();
-		const stages = await (await fetch(stagesDataSource)).json();
-		const localization = await (await fetch(localizationDataSource)).json();
+		const language = this.dataService.language;
+		const commonSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/common.min.json`;
+		const itemsSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/items.min.json`;
+		const equipmentsSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/equipment.min.json`;
+		const studentsSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/students.min.json`;
+		const stagesSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/stages.min.json`;
+		const localizationSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/localization.min.json`;
+		const i18nSource = `/assets/i18n/${language}.json`;
 
+		const common = await (await fetch(commonSource)).json();
+		const items = await (await fetch(itemsSource)).json();
+		const equipments = await (await fetch(equipmentsSource)).json();
+		const students = await (await fetch(studentsSource)).json();
+		const stages = await (await fetch(stagesSource)).json();
+		const localization = await (await fetch(localizationSource)).json();
+		const i18n = await (await fetch(i18nSource)).json();
+
+		this.dataService.setCommon(common);
 		this.dataService.setItems(items);
 		this.dataService.setEquipments(equipments);
 		this.dataService.setStudents(students);
 		this.dataService.setStage(stages);
 		this.dataService.setLocalization(localization);
+		this.dataService.setI18N(i18n);
 
 		this.dataService.setOthers();
 
 		await this.loadDeck();
+	}
+
+	async saveSetting() {
+		localStorage.setItem(STORAGE_LANGUAGE_KEY, this.dataService.language);
+		localStorage.setItem(STORAGE_REGION_KEY, '' + this.dataService.region);
+	}
+
+	async loadSetting() {
+		let initialize = false;
+
+		const savedLanguage = localStorage.getItem(STORAGE_LANGUAGE_KEY);
+		if (typeof savedLanguage === 'string' && this.dataService.languageOptions.some((option) => option.id === savedLanguage)) {
+			this.dataService.language = savedLanguage;
+		} else {
+			const navigatorLanguage = window.navigator.language;
+			switch (navigatorLanguage.split('-')[0]) {
+				case 'ja':
+					this.dataService.language = 'jp';
+					break;
+				case 'zh':
+					this.dataService.language = navigatorLanguage.toLowerCase().startsWith('zh-cn') ? 'cn' : 'tw';
+					break;
+				default:
+					this.dataService.language = 'en';
+					break;
+			}
+			initialize = true;
+		}
+
+		const savedRegion = localStorage.getItem(STORAGE_REGION_KEY);
+		if (typeof savedRegion === 'string' && this.dataService.regionOptions.some((option) => option.id === +savedRegion)) {
+			this.dataService.region = +savedRegion;
+		} else {
+			this.dataService.region = 0;
+			initialize = true;
+		}
+
+		if (initialize) {
+			await this.saveSetting();
+		}
 	}
 
 	async saveDeck() {

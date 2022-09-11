@@ -9,3 +9,13 @@ export interface SortOption<T> {
 
 export type StudentSortOption = SortOption<DeckStudent>;
 export type ItemSortOption = SortOption<Equipment>;
+
+export interface LanguageOption {
+	id: string;
+	label: string;
+}
+
+export interface RegionOption {
+	id: number;
+	label: string;
+}

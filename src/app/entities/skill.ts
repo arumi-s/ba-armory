@@ -27,6 +27,6 @@ export class Skill {
 	summonStatCoefficient?: number[][];
 
 	get iconUrl() {
-		return `https://lonqie.github.io/SchaleDB/images/skill/${this.icon}.png`;
+		return `https://raw.githubusercontent.com/lonqie/SchaleDB/main/images/skill/${this.icon}.png`;
 	}
 }

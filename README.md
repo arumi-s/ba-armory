@@ -1,10 +1,21 @@
 # Blue Archive Armory
 
+[Website](https://ba-armory.vercel.app)
+
 ## About this tool
 
 Blue Archive Armory helps "Blue Archive" players to manage thier students and resources, record squads, optimize equipment farming, etc.
 
 This tool is for non commercial use only.
+
+## Todo
+
+- [ ] User manual
+- [ ] Show gacha drop
+- [ ] Sortable add student list
+- [ ] Cache game data
+- [ ] Auto reduce stock
+- [ ] Export deck as a short link
 
 ## Acknowledgements
 

@@ -1,0 +1,17 @@
+{
+	"$schema": "https://openapi.vercel.sh/vercel.json",
+	"github": {
+		"silent": true
+	},
+	"headers": [
+		{
+			"source": "/(.*)\\.(html)",
+			"headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+		},
+		{
+			"source": "/(.*)\\.(js|css|jpg|jpeg|gif|png|ico|cur|svg|svgz)",
+			"headers": [{ "key": "Cache-Control", "value": "public, max-age=31556952, s-maxage=31556952, immutable" }]
+		}
+	],
+	"trailingSlash": false
+}

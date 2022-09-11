@@ -11,6 +11,11 @@
 		"lint": "ng lint"
 	},
 	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/arumi-s/ba-armory.git"
+	},
+	"license": "MIT",
 	"dependencies": {
 		"@angular/animations": "^14.1.0",
 		"@angular/cdk": "^14.1.1",

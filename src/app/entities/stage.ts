@@ -1,6 +1,7 @@
 import { Exclude, Expose, Type } from 'class-transformer';
 import { Terrain, SchoolDungeonType, WeekDungeonType, EntryCost, Reward, CampaignDifficulty } from './enum';
 import type { DataService } from '../services/data.service';
+import { CDN_BASE } from './constant';
 
 export class Stage {
 	@Expose({ name: 'Campaign' })
@@ -91,7 +92,7 @@ export class Campaign {
 	rewards: Rewards;
 
 	get iconUrl() {
-		return `https://raw.githubusercontent.com/lonqie/SchaleDB/main/images/campaign/Campaign_Image_${this.area.toString().padStart(2, '0')}_${
+		return `${CDN_BASE}/images/campaign/Campaign_Image_${this.area.toString().padStart(2, '0')}_${
 			this.difficulty == CampaignDifficulty.Hard ? 'Hard' : 'Normal'
 		}.png`;
 	}

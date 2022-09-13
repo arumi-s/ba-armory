@@ -1,5 +1,7 @@
 {
 	"app_title": "Blue Archive Armory",
+	"action_save": "Save",
+	"action_saved": "Saved",
 	"campaign_amount": "Times",
 	"campaign_cost": "AP",
 	"item_required": "Required",

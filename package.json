@@ -8,7 +8,9 @@
 		"build": "ng build",
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test",
-		"lint": "ng lint"
+		"lint": "ng lint",
+		"analyze": "ng build --stats-json && webpack-bundle-analyzer dist/ba-armory/stats.json",
+		"serve": "http-server -p 4200 -c-1 dist/ba-armory"
 	},
 	"private": true,
 	"repository": {
@@ -27,6 +29,7 @@
 		"@angular/platform-browser": "^14.1.0",
 		"@angular/platform-browser-dynamic": "^14.1.0",
 		"@angular/router": "^14.1.0",
+		"@angular/service-worker": "^14.1.0",
 		"class-transformer": "^0.5.1",
 		"lz-string": "^1.4.4",
 		"ngx-bar-rating": "^4.0.1",
@@ -51,6 +54,7 @@
 		"@typescript-eslint/eslint-plugin": "5.29.0",
 		"@typescript-eslint/parser": "5.29.0",
 		"eslint": "^8.18.0",
+		"http-server": "^14.1.1",
 		"jasmine-core": "~4.2.0",
 		"karma": "~6.4.0",
 		"karma-chrome-launcher": "~3.1.0",
@@ -58,6 +62,7 @@
 		"karma-jasmine": "~5.1.0",
 		"karma-jasmine-html-reporter": "~2.0.0",
 		"prettier": "^2.7.1",
-		"typescript": "~4.7.2"
+		"typescript": "~4.7.2",
+		"webpack-bundle-analyzer": "^4.6.1"
 	}
 }

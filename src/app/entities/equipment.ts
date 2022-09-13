@@ -1,4 +1,5 @@
 import { Type, Expose } from 'class-transformer';
+import { CDN_BASE } from './constant';
 import { ItemCategory, EquipmentRarity, EquipmentStatType, EquipmentStatValue, EquipmentRecipe, IsReleased, StuffCategory } from './enum';
 
 export class Equipment {
@@ -37,8 +38,8 @@ export class Equipment {
 
 	get iconUrl() {
 		if (this.category === StuffCategory.Material || this.category === StuffCategory.SecretStone) {
-			return `https://raw.githubusercontent.com/lonqie/SchaleDB/main/images/items/${this.icon}.png`;
+			return `${CDN_BASE}/images/items/${this.icon}.png`;
 		}
-		return `https://raw.githubusercontent.com/lonqie/SchaleDB/main/images/equipment/${this.icon}.png`;
+		return `${CDN_BASE}/images/equipment/${this.icon}.png`;
 	}
 }

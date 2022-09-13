@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { instanceToPlain } from 'class-transformer';
 import { compressToUTF16, decompressFromUTF16 } from 'lz-string';
+import { CDN_BASE } from '../entities/constant';
 import { DataService } from './data.service';
 
 const STORAGE_LANGUAGE_KEY = 'language';
@@ -21,12 +22,12 @@ export class PreloadService {
 		await this.loadSetting();
 
 		const language = this.dataService.language;
-		const commonSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/common.min.json`;
-		const itemsSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/items.min.json`;
-		const equipmentsSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/equipment.min.json`;
-		const studentsSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/students.min.json`;
-		const stagesSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/stages.min.json`;
-		const localizationSource = `https://raw.githubusercontent.com/lonqie/SchaleDB/main/data/${language}/localization.min.json`;
+		const commonSource = `${CDN_BASE}/data/common.min.json`;
+		const itemsSource = `${CDN_BASE}/data/${language}/items.min.json`;
+		const equipmentsSource = `${CDN_BASE}/data/${language}/equipment.min.json`;
+		const studentsSource = `${CDN_BASE}/data/${language}/students.min.json`;
+		const stagesSource = `${CDN_BASE}/data/stages.min.json`;
+		const localizationSource = `${CDN_BASE}/data/${language}/localization.min.json`;
 		const i18nSource = `/assets/i18n/${language}.json`;
 
 		const common = await (await fetch(commonSource)).json();

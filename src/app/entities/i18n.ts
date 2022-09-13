@@ -1,5 +1,7 @@
 export interface I18N {
 	app_title: string;
+	action_save: string;
+	action_saved: string;
 	campaign_amount: string;
 	campaign_cost: string;
 	item_required: string;

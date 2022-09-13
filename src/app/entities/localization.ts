@@ -1,11 +1,4 @@
-import {
-	SquadType,
-	BulletType,
-	ArmorType,
-	TacticRole,
-	AdaptationType,
-	ItemCategory,
-} from './enum';
+import { SquadType, BulletType, ArmorType, TacticRole, AdaptationType, ItemCategory } from './enum';
 
 export interface Localization {
 	SquadType: { [key in SquadType]: string };

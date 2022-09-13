@@ -1,5 +1,7 @@
 {
 	"app_title": "ブルアカアーモリー",
+	"action_save": "保存",
+	"action_saved": "保存しました",
 	"campaign_amount": "周回",
 	"campaign_cost": "AP",
 	"item_required": "必要",

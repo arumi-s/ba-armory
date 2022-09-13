@@ -1,4 +1,5 @@
 import { Expose, Type } from 'class-transformer';
+import { CDN_BASE } from './constant';
 import { SkillType, FavorStatType } from './enum';
 
 export class Skill {
@@ -27,6 +28,6 @@ export class Skill {
 	summonStatCoefficient?: number[][];
 
 	get iconUrl() {
-		return `https://raw.githubusercontent.com/lonqie/SchaleDB/main/images/skill/${this.icon}.png`;
+		return `${CDN_BASE}/images/skill/${this.icon}.png`;
 	}
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
 import { SettingComponent } from './pages/setting/setting.component';
@@ -21,7 +22,8 @@ export class AppComponent implements OnInit {
 		private readonly dataService: DataService,
 		iconRegistry: MatIconRegistry,
 		sanitizer: DomSanitizer,
-		private readonly dialog: MatDialog
+		private readonly dialog: MatDialog,
+		private readonly snackBar: MatSnackBar
 	) {
 		this.title = this.dataService.i18n.app_title;
 		this.titleService.setTitle(this.title);
@@ -58,7 +60,12 @@ export class AppComponent implements OnInit {
 		dialogRef.afterClosed();
 	}
 
-	handleClickSave() {
-		this.preloadService.saveDeck();
+	async handleClickSave() {
+		await this.preloadService.saveDeck();
+		this.snackBar.open(this.dataService.i18n.action_saved, undefined, {
+			duration: 1000,
+			horizontalPosition: 'center',
+			verticalPosition: 'top',
+		});
 	}
 }

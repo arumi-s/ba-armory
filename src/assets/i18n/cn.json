@@ -1,5 +1,7 @@
 {
 	"app_title": "蔚蓝档案军械库",
+	"action_save": "保存",
+	"action_saved": "已保存",
 	"campaign_amount": "刷图",
 	"campaign_cost": "AP",
 	"item_required": "需要",

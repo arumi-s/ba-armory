@@ -1,4 +1,5 @@
 import { Type, Expose } from 'class-transformer';
+import { CDN_BASE } from './constant';
 import {
 	FavorStatType,
 	AdaptationType,
@@ -219,14 +220,14 @@ export class Student {
 	skillMaterialAmount: Array<number[]>;
 
 	get collectionTextureUrl() {
-		return `https://raw.githubusercontent.com/lonqie/SchaleDB/main/images/student/icon/${this.collectionTexture}.png`;
+		return `${CDN_BASE}/images/student/icon/${this.collectionTexture}.png`;
 	}
 
 	get collectionBGUrl() {
-		return `https://raw.githubusercontent.com/lonqie/SchaleDB/main/images/background/${this.collectionBG}.jpg`;
+		return `${CDN_BASE}/images/background/${this.collectionBG}.jpg`;
 	}
 
 	get schoolIconUrl() {
-		return `https://raw.githubusercontent.com/lonqie/SchaleDB/main/images/schoolicon/School_Icon_${this.school.toUpperCase()}_W.png`;
+		return `${CDN_BASE}/images/schoolicon/School_Icon_${this.school.toUpperCase()}_W.png`;
 	}
 }

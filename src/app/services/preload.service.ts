@@ -18,6 +18,10 @@ export class PreloadService {
 		return () => preloadService.load();
 	}
 
+	private async fetchJson(url: string) {
+		return (await fetch(url)).json();
+	}
+
 	async load() {
 		await this.loadSetting();
 
@@ -30,13 +34,15 @@ export class PreloadService {
 		const localizationSource = `${CDN_BASE}/data/${language}/localization.min.json`;
 		const i18nSource = `/assets/i18n/${language}.json`;
 
-		const common = await (await fetch(commonSource)).json();
-		const items = await (await fetch(itemsSource)).json();
-		const equipments = await (await fetch(equipmentsSource)).json();
-		const students = await (await fetch(studentsSource)).json();
-		const stages = await (await fetch(stagesSource)).json();
-		const localization = await (await fetch(localizationSource)).json();
-		const i18n = await (await fetch(i18nSource)).json();
+		const [common, items, equipments, students, stages, localization, i18n] = await Promise.all([
+			this.fetchJson(commonSource),
+			this.fetchJson(itemsSource),
+			this.fetchJson(equipmentsSource),
+			this.fetchJson(studentsSource),
+			this.fetchJson(stagesSource),
+			this.fetchJson(localizationSource),
+			this.fetchJson(i18nSource),
+		]);
 
 		this.dataService.setCommon(common);
 		this.dataService.setItems(items);

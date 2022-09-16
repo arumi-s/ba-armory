@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DomSanitizer, Title } from '@angular/platform-browser';
+import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
 import { SettingComponent } from './pages/setting/setting.component';
 import { DataService } from './services/data.service';
@@ -15,18 +16,38 @@ import { PreloadService } from './services/preload.service';
 })
 export class AppComponent implements OnInit {
 	title = '';
+	desc = '';
+	footer_1_start = '';
+	footer_1_end = '';
+	footer_2_start = '';
+	footer_2_end = '';
+	footer_3_start = '';
+	footer_3_end = '';
 
 	constructor(
-		private titleService: Title,
+		@Inject(DOCUMENT) document: Document,
+		private readonly titleService: Title,
+		private readonly metaService: Meta,
 		private readonly preloadService: PreloadService,
 		private readonly dataService: DataService,
-		iconRegistry: MatIconRegistry,
-		sanitizer: DomSanitizer,
 		private readonly dialog: MatDialog,
-		private readonly snackBar: MatSnackBar
+		private readonly snackBar: MatSnackBar,
+		iconRegistry: MatIconRegistry,
+		sanitizer: DomSanitizer
 	) {
 		this.title = this.dataService.i18n.app_title;
+		this.desc = this.dataService.i18n.app_desc;
+		this.footer_1_start = this.dataService.i18n.footer_1_start;
+		this.footer_1_end = this.dataService.i18n.footer_1_end;
+		this.footer_2_start = this.dataService.i18n.footer_2_start;
+		this.footer_2_end = this.dataService.i18n.footer_2_end;
+		this.footer_3_start = this.dataService.i18n.footer_3_start;
+		this.footer_3_end = this.dataService.i18n.footer_3_end;
+
+		document.documentElement.lang =
+			this.dataService.languageOptions.find((languageOption) => languageOption.id === this.dataService.language)?.code ?? 'en';
 		this.titleService.setTitle(this.title);
+		this.metaService.updateTag({ name: 'description', content: this.dataService.i18n.app_desc });
 
 		iconRegistry.addSvgIconLiteral(
 			'bullet_type',

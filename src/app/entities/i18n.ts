@@ -1,5 +1,12 @@
 export interface I18N {
 	app_title: string;
+	app_desc: string;
+	footer_1_start: string;
+	footer_1_end: string;
+	footer_2_start: string;
+	footer_2_end: string;
+	footer_3_start: string;
+	footer_3_end: string;
 	action_save: string;
 	action_saved: string;
 	campaign_amount: string;

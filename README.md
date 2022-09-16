@@ -23,4 +23,4 @@ This tool is heavily inspired by the famous [蘭德索爾圖書館](https://pcre
 
 All game data are acquired from [SchaleDB](https://github.com/lonqie/SchaleDB).
 
-All game artwork, information and assets used in this tool are the property and copyright of Nexon Games & Yostar.
+All game artwork, data and assets used in this tool are property and copyright of NEXON Games and Yostar.

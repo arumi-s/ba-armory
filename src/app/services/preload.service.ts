@@ -57,6 +57,25 @@ export class PreloadService {
 		await this.loadDeck();
 	}
 
+	private mapLanguage(code: string, defaultCode = ''): string {
+		code = code.toLowerCase();
+
+		if (this.dataService.languageOptions.some((option) => option.id === code)) {
+			return code;
+		}
+
+		switch (code.split('-')[0]) {
+			case 'ja':
+				return 'jp';
+			case 'zh':
+				return code.startsWith('zh-cn') ? 'cn' : 'tw';
+			case 'en':
+				return 'en';
+		}
+
+		return defaultCode;
+	}
+
 	async saveSetting() {
 		localStorage.setItem(STORAGE_LANGUAGE_KEY, this.dataService.language);
 		localStorage.setItem(STORAGE_REGION_KEY, '' + this.dataService.region);
@@ -64,24 +83,26 @@ export class PreloadService {
 
 	async loadSetting() {
 		let initialize = false;
+		let forceLanguage = false;
 
-		const savedLanguage = localStorage.getItem(STORAGE_LANGUAGE_KEY);
-		if (typeof savedLanguage === 'string' && this.dataService.languageOptions.some((option) => option.id === savedLanguage)) {
-			this.dataService.language = savedLanguage;
-		} else {
-			const navigatorLanguage = window.navigator.language;
-			switch (navigatorLanguage.split('-')[0]) {
-				case 'ja':
-					this.dataService.language = 'jp';
-					break;
-				case 'zh':
-					this.dataService.language = navigatorLanguage.toLowerCase().startsWith('zh-cn') ? 'cn' : 'tw';
-					break;
-				default:
-					this.dataService.language = 'en';
-					break;
+		const path = location.pathname.replace('/', '');
+		if (path !== '') {
+			const language = this.mapLanguage(path);
+			if (language !== '') {
+				this.dataService.language = language;
+				initialize = true;
+				forceLanguage = true;
 			}
-			initialize = true;
+		}
+
+		if (!forceLanguage) {
+			const savedLanguage = localStorage.getItem(STORAGE_LANGUAGE_KEY);
+			if (typeof savedLanguage === 'string' && this.mapLanguage(savedLanguage) === savedLanguage) {
+				this.dataService.language = savedLanguage;
+			} else {
+				this.dataService.language = this.mapLanguage(window.navigator.language, 'en');
+				initialize = true;
+			}
 		}
 
 		const savedRegion = localStorage.getItem(STORAGE_REGION_KEY);

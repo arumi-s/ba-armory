@@ -48,10 +48,10 @@ export class DataService {
 		{ id: 1, label: 'Global' },
 	];
 	languageOptions: LanguageOption[] = [
-		{ id: 'cn', label: '简体中文' },
-		{ id: 'en', label: 'English' },
-		{ id: 'jp', label: '日本語' },
-		{ id: 'tw', label: '繁體中文' },
+		{ id: 'cn', label: '简体中文', code: 'zh-Hans' },
+		{ id: 'en', label: 'English', code: 'en' },
+		{ id: 'jp', label: '日本語', code: 'ja' },
+		{ id: 'tw', label: '繁體中文', code: 'zh-Hant' },
 	];
 
 	studentSortOptions: StudentSortOption[] = [];

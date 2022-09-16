@@ -13,6 +13,7 @@ export type ItemSortOption = SortOption<Equipment>;
 export interface LanguageOption {
 	id: string;
 	label: string;
+	code: string;
 }
 
 export interface RegionOption {

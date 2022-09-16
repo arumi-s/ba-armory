@@ -1,5 +1,12 @@
 {
 	"app_title": "蔚藍檔案軍械庫",
+	"app_desc": "蔚藍檔案軍械庫幫助蔚藍檔案玩家管理遊戲中的學生和素材，記錄常用隊伍以及規劃刷圖",
+	"footer_1_start": "本工具深受著名的 ",
+	"footer_1_end": " 啟發",
+	"footer_2_start": "所有遊戲數據均來自 ",
+	"footer_2_end": "",
+	"footer_3_start": "本工具中使用的所有遊戲插畫、數據和素材均為 NEXON Games 及 Yostar 的財產和版權",
+	"footer_3_end": "",
 	"action_save": "保存",
 	"action_saved": "已保存",
 	"campaign_amount": "刷圖",

@@ -30,7 +30,7 @@ export class HoverinputService {
 	private handleKeydown = (event: KeyboardEvent) => {
 		if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
 
-		const value = parseInt(event.key, 10);
+		const value = event.key === 'm' ? Number.MAX_SAFE_INTEGER : parseInt(event.key, 10);
 
 		if (isNaN(value)) return;
 

@@ -1,5 +1,12 @@
 {
 	"app_title": "Blue Archive Armory",
+	"app_desc": "Blue Archive Armory helps Blue Archive players to manage thier students and resources, record squads, optimize equipment farming",
+	"footer_1_start": "This tool is heavily inspired by the famous ",
+	"footer_1_end": "",
+	"footer_2_start": "All game data are acquired from ",
+	"footer_2_end": "",
+	"footer_3_start": "All game artwork, data and assets used in this tool are property and copyright of NEXON Games and Yostar",
+	"footer_3_end": "",
 	"action_save": "Save",
 	"action_saved": "Saved",
 	"campaign_amount": "Times",

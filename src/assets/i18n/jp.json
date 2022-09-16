@@ -1,5 +1,12 @@
 {
 	"app_title": "ブルアカアーモリー",
+	"app_desc": "ブルアカアーモリーは、ブルアカプレイヤーがゲーム内の学生とアイテムを管理し、チームを記録し、周回を計画するのに役立ちます",
+	"footer_1_start": "このツールは、有名な",
+	"footer_1_end": " に大きく影響を受けています",
+	"footer_2_start": "すべてのゲームデータは ",
+	"footer_2_end": " から取得されます",
+	"footer_3_start": "このツールで使用されるすべてのゲームのアートワーク、データ、アセットは、 NEXON Games と Yostar の所有物および著作権です",
+	"footer_3_end": "",
 	"action_save": "保存",
 	"action_saved": "保存しました",
 	"campaign_amount": "周回",

@@ -12,9 +12,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
+import { TabItemsComponent } from './tab-items/tab-items.component';
+import { TabCampaignsComponent } from './tab-campaigns/tab-campaigns.component';
+import { TabElephsComponent } from './tab-elephs/tab-elephs.component';
 
 @NgModule({
-	declarations: [ArmoryComponent],
+	declarations: [ArmoryComponent, TabItemsComponent, TabCampaignsComponent, TabElephsComponent],
 	imports: [
 		CommonModule,
 		FormsModule,

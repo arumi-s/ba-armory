@@ -1,0 +1,9 @@
+<div class="options">
+	<!-- TODO: i18n -->
+	<mat-checkbox class="campaign_action-show_campaign_hard" [(ngModel)]="dataService.deck.options.showCampaignHard" color="accent">
+		{{ dataService.i18n.campaign_show_campaign_hard }}
+	</mat-checkbox>
+</div>
+<div class="list">
+	<ba-campaign-card *ngFor="let stage of dataService.deck.selectedSquad.stages" [id]="stage.id" [amount]="stage.amount"></ba-campaign-card>
+</div>

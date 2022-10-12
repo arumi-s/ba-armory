@@ -107,7 +107,7 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 	}
 
 	handleClickTarget() {
-		this.isTarget = !this.isTarget;
+		this.model.isTarget = !this.model.isTarget;
 	}
 
 	handleFocusLevel(event: FocusEvent) {

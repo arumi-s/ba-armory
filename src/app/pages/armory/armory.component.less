@@ -1,19 +1,13 @@
-.grid {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: stretch;
-	margin: var(--spacing-small) 0;
+.students {
+	min-height: 313px;
 }
 
-.options {
-	display: flex;
-	flex-wrap: wrap;
-	align-content: center;
-	gap: var(--spacing-x-small);
-	margin: var(--spacing-small) 0;
-	padding: 0 var(--spacing-x-small);
+ba-student-card {
+	margin: var(--spacing-x-small);
+}
+
+.items-tabs {
+	min-height: 300px;
 }
 
 .mat-tab-group {
@@ -34,11 +28,11 @@
 
 		.squad_action-input_name {
 			width: 110px;
-			border: 1px solid #cfd4da;
+			border: 1px solid #eee;
 			text-align: center;
 			font: inherit;
 			padding: var(--spacing-xxx-small) var(--spacing-xx-small);
-			border-radius: 4px;
+			border-radius: var(--border-radius-medium);
 		}
 
 		.mat-tab-label-active {
@@ -78,53 +72,4 @@
 			padding: 0;
 		}
 	}
-}
-
-.options-spacer {
-	margin-right: auto;
-}
-.options-spacer + * {
-	margin-left: auto;
-}
-
-.student_sort-option,
-.item_sort-option {
-	line-height: 40px;
-	height: 40px;
-}
-
-.student_action-direction,
-.item_action-direction {
-	padding: 0;
-	min-width: 36px;
-
-	.mat-icon:first-child {
-		left: 6px;
-		position: relative;
-	}
-}
-
-.students {
-	min-height: 313px;
-}
-
-ba-student-card {
-	margin: var(--spacing-xx-small);
-}
-
-.items-tabs {
-	min-height: 300px;
-}
-
-ba-item-icon {
-	margin: var(--spacing-xx-small);
-
-	.hide-surplus &.surplus,
-	.hide-secret_stones &[category="secretstone"] {
-		display: none;
-	}
-}
-
-ba-campaign-card {
-	margin: var(--spacing-small) var(--spacing-x-small);
 }

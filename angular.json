@@ -27,7 +27,16 @@
 						"polyfills": "src/polyfills.ts",
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "less",
-						"assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
+						"assets": [
+							"src/favicon.ico",
+							"src/assets",
+							"src/manifest.webmanifest",
+							{
+								"glob": "google*.html",
+								"input": "src/",
+								"output": "/"
+							}
+						],
 						"styles": ["src/custom-theme.scss", "src/styles.less"],
 						"scripts": [],
 						"serviceWorker": true,

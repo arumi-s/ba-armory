@@ -10,7 +10,7 @@
 			<mat-menu #languageMenu="matMenu">
 				<button
 					*ngFor="let option of dataService.languageOptions"
-					class="student_sort-option"
+					class="language-option"
 					[value]="option.id"
 					mat-menu-item
 					(click)="handleClickLanguageOption(option.id)"
@@ -31,7 +31,7 @@
 			<mat-menu #regionMenu="matMenu">
 				<button
 					*ngFor="let option of dataService.regionOptions"
-					class="student_sort-option"
+					class="region-option"
 					[value]="option.id"
 					mat-menu-item
 					(click)="handleClickRegionOption(option.id)"

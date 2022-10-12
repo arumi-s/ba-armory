@@ -2,6 +2,7 @@ import { Expose, Exclude } from 'class-transformer';
 import { Subject } from 'rxjs';
 import { Change, Changes } from './change';
 
+@Exclude()
 export class DeckOptions {
 	@Expose({ name: 'showSurplusItems' })
 	private __showSurplusItems__: boolean = false;
@@ -19,19 +20,19 @@ export class DeckOptions {
 		}
 	}
 
-	@Expose({ name: 'showSecretStones' })
-	private __showSecretStones__: boolean = false;
+	@Expose({ name: 'showElephs' })
+	private __showElephs__: boolean = false;
 
-	get showSecretStones() {
-		return this.__showSecretStones__;
+	get showElephs() {
+		return this.__showElephs__;
 	}
 
-	set showSecretStones(showSecretStones: boolean) {
-		showSecretStones = !!showSecretStones;
-		if (this.__showSecretStones__ !== showSecretStones) {
-			const showSecretStonesOld = this.__showSecretStones__;
-			this.__showSecretStones__ = showSecretStones;
-			this.change$.next({ showSecretStones: new Change(showSecretStonesOld as false, this.__showSecretStones__ as false) });
+	set showElephs(showElephs: boolean) {
+		showElephs = !!showElephs;
+		if (this.__showElephs__ !== showElephs) {
+			const showElephsOld = this.__showElephs__;
+			this.__showElephs__ = showElephs;
+			this.change$.next({ showElephs: new Change(showElephsOld as false, this.__showElephs__ as false) });
 		}
 	}
 
@@ -51,6 +52,5 @@ export class DeckOptions {
 		}
 	}
 
-	@Exclude()
 	readonly change$ = new Subject<Changes<DeckOptions>>();
 }

@@ -67,10 +67,10 @@
 		<ng-template #selectedStudentSortOptionsTextLabel>{{ selectedStudentSortOption?.label }}</ng-template>
 	</button>
 
-	<mat-menu #studentSortMenu="matMenu" class="student_sort-options">
+	<mat-menu #studentSortMenu="matMenu" class="student_sort-options options-sort-options">
 		<button
 			*ngFor="let sortOptions of dataService.studentSortOptions"
-			class="student_sort-option"
+			class="student_sort-option options-sort-option"
 			[value]="sortOptions.id"
 			mat-menu-item
 			(click)="handleClickStudentSortOption(sortOptions.id)"
@@ -80,7 +80,7 @@
 		</button>
 	</mat-menu>
 
-	<button class="student_action-direction" mat-stroked-button (click)="handleClickStudentSortDirection()">
+	<button class="student_action-direction option-sort-direction" mat-stroked-button (click)="handleClickStudentSortDirection()">
 		<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedStudentSortDirection === -1 ? "north" : "south" }}</mat-icon>
 	</button>
 </div>
@@ -94,66 +94,21 @@
 		<!-- TODO: i18n -->
 		<ng-template mat-tab-label>{{ dataService.localization.ui["navbar_items"] }}</ng-template>
 		<ng-template matTabContent>
-			<div class="options">
-				<!-- TODO: i18n -->
-				<mat-checkbox class="item_action-show_surplus_items" [(ngModel)]="dataService.deck.options.showSurplusItems" color="accent">
-					{{ dataService.i18n.item_show_surplus_items }}
-				</mat-checkbox>
-				<!-- TODO: i18n -->
-				<mat-checkbox class="item_action-show_secret_stones" [(ngModel)]="dataService.deck.options.showSecretStones" color="accent">
-					{{ dataService.i18n.item_show_secret_stones }}
-				</mat-checkbox>
-
-				<div class="options-spacer"></div>
-
-				<!-- TODO: i18n -->
-				<button class="item_action-sort" mat-stroked-button [matMenuTriggerFor]="itemSortMenu">
-					<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
-					{{ selectedItemSortOption?.label }}
-				</button>
-
-				<mat-menu #itemSortMenu="matMenu" class="item_sort-options">
-					<button
-						*ngFor="let sortOptions of dataService.itemSortOptions"
-						class="item_sort-option"
-						[value]="sortOptions.id"
-						mat-menu-item
-						(click)="handleClickItemSortOption(sortOptions.id)"
-					>
-						{{ sortOptions?.label }}
-					</button>
-				</mat-menu>
-
-				<button class="item_action-direction" mat-stroked-button (click)="handleClickItemSortDirection()">
-					<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedItemSortDirection === -1 ? "north" : "south" }}</mat-icon>
-				</button>
-			</div>
-			<div
-				class="grid required"
-				[class.hide-surplus]="!dataService.deck.options.showSurplusItems"
-				[class.hide-secret_stones]="!dataService.deck.options.showSecretStones"
-			>
-				<ba-item-icon *ngFor="let item of dataService.stockables" [id]="item"></ba-item-icon>
-			</div>
+			<ba-tab-items></ba-tab-items>
 		</ng-template>
 	</mat-tab>
 	<mat-tab>
 		<!-- TODO: i18n -->
 		<ng-template mat-tab-label>{{ dataService.localization.ui["navbar_stages"] }}</ng-template>
 		<ng-template matTabContent>
-			<div class="options">
-				<!-- TODO: i18n -->
-				<mat-checkbox class="campaign_action-show_campaign_hard" [(ngModel)]="dataService.deck.options.showCampaignHard" color="accent">
-					{{ dataService.i18n.campaign_show_campaign_hard }}
-				</mat-checkbox>
-			</div>
-			<div class="list">
-				<ba-campaign-card
-					*ngFor="let stage of dataService.deck.selectedSquad.stages"
-					[id]="stage.id"
-					[amount]="stage.amount"
-				></ba-campaign-card>
-			</div>
+			<ba-tab-campaigns></ba-tab-campaigns>
+		</ng-template>
+	</mat-tab>
+	<mat-tab>
+		<!-- TODO: i18n -->
+		<ng-template mat-tab-label>{{ dataService.localization.ui["item_tab_eleph"] }}</ng-template>
+		<ng-template matTabContent>
+			<ba-tab-elephs></ba-tab-elephs>
 		</ng-template>
 	</mat-tab>
 </mat-tab-group>

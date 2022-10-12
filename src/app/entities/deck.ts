@@ -13,7 +13,9 @@ export const EQUIPMENT_OFFSET = 2000000;
 export const FURNITURE_OFFSET = 1000000;
 export const GOLD_ID = 1;
 export const ACTION_POINT_ID = 5;
+export const ELIGMA_ID = 23;
 
+@Exclude()
 export class Deck {
 	@Expose({ name: 'options' })
 	@Type(() => DeckOptions)
@@ -52,10 +54,8 @@ export class Deck {
 		}
 	}
 
-	@Exclude()
 	selectedSquad: DeckSquad = undefined;
 
-	@Exclude()
 	readonly change$ = new Subject<Changes<Deck>>();
 
 	hydrate(dataService: DataService) {

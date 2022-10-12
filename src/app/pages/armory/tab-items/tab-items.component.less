@@ -1,0 +1,12 @@
+:host {
+	display: block;
+}
+
+ba-item-icon {
+	margin: var(--spacing-xx-small);
+
+	.hide-surplus &.surplus,
+	.hide-elephs &[category="secretstone"] {
+		display: none;
+	}
+}

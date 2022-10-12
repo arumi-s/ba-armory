@@ -6,165 +6,65 @@ import { DeckSkill } from './deck-skill';
 import { Student } from './student';
 import { Change, Changes } from './change';
 import { SkillType } from './enum';
+import { Stat, StatTarget } from '../decorators/stat';
+import { ELIGMA_ID } from './deck';
 
+@Exclude()
 export class DeckStudent {
 	@Expose({ name: 'id' })
 	readonly id: number = 0;
 
 	@Expose({ name: 'level' })
+	@Stat({ name: 'level' })
 	private __level__: number = 1;
-
-	get level() {
-		return this.__level__;
-	}
-
-	set level(level: number) {
-		if (isNaN(level)) level = 0;
-		level = Math.max(Math.min(Math.floor(level), this.levelMax), this.levelMin);
-		if (this.__level__ !== level) {
-			const levelOld = this.__level__;
-			this.__level__ = level;
-			if (this.__levelTarget__ < this.__level__) {
-				const levelTargetOld = this.__levelTarget__;
-				this.__levelTarget__ = this.__level__;
-				this.change$.next({
-					level: new Change(levelOld, this.__level__),
-					levelTarget: new Change(levelTargetOld, this.__levelTarget__),
-				});
-			} else {
-				this.change$.next({ level: new Change(levelOld, this.__level__) });
-			}
-		}
-	}
-
+	public level: number;
 	@Expose({ name: 'levelTarget' })
+	@StatTarget({ name: 'level' })
 	private __levelTarget__: number = 0;
-
-	get levelTarget() {
-		return this.__levelTarget__;
-	}
-
-	set levelTarget(levelTarget: number) {
-		if (isNaN(levelTarget)) levelTarget = 0;
-		levelTarget = Math.max(Math.min(Math.floor(levelTarget), this.levelMax), this.level, this.levelMin);
-		if (this.__levelTarget__ !== levelTarget) {
-			const levelTargetOld = this.__levelTarget__;
-			this.__levelTarget__ = levelTarget;
-			this.change$.next({ levelTarget: new Change(levelTargetOld, this.__levelTarget__) });
-		}
-	}
-
-	@Exclude()
-	readonly levelMin: number = 0;
-
-	@Exclude()
+	levelTarget: number;
+	readonly levelMin: number = 1;
 	readonly levelMax: number = 0;
 
 	@Expose({ name: 'star' })
+	@Stat({ name: 'star' })
 	private __star__: number = 1;
-
-	get star() {
-		return this.__star__;
-	}
-
-	set star(star: number) {
-		if (isNaN(star)) star = 0;
-		star = Math.max(Math.min(Math.floor(star), this.starMax), this.starMin);
-		if (this.__star__ !== star) {
-			const starOld = this.__star__;
-			this.__star__ = star;
-			if (this.__starTarget__ < this.__star__) {
-				const starTargetOld = this.__starTarget__;
-				this.__starTarget__ = this.__star__;
-				this.change$.next({
-					star: new Change(starOld, this.__star__),
-					starTarget: new Change(starTargetOld, this.__starTarget__),
-				});
-			} else {
-				this.change$.next({ star: new Change(starOld, this.__star__) });
-			}
-		}
-	}
-
+	public star: number;
 	@Expose({ name: 'starTarget' })
+	@StatTarget({ name: 'star' })
 	private __starTarget__: number = 0;
-
-	get starTarget() {
-		return this.__starTarget__;
-	}
-
-	set starTarget(starTarget: number) {
-		if (isNaN(starTarget)) starTarget = 0;
-		starTarget = Math.max(Math.min(Math.floor(starTarget), this.starMax), this.star, this.starMin);
-		if (this.__starTarget__ !== starTarget) {
-			const starTargetOld = this.__starTarget__;
-			this.__starTarget__ = starTarget;
-			this.change$.next({ starTarget: new Change(starTargetOld, this.__starTarget__) });
-		}
-	}
-
-	@Exclude()
+	starTarget: number;
 	readonly starMin: number = 0;
-
-	@Exclude()
-	readonly starMax: number = 0;
+	readonly starMax: number = 5;
 
 	@Expose({ name: 'weapon' })
+	@Stat({ name: 'weapon' })
 	private __weapon__: number = 1;
-
-	get weapon() {
-		return this.__weapon__;
-	}
-
-	set weapon(weapon: number) {
-		if (isNaN(weapon)) weapon = 0;
-		weapon = Math.max(Math.min(Math.floor(weapon), this.weaponMax), this.weaponMin);
-		if (this.__weapon__ !== weapon) {
-			const weaponOld = this.__weapon__;
-			this.__weapon__ = weapon;
-			if (this.__weaponTarget__ < this.__weapon__) {
-				const weaponTargetOld = this.__weaponTarget__;
-				this.__weaponTarget__ = this.__weapon__;
-				this.change$.next({
-					weapon: new Change(weaponOld, this.__weapon__),
-					weaponTarget: new Change(weaponTargetOld, this.__weaponTarget__),
-				});
-			} else {
-				this.change$.next({ weapon: new Change(weaponOld, this.__weapon__) });
-			}
-		}
-	}
-
+	weapon: number;
 	@Expose({ name: 'weaponTarget' })
+	@StatTarget({ name: 'weapon' })
 	private __weaponTarget__: number = 0;
-
-	get weaponTarget() {
-		return this.__weaponTarget__;
-	}
-
-	set weaponTarget(weaponTarget: number) {
-		if (isNaN(weaponTarget)) weaponTarget = 0;
-		weaponTarget = Math.max(Math.min(Math.floor(weaponTarget), this.weaponMax), this.weapon, this.weaponMin);
-		if (this.__weaponTarget__ !== weaponTarget) {
-			const weaponTargetOld = this.__weaponTarget__;
-			this.__weaponTarget__ = weaponTarget;
-			this.change$.next({ weaponTarget: new Change(weaponTargetOld, this.__weaponTarget__) });
-		}
-	}
-
-	@Exclude()
+	weaponTarget: number;
 	readonly weaponMin: number = 0;
+	readonly weaponMax: number = 3;
 
-	@Exclude()
-	readonly weaponMax: number = 0;
+	@Expose({ name: 'elephCost' })
+	@Stat({ name: 'elephCost', target: false })
+	private __elephCost__: number = 1;
+	elephCost: number;
+	readonly elephCostMin: number = 1;
+	readonly elephCostMax: number = 5;
 
-	@Expose({ name: 'isTarget' })
+	@Expose({ name: 'elephRemain' })
+	@Stat({ name: 'elephRemain', target: false })
+	private __elephRemain__: number = 20;
+	elephRemain: number;
+	readonly elephRemainMin: number = 0;
+	readonly elephRemainMax: number = 20;
+
 	private __isTarget__: boolean = false;
-
 	get isTarget(): boolean {
 		return this.__isTarget__;
 	}
-
 	set isTarget(isTarget: boolean) {
 		isTarget = !!isTarget;
 		if (this.__isTarget__ !== isTarget) {
@@ -182,13 +82,9 @@ export class DeckStudent {
 	@Type(() => DeckEquipment)
 	readonly equipments: DeckEquipment[] = [];
 
-	@Exclude()
 	readonly requiredItems = new Map<number, number>();
 
-	@Exclude()
 	readonly change$ = new Subject<Changes<DeckStudent>>();
-
-	@Exclude()
 	readonly requiredUpdated$ = new Subject<void>();
 
 	static fromStudent(dataService: DataService, student: Student) {
@@ -199,6 +95,8 @@ export class DeckStudent {
 				level: 1,
 				star: student.starGrade,
 				weapon: 0,
+				elephCost: 1,
+				elephRemain: 20,
 				skills: student.skills.map((_, skillIndex) => ({
 					studentId: student.id,
 					index: skillIndex,
@@ -215,16 +113,14 @@ export class DeckStudent {
 	hydrate(dataService: DataService) {
 		const student = dataService.students.get(this.id);
 
-		(this as any).levelMin = 1;
 		(this as any).levelMax = dataService.studentLevelMax;
 		(this as any).starMin = student.starGrade;
-		(this as any).starMax = 5;
-		(this as any).weaponMin = 0;
-		(this as any).weaponMax = 3;
 
 		this.level = this.level;
 		this.star = this.star;
 		this.weapon = this.weapon;
+		this.elephCost = this.elephCost;
+		this.elephRemain = this.elephRemain ?? 20;
 
 		this.levelTarget = this.levelTarget ?? -1;
 		this.starTarget = this.starTarget ?? -1;
@@ -243,7 +139,9 @@ export class DeckStudent {
 						changes.hasOwnProperty('star') ||
 						changes.hasOwnProperty('starTarget') ||
 						changes.hasOwnProperty('weapon') ||
-						changes.hasOwnProperty('weaponTarget')
+						changes.hasOwnProperty('weaponTarget') ||
+						changes.hasOwnProperty('elephCost') ||
+						changes.hasOwnProperty('elephRemain')
 				),
 				debounceTime(100)
 			)
@@ -372,6 +270,30 @@ export class DeckStudent {
 					(this.requiredItems.get(student.id) ?? 0) +
 						Math.max(dataService.weaponSecretStoneAmount[toWeapon] - dataService.weaponSecretStoneAmount[fromWeapon], 0)
 				);
+			}
+		}
+
+		/* Eleph */
+		{
+			const stock = dataService.deck.stocks[student.id];
+			const required = this.requiredItems.get(student.id) ?? 0;
+			let amount = Math.max(0, required - stock);
+
+			if (amount > 0) {
+				const costMax = this.elephCostMax;
+				let cost = this.elephCost;
+				let remain = cost === costMax ? Infinity : this.elephRemain;
+				let total = 0;
+
+				while (cost <= costMax) {
+					const buy = Math.min(amount, remain);
+					amount -= buy;
+					total += buy * cost;
+					cost++;
+					remain = cost === costMax ? Infinity : 20;
+				}
+
+				this.requiredItems.set(ELIGMA_ID, total);
 			}
 		}
 	}

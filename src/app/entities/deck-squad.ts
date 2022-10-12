@@ -4,12 +4,12 @@ import type { DataService } from '../services/data.service';
 import { DeckStocks, DeckStocksClear, wrapStocks } from './deck-stocks';
 import { DeckStudent } from './deck-student';
 import { CampaignDifficulty, StuffCategory } from './enum';
-import { ItemSortOption, StudentSortOption } from './types';
+import { ElephSortOption, ItemSortOption, StudentSortOption } from './types';
 import { Change, Changes } from './change';
 import { ACTION_POINT_ID } from './deck';
 
+@Exclude()
 export class DeckSquad {
-	@Exclude()
 	id: number = 0;
 
 	@Expose({ name: 'name' })
@@ -19,22 +19,15 @@ export class DeckSquad {
 	@Type(() => Number)
 	students: number[] = [];
 
-	@Exclude()
 	readonly required: DeckStocks = wrapStocks({});
 
-	@Exclude()
 	readonly stages: {
 		id: number;
 		amount: number;
 	}[] = [];
 
-	@Exclude()
 	readonly change$ = new Subject<Changes<DeckSquad>>();
-
-	@Exclude()
 	readonly requiredStaled$ = new Subject<void>();
-
-	@Exclude()
 	readonly requiredUpdated$ = new Subject<void>();
 
 	hydrate(dataService: DataService) {
@@ -219,6 +212,29 @@ export class DeckSquad {
 		dataService.stockables.sort((aId, bId) => {
 			const a = dataService.getStuff(aId);
 			const b = dataService.getStuff(bId);
+
+			for (const key of option.key) {
+				const aValue = key(a);
+				const bValue = key(b);
+				const diff = compare(aValue, bValue);
+				if (diff !== 0) return direction * diff;
+			}
+			return 0;
+		});
+	}
+
+	sortElephs(dataService: DataService, students: number[], option: ElephSortOption, direction: -1 | 1) {
+		if (option == null) {
+			students.reverse();
+			return;
+		}
+		const compare = (a: string | number, b: string | number) => {
+			return typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : +a - +b;
+		};
+
+		students.sort((aId, bId) => {
+			const a = dataService.deck.students.get(aId);
+			const b = dataService.deck.students.get(bId);
 
 			for (const key of option.key) {
 				const aValue = key(a);

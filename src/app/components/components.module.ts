@@ -8,10 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatBadgeModule } from '@angular/material/badge';
 import { MatRippleModule } from '@angular/material/core';
-import { MatSliderModule } from '@angular/material/slider';
 
 import { EquipmentCardComponent } from './equipment-card/equipment-card.component';
 import { StudentCardComponent } from './student-card/student-card.component';
@@ -20,6 +17,7 @@ import { SkillCardComponent } from './skill-card/skill-card.component';
 import { ItemIconComponent } from './item-icon/item-icon.component';
 import { CampaignCardComponent } from './campaign-card/campaign-card.component';
 import { ItemUserComponent } from './item-user/item-user.component';
+import { ElephCardComponent } from './eleph-card/eleph-card.component';
 
 @NgModule({
 	declarations: [
@@ -29,6 +27,7 @@ import { ItemUserComponent } from './item-user/item-user.component';
 		SkillCardComponent,
 		ItemIconComponent,
 		CampaignCardComponent,
+		ElephCardComponent,
 		ItemUserComponent,
 	],
 	imports: [
@@ -40,10 +39,7 @@ import { ItemUserComponent } from './item-user/item-user.component';
 		MatCardModule,
 		MatIconModule,
 		MatButtonModule,
-		MatChipsModule,
-		MatBadgeModule,
 		MatRippleModule,
-		MatSliderModule,
 	],
 	exports: [
 		EquipmentCardComponent,
@@ -52,6 +48,7 @@ import { ItemUserComponent } from './item-user/item-user.component';
 		SkillCardComponent,
 		ItemIconComponent,
 		CampaignCardComponent,
+		ElephCardComponent,
 		ItemUserComponent,
 	],
 })

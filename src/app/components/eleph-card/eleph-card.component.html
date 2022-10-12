@@ -1,0 +1,45 @@
+<mat-card class="mat-elevation-z2">
+	<mat-card-header>
+		<ba-item-icon [id]="id"></ba-item-icon>
+	</mat-card-header>
+	<mat-card-content>
+		<div class="amount name">
+			<div class="amount-value">{{ name }}</div>
+		</div>
+		<div class="amount cost">
+			<!-- TODO: i18n -->
+			<div class="amount-label">{{ dataService.i18n.eleph_cost }}:</div>
+			<div class="amount-value">
+				<bar-rating [(rate)]="model.elephCost" [max]="5">
+					<ng-template ratingActive>
+						<mat-icon color="ratingActiveEleph">token</mat-icon>
+					</ng-template>
+					<ng-template ratingInactive>
+						<mat-icon color="ratingInactive">token</mat-icon>
+					</ng-template>
+				</bar-rating>
+			</div>
+		</div>
+		<div class="amount remain">
+			<!-- TODO: i18n -->
+			<div class="amount-label">{{ dataService.i18n.eleph_remain }}:</div>
+			<div class="amount-value">
+				<input
+					class="remain-input"
+					type="number"
+					[(ngModel)]="model.elephRemain"
+					[min]="model.elephRemainMin"
+					[max]="model.elephRemainMax"
+					[step]="1"
+					(focus)="handleFocusStock($event)"
+				/>
+			</div>
+		</div>
+
+		<div class="amount total">
+			<!-- TODO: i18n -->
+			<div class="amount-label">{{ dataService.i18n.eleph_total }}:</div>
+			<div class="amount-value">{{ model.requiredItems.get(eligmaId) ?? 0 }}</div>
+		</div>
+	</mat-card-content>
+</mat-card>

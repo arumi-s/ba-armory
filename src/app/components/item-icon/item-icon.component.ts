@@ -34,6 +34,7 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 	}
 
 	private changeSubscription: Subscription;
+	private squadChangeSubscription: Subscription;
 
 	constructor(
 		public readonly dataService: DataService,
@@ -49,7 +50,7 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 		this.tier = item.tier;
 		this.iconUrl = item.iconUrl;
 
-		this.dataService.deck.change$.subscribe((changes) => {
+		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {
 			if (changes.hasOwnProperty('selectedSquadId')) {
 				this.handleChangeSquad();
 			}
@@ -58,12 +59,13 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
+		this.squadChangeSubscription?.unsubscribe();
 		this.changeSubscription?.unsubscribe();
 	}
 
 	handleChangeSquad() {
-		this.changeSubscription?.unsubscribe();
-		this.changeSubscription = this.dataService.deck.selectedSquad.requiredUpdated$.subscribe(() => {
+		this.squadChangeSubscription?.unsubscribe();
+		this.squadChangeSubscription = this.dataService.deck.selectedSquad.requiredUpdated$.subscribe(() => {
 			this.changeDetectorRef.markForCheck();
 		});
 		this.changeDetectorRef.markForCheck();

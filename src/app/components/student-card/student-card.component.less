@@ -44,6 +44,7 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-end;
+			overflow: hidden;
 			margin: 0 var(--spacing-x-small);
 		}
 
@@ -106,19 +107,6 @@
 
 bar-rating {
 	--br-font-size: 18px;
-
-	.mat-icon {
-		display: block;
-		font-size: var(--br-font-size);
-		width: 1em;
-		height: 1em;
-	}
-
-	&[disabled] {
-		pointer-events: none;
-		user-select: none;
-		filter: grayscale(1) brightness(1.5);
-	}
 
 	&:not([disabled]) {
 		&[value="1"] {

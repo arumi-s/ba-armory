@@ -4,7 +4,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Subscription } from 'rxjs';
 import { SortableOptions } from 'sortablejs';
 import { SelectorComponent } from '../selector/selector.component';
-import { ItemSortOption, StudentSortOption } from '../../entities/types';
+import { StudentSortOption } from '../../entities/types';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -24,9 +24,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 	selectedStudentSortOption: StudentSortOption = undefined;
 	selectedStudentSortDirection: -1 | 1 = 1;
 
-	selectedItemSortOption: ItemSortOption = undefined;
-	selectedItemSortDirection: -1 | 1 = 1;
-
+	private changeSubscription: Subscription;
 	private requiredUpdatedSubscription: Subscription;
 
 	constructor(
@@ -36,7 +34,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
-		this.dataService.deck.change$.subscribe((changes) => {
+		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {
 			if (changes.hasOwnProperty('selectedSquadId')) {
 				this.handleChangeSquad();
 			}
@@ -46,18 +44,18 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.requiredUpdatedSubscription?.unsubscribe();
+		this.changeSubscription?.unsubscribe();
 	}
 
 	handleChangeSquad() {
 		this.isTarget = false;
 		this.selectedStudentSortOption = undefined;
-		this.selectedItemSortOption = undefined;
 		this.requiredUpdatedSubscription?.unsubscribe();
 		this.requiredUpdatedSubscription = this.dataService.deck.selectedSquad.requiredUpdated$.subscribe(() => {
 			this.changeDetectorRef.markForCheck();
 		});
 		this.dataService.deck.selectedSquad.updateRequiredItems(this.dataService);
-		this.handleClickItemSortOption('basic');
+		this.changeDetectorRef.markForCheck();
 	}
 
 	handleClickSelector() {
@@ -82,18 +80,6 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 		this.selectedStudentSortDirection = this.selectedStudentSortDirection === -1 ? 1 : -1;
 
 		this.dataService.deck.selectedSquad.sortStudents(this.dataService, this.selectedStudentSortOption, this.selectedStudentSortDirection);
-	}
-
-	handleClickItemSortOption(sortOptionId: string) {
-		this.selectedItemSortOption = this.dataService.itemSortOptions.find((so) => so.id === sortOptionId);
-
-		this.dataService.deck.selectedSquad.sortItems(this.dataService, this.selectedItemSortOption, this.selectedItemSortDirection);
-	}
-
-	handleClickItemSortDirection() {
-		this.selectedItemSortDirection = this.selectedItemSortDirection === -1 ? 1 : -1;
-
-		this.dataService.deck.selectedSquad.sortItems(this.dataService, this.selectedItemSortOption, this.selectedItemSortDirection);
 	}
 
 	handleClickTarget() {

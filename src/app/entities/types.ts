@@ -9,6 +9,7 @@ export interface SortOption<T> {
 
 export type StudentSortOption = SortOption<DeckStudent>;
 export type ItemSortOption = SortOption<Equipment>;
+export type ElephSortOption = SortOption<DeckStudent>;
 
 export interface LanguageOption {
 	id: string;

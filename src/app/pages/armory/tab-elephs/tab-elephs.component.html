@@ -1,0 +1,28 @@
+<div class="options">
+	<div class="options-spacer"></div>
+
+	<!-- TODO: i18n -->
+	<button class="eleph_action-sort" mat-stroked-button [matMenuTriggerFor]="elephSortMenu">
+		<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
+		{{ selectedElephSortOption?.label }}
+	</button>
+
+	<mat-menu #elephSortMenu="matMenu" class="eleph_sort-options options-sort-options">
+		<button
+			*ngFor="let sortOptions of dataService.elephSortOptions"
+			class="eleph_sort-option options-sort-option"
+			[value]="sortOptions.id"
+			mat-menu-item
+			(click)="handleClickElephSortOption(sortOptions.id)"
+		>
+			{{ sortOptions?.label }}
+		</button>
+	</mat-menu>
+
+	<button class="eleph_action-direction option-sort-direction" mat-stroked-button (click)="handleClickElephSortDirection()">
+		<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedElephSortDirection === -1 ? "north" : "south" }}</mat-icon>
+	</button>
+</div>
+<div class="grid">
+	<ba-eleph-card *ngFor="let id of ids" [id]="id"></ba-eleph-card>
+</div>

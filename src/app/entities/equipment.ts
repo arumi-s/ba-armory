@@ -37,9 +37,21 @@ export class Equipment {
 	tags?: string[];
 
 	get iconUrl() {
-		if (this.category === StuffCategory.Material || this.category === StuffCategory.SecretStone) {
+		if (this.isItem()) {
 			return `${CDN_BASE}/images/items/${this.icon}.png`;
 		}
 		return `${CDN_BASE}/images/equipment/${this.icon}.png`;
+	}
+
+	isItem() {
+		return this.category === StuffCategory.Material || this.category === StuffCategory.SecretStone;
+	}
+
+	isEquipment() {
+		return !this.isItem();
+	}
+
+	isEleph() {
+		return this.category === StuffCategory.SecretStone;
 	}
 }

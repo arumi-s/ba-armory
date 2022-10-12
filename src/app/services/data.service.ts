@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { plainToClassFromExist, plainToInstance } from 'class-transformer';
 import { Common } from '../entities/common';
-import { Deck, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities/deck';
+import { Deck, ELIGMA_ID, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities/deck';
 import { ArmorType, BulletType, EquipmentCategory, ItemCategory, StuffCategory } from '../entities/enum';
 import { Equipment } from '../entities/equipment';
 import { I18N } from '../entities/i18n';
 import { Localization } from '../entities/localization';
 import { Stage } from '../entities/stage';
 import { Student } from '../entities/student';
-import { ItemSortOption, LanguageOption, RegionOption, StudentSortOption } from '../entities/types';
+import { ElephSortOption, ItemSortOption, LanguageOption, RegionOption, StudentSortOption } from '../entities/types';
 
 @Injectable({
 	providedIn: 'root',
@@ -56,6 +56,7 @@ export class DataService {
 
 	studentSortOptions: StudentSortOption[] = [];
 	itemSortOptions: ItemSortOption[] = [];
+	elephSortOptions: ElephSortOption[] = [];
 
 	constructor() {}
 
@@ -247,6 +248,33 @@ export class DataService {
 				// i18n
 				label: this.i18n.item_sort_stock,
 				key: [(equipment) => -this.deck.stocks[equipment.id], (equipment) => -equipment.id],
+			},
+		];
+
+		this.elephSortOptions = [
+			{
+				id: 'basic',
+				// i18n
+				label: this.i18n.eleph_sort_basic,
+				key: [(student) => -student.id],
+			},
+			{
+				id: 'total',
+				// i18n
+				label: this.i18n.eleph_sort_total,
+				key: [(student) => -(student.requiredItems.get(ELIGMA_ID) ?? 0), (student) => -student.id],
+			},
+			{
+				id: 'deficit',
+				// i18n
+				label: this.i18n.eleph_sort_deficit,
+				key: [(student) => this.deck.stocks[student.id] - this.deck.selectedSquad.required[student.id], (student) => -student.id],
+			},
+			{
+				id: 'required',
+				// i18n
+				label: this.i18n.eleph_sort_required,
+				key: [(student) => -this.deck.selectedSquad.required[student.id], (student) => -student.id],
 			},
 		];
 	}

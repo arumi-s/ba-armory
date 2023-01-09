@@ -4,7 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
+
 import { environment } from '../environments/environment';
+import { ExportComponent } from './pages/export/export.component';
 import { SettingComponent } from './pages/setting/setting.component';
 import { DataService } from './services/data.service';
 import { PreloadService } from './services/preload.service';
@@ -17,6 +19,9 @@ import { PreloadService } from './services/preload.service';
 export class AppComponent implements OnInit {
 	title = '';
 	desc = '';
+	action_export = '';
+	action_setting = '';
+	action_save = '';
 	footer_1_start = '';
 	footer_1_end = '';
 	footer_2_start = '';
@@ -35,8 +40,12 @@ export class AppComponent implements OnInit {
 		iconRegistry: MatIconRegistry,
 		sanitizer: DomSanitizer
 	) {
+		// i18n
 		this.title = this.dataService.i18n.app_title;
 		this.desc = this.dataService.i18n.app_desc;
+		this.action_export = this.dataService.i18n.action_export;
+		this.action_setting = this.dataService.i18n.action_setting;
+		this.action_save = this.dataService.i18n.action_save;
 		this.footer_1_start = this.dataService.i18n.footer_1_start;
 		this.footer_1_end = this.dataService.i18n.footer_1_end;
 		this.footer_2_start = this.dataService.i18n.footer_2_start;
@@ -69,6 +78,16 @@ export class AppComponent implements OnInit {
 				event.preventDefault();
 			});
 		}
+	}
+
+	handleClickExport() {
+		const dialogRef = this.dialog.open(ExportComponent, {
+			height: 'auto',
+			autoFocus: false,
+			restoreFocus: false,
+		});
+
+		dialogRef.afterClosed();
 	}
 
 	handleClickSetting() {

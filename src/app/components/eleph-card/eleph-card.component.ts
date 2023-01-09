@@ -1,5 +1,7 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+
 import { ELIGMA_ID } from '../../entities/deck';
 import { DeckStudent } from '../../entities/deck-student';
 import { DataService } from '../../services/data.service';

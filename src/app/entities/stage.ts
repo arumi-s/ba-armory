@@ -1,8 +1,9 @@
 import { Exclude, Expose, Type } from 'class-transformer';
-import { Terrain, SchoolDungeonType, WeekDungeonType, EntryCost, Reward, CampaignDifficulty } from './enum';
-import type { DataService } from '../services/data.service';
-import { CDN_BASE } from './constant';
 
+import { CDN_BASE } from './constant';
+import { CampaignDifficulty, EntryCost, Reward, SchoolDungeonType, Terrain, WeekDungeonType } from './enum';
+
+import type { DataService } from '../services/data.service';
 export class Stage {
 	@Expose({ name: 'Campaign' })
 	@Type(() => Campaign)

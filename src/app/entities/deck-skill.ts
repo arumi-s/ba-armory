@@ -1,10 +1,11 @@
-import { Expose, Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { Subject } from 'rxjs';
-import type { DataService } from '../services/data.service';
-import { SkillType } from './enum';
-import { Change, Changes } from './change';
-import { Stat, StatTarget } from '../decorators/stat';
 
+import { Stat, StatTarget } from '../decorators/stat';
+import { Change, Changes } from './change';
+import { SkillType } from './enum';
+
+import type { DataService } from '../services/data.service';
 @Exclude()
 export class DeckSkill {
 	@Expose({ name: 'studentId' })
@@ -29,7 +30,7 @@ export class DeckSkill {
 	hydrate(dataService: DataService) {
 		const skill = dataService.students.get(this.studentId).skills[this.index];
 
-		(this as any).levelMax = skill?.skillType === SkillType.Ex ? 5 : 10;
+		(this as { levelMax: number }).levelMax = skill?.skillType === SkillType.Ex ? 5 : 10;
 
 		this.level = this.level;
 

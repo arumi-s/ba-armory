@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { ArmoryComponent } from './pages/armory/armory.component';
 
 const routes: Routes = [

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabCampaignsComponent } from './tab-campaigns.component';
+import { ExportComponent } from './export.component';
 
-describe('TabCampaignsComponent', () => {
-	let component: TabCampaignsComponent;
-	let fixture: ComponentFixture<TabCampaignsComponent>;
+describe('ExportComponent', () => {
+	let component: ExportComponent;
+	let fixture: ComponentFixture<ExportComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [TabCampaignsComponent],
+			declarations: [ExportComponent],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(TabCampaignsComponent);
+		fixture = TestBed.createComponent(ExportComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
 import { plainToClassFromExist, plainToInstance } from 'class-transformer';
+
+import { Injectable } from '@angular/core';
+
 import { Common } from '../entities/common';
 import { Deck, ELIGMA_ID, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities/deck';
 import { ArmorType, BulletType, EquipmentCategory, ItemCategory, StuffCategory } from '../entities/enum';
@@ -73,6 +75,7 @@ export class DataService {
 		this.students = new Map(
 			plainToInstance(Student, json, {
 				excludeExtraneousValues: true,
+				exposeDefaultValues: true,
 			}).map((student) => [student.id, student])
 		);
 	}
@@ -81,6 +84,7 @@ export class DataService {
 		this.equipments = new Map(
 			plainToInstance(Equipment, json, {
 				excludeExtraneousValues: true,
+				exposeDefaultValues: true,
 			}).map((equipment) => {
 				equipment.id = equipment.id + EQUIPMENT_OFFSET;
 				return [equipment.id, equipment];
@@ -119,6 +123,7 @@ export class DataService {
 		this.items = new Map(
 			plainToInstance(Equipment, json, {
 				excludeExtraneousValues: true,
+				exposeDefaultValues: true,
 			}).map((item) => [item.id, item])
 		);
 
@@ -139,6 +144,7 @@ export class DataService {
 	setStage(json: any[]) {
 		plainToClassFromExist(this.stages, json, {
 			excludeExtraneousValues: true,
+			exposeDefaultValues: true,
 		});
 		this.stages.hydrate(this);
 	}
@@ -282,6 +288,7 @@ export class DataService {
 	setDeck(json: any) {
 		plainToClassFromExist(this.deck, json, {
 			excludeExtraneousValues: true,
+			exposeDefaultValues: true,
 		});
 		this.deck.hydrate(this);
 	}

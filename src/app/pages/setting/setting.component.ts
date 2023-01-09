@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { LanguageOption, RegionOption } from '../../entities/types';
 import { DataService } from '../../services/data.service';
 import { PreloadService } from '../../services/preload.service';
@@ -21,7 +22,7 @@ export class SettingComponent implements OnInit {
 
 	ngOnInit(): void {
 		// i18n
-		this.title = this.dataService.localization.ui['options'];
+		this.title = this.dataService.i18n.action_setting;
 		// i18n
 		this.languageLabel = this.dataService.localization.ui['navbar_settings_language'];
 		// i18n

@@ -1,17 +1,18 @@
-import { Type, Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
+
 import { CDN_BASE } from './constant';
 import {
-	FavorStatType,
 	AdaptationType,
-	StatLevelUpType,
-	SquadType,
-	TacticRole,
-	Position,
-	BulletType,
 	ArmorType,
-	WeaponType,
+	BulletType,
 	EquipmentCategory,
+	FavorStatType,
 	IsReleased,
+	Position,
+	SquadType,
+	StatLevelUpType,
+	TacticRole,
+	WeaponType,
 } from './enum';
 import { Skill } from './skill';
 

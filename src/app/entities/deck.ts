@@ -1,12 +1,13 @@
-import { Type, Expose, Exclude, Transform } from 'class-transformer';
+import { Exclude, Expose, Transform, Type } from 'class-transformer';
 import { Subject } from 'rxjs';
-import type { DataService } from '../services/data.service';
+
+import { Change, Changes } from './change';
 import { DeckOptions } from './deck-options';
+import { DeckSquad } from './deck-squad';
 import { DeckStocks, transformStocks, wrapStocks } from './deck-stocks';
 import { DeckStudent } from './deck-student';
-import { Change, Changes } from './change';
-import { DeckSquad } from './deck-squad';
 
+import type { DataService } from '../services/data.service';
 export const GACHA_OFFSET = 4000000;
 export const CURRENCY_OFFSET = 3000000;
 export const EQUIPMENT_OFFSET = 2000000;

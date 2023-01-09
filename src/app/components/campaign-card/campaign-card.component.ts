@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+
 import { ACTION_POINT_ID, CURRENCY_OFFSET } from '../../entities/deck';
 import { CampaignDifficulty, Reward } from '../../entities/enum';
 import { DataService } from '../../services/data.service';

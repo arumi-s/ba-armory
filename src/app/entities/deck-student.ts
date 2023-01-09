@@ -1,14 +1,15 @@
-import { Type, Expose, plainToInstance, Exclude } from 'class-transformer';
-import { debounceTime, filter, of, merge, Subject } from 'rxjs';
-import type { DataService } from '../services/data.service';
+import { Exclude, Expose, plainToInstance, Type } from 'class-transformer';
+import { debounceTime, filter, merge, of, Subject } from 'rxjs';
+
+import { Stat, StatTarget } from '../decorators/stat';
+import { Change, Changes } from './change';
+import { ELIGMA_ID } from './deck';
 import { DeckEquipment } from './deck-equipment';
 import { DeckSkill } from './deck-skill';
-import { Student } from './student';
-import { Change, Changes } from './change';
 import { SkillType } from './enum';
-import { Stat, StatTarget } from '../decorators/stat';
-import { ELIGMA_ID } from './deck';
+import { Student } from './student';
 
+import type { DataService } from '../services/data.service';
 @Exclude()
 export class DeckStudent {
 	@Expose({ name: 'id' })
@@ -104,7 +105,7 @@ export class DeckStudent {
 				})),
 				equipments: student.equipment.map((_, equipmentIndex) => ({ studentId: student.id, index: equipmentIndex, tier: 0 })),
 			},
-			{ excludeExtraneousValues: true }
+			{ excludeExtraneousValues: true, exposeDefaultValues: true }
 		);
 		deckStudent.hydrate(dataService);
 		return deckStudent;
@@ -113,8 +114,8 @@ export class DeckStudent {
 	hydrate(dataService: DataService) {
 		const student = dataService.students.get(this.id);
 
-		(this as any).levelMax = dataService.studentLevelMax;
-		(this as any).starMin = student.starGrade;
+		(this as { levelMax: number }).levelMax = dataService.studentLevelMax;
+		(this as { starMin: number }).starMin = student.starGrade;
 
 		this.level = this.level;
 		this.star = this.star;
@@ -153,7 +154,7 @@ export class DeckStudent {
 
 	private hydrateSkills(dataService: DataService, student: Student) {
 		if (this.skills == null || (Array.isArray(this.skills) && this.skills.length === 0)) {
-			(this as any).skills = plainToInstance(
+			(this as { skills: DeckSkill[] }).skills = plainToInstance(
 				DeckSkill,
 				student.skills.map(
 					(_, skillIndex): Partial<DeckSkill> => ({
@@ -162,7 +163,7 @@ export class DeckStudent {
 						level: 1,
 					})
 				),
-				{ excludeExtraneousValues: true }
+				{ excludeExtraneousValues: true, exposeDefaultValues: true }
 			);
 			this.change$.next({ skills: this.skills.map((skill) => new Change(undefined, skill)) });
 		}
@@ -177,10 +178,10 @@ export class DeckStudent {
 
 	private hydrateEquipments(dataService: DataService, student: Student) {
 		if (this.equipments == null || (Array.isArray(this.equipments) && this.equipments.length === 0)) {
-			(this as any).equipments = plainToInstance(
+			(this as { equipments: DeckEquipment[] }).equipments = plainToInstance(
 				DeckEquipment,
 				student.equipment.map((_, equipmentIndex): Partial<DeckEquipment> => ({ studentId: student.id, index: equipmentIndex, tier: 0 })),
-				{ excludeExtraneousValues: true }
+				{ excludeExtraneousValues: true, exposeDefaultValues: true }
 			);
 			this.change$.next({ equipments: this.equipments.map((equipment) => new Change(undefined, equipment)) });
 		}

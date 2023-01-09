@@ -1,4 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
+
 import { HOVERINPUT_CONFIG, Options } from './global';
 import { HoverinputDirective } from './hoverinput.directive';
 

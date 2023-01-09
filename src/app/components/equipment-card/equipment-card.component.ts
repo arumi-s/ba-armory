@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+
 import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -9,7 +11,7 @@ import {
 	OnInit,
 	SimpleChanges,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+
 import { DeckEquipment } from '../../entities/deck-equipment';
 import { EquipmentCategory } from '../../entities/enum';
 import { DataService } from '../../services/data.service';

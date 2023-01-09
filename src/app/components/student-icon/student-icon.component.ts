@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+
 import { Student } from '../../entities/student';
 import { DataService } from '../../services/data.service';
 

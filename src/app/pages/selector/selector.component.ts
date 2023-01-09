@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+
 import { DataService } from '../../services/data.service';
 
 @Component({

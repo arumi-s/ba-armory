@@ -1,9 +1,10 @@
-import { Expose, Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { Subject } from 'rxjs';
+
 import { Stat, StatTarget } from '../decorators/stat';
-import type { DataService } from '../services/data.service';
 import { Changes } from './change';
 
+import type { DataService } from '../services/data.service';
 @Exclude()
 export class DeckEquipment {
 	@Expose({ name: 'studentId' })
@@ -28,7 +29,7 @@ export class DeckEquipment {
 	hydrate(dataService: DataService) {
 		const equipmentCategory = dataService.students.get(this.studentId).equipment[this.index];
 
-		(this as any).tierMax = dataService.equipmentCategoryMaxTier.get(equipmentCategory);
+		(this as { tierMax: number }).tierMax = dataService.equipmentCategoryMaxTier.get(equipmentCategory);
 
 		this.tier = this.tier;
 

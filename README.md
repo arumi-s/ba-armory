@@ -1,6 +1,6 @@
 # Blue Archive Armory
 
-[Website](https://ba-armory.vercel.app)
+[Website](https://ba.toho.moe)
 
 ## About this tool
 

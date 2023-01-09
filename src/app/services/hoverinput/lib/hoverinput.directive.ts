@@ -1,4 +1,5 @@
-import { Directive, Input, Output, EventEmitter, HostBinding, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output } from '@angular/core';
+
 import { HoverinputService } from './hoverinput.service';
 
 @Directive({

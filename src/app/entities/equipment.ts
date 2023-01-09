@@ -1,6 +1,7 @@
-import { Type, Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
+
 import { CDN_BASE } from './constant';
-import { ItemCategory, EquipmentRarity, EquipmentStatType, EquipmentStatValue, EquipmentRecipe, IsReleased, StuffCategory } from './enum';
+import { EquipmentRarity, EquipmentRecipe, EquipmentStatType, EquipmentStatValue, IsReleased, ItemCategory, StuffCategory } from './enum';
 
 export class Equipment {
 	@Expose({ name: 'Id' })

@@ -4,10 +4,13 @@
 		{{ title }}
 	</span>
 	<span class="toolbar-spacer"></span>
-	<button class="action-options" mat-icon-button (click)="handleClickSetting()">
+	<button class="action-export" mat-icon-button [matTooltip]="action_export" (click)="handleClickExport()">
+		<mat-icon>import_export</mat-icon>
+	</button>
+	<button class="action-options" mat-icon-button [matTooltip]="action_setting" (click)="handleClickSetting()">
 		<mat-icon>settings</mat-icon>
 	</button>
-	<button class="action-save" mat-icon-button (click)="handleClickSave()">
+	<button class="action-save" mat-icon-button [matTooltip]="action_save" (click)="handleClickSave()">
 		<mat-icon>save</mat-icon>
 	</button>
 </mat-toolbar>

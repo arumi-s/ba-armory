@@ -1,0 +1,24 @@
+<h2 mat-dialog-title><mat-icon>import_export</mat-icon> {{ title }}</h2>
+<div class="export" mat-dialog-content>
+	<input
+		class="export-input_data"
+		type="text"
+		[(ngModel)]="data"
+		[placeholder]="dataService.i18n.action_import"
+		(click)="handleClickInputData($event)"
+	/>
+	<div *ngIf="error" class="export-input_error">{{ dataService.i18n.import_error }}</div>
+	<mat-divider></mat-divider>
+
+	<div class="options">
+		<button mat-stroked-button color="primary" (click)="handleClickExport()">
+			<!-- TODO: i18n -->
+			<mat-icon>file_upload</mat-icon> {{ dataService.i18n.action_export }}
+		</button>
+		<div class="options-spacer"></div>
+		<button mat-stroked-button color="primary" (click)="handleClickImport()">
+			<!-- TODO: i18n -->
+			<mat-icon>file_download</mat-icon> {{ dataService.i18n.action_import }}
+		</button>
+	</div>
+</div>

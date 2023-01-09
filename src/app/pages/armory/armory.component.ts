@@ -1,11 +1,13 @@
+import { Subscription } from 'rxjs';
+import { SortableOptions } from 'sortablejs';
+
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Subscription } from 'rxjs';
-import { SortableOptions } from 'sortablejs';
-import { SelectorComponent } from '../selector/selector.component';
+
 import { StudentSortOption } from '../../entities/types';
 import { DataService } from '../../services/data.service';
+import { SelectorComponent } from '../selector/selector.component';
 
 @Component({
 	selector: 'ba-armory',

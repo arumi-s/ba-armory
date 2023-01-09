@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
 import { instanceToPlain } from 'class-transformer';
-import { compressToUTF16, decompressFromUTF16 } from 'lz-string';
+import { compressToBase64, compressToUTF16, decompressFromBase64, decompressFromUTF16 } from 'lz-string';
+
+import { Injectable } from '@angular/core';
+
 import { CDN_BASE } from '../entities/constant';
 import { DataService } from './data.service';
 
@@ -134,5 +136,20 @@ export class PreloadService {
 		} catch (e: unknown) {}
 
 		return this.dataService.setDeck({});
+	}
+
+	async exportDeck() {
+		const json = JSON.stringify(instanceToPlain(this.dataService.deck));
+		return compressToBase64(json);
+	}
+
+	async importDeck(compressed: string) {
+		compressed = compressed.trim();
+		if (compressed === '') throw new TypeError();
+
+		const json = JSON.parse(decompressFromBase64(compressed));
+		if (json == null) throw new TypeError();
+
+		return this.dataService.setDeck(json);
 	}
 }

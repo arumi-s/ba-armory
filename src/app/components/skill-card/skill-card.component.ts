@@ -1,5 +1,7 @@
-import { Component, HostBinding, HostListener, Input, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+
 import { DeckSkill } from '../../entities/deck-skill';
 import { SkillType } from '../../entities/enum';
 import { DataService } from '../../services/data.service';

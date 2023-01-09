@@ -1,0 +1,9 @@
+{
+	"generalConfiguration.sortOnBeforeSave": true,
+	"importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimitExceptIfOnlyOne",
+	"importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 140,
+	"importSorter.importStringConfiguration.tabType": "tab",
+	"importStringConfiguration.quoteMark": "single",
+	"importSorter.importStringConfiguration.trailingComma": "single",
+	"importSorter.generalConfiguration.exclude": [".*polyfill\\.ts"]
+}

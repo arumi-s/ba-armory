@@ -1,6 +1,8 @@
+import { Subscription } from 'rxjs';
+
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+
 import { DataService } from '../../services/data.service';
 import { ItemUserComponent } from '../item-user/item-user.component';
 

@@ -7,6 +7,9 @@ export interface I18N {
 	footer_2_end: string;
 	footer_3_start: string;
 	footer_3_end: string;
+	action_export: string;
+	action_import: string;
+	action_setting: string;
 	action_save: string;
 	action_saved: string;
 	campaign_amount: string;
@@ -27,6 +30,7 @@ export interface I18N {
 	campaign_show_campaign_hard: string;
 	setting_save: string;
 	setting_save_notice: string;
+	import_error: string;
 	item_sort_basic: string;
 	item_sort_deficit: string;
 	item_sort_required: string;

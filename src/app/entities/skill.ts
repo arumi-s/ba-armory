@@ -1,6 +1,7 @@
 import { Expose, Type } from 'class-transformer';
+
 import { CDN_BASE } from './constant';
-import { SkillType, FavorStatType } from './enum';
+import { FavorStatType, SkillType } from './enum';
 
 export class Skill {
 	@Expose({ name: 'SkillType' })

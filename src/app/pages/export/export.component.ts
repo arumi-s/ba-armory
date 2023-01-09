@@ -28,13 +28,14 @@ export class ExportComponent implements OnInit {
 
 	async handleClickExport() {
 		this.error = false;
-		this.data = await this.preloadService.exportDeck();
+		this.data = await this.preloadService.exportData();
 	}
 
 	async handleClickImport() {
 		this.error = false;
 		try {
-			await this.preloadService.importDeck(this.data);
+			await this.preloadService.importData(this.data);
+			window.location.reload();
 		} catch (e: unknown) {
 			this.error = true;
 		}

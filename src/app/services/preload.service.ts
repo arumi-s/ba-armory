@@ -121,7 +121,8 @@ export class PreloadService {
 	}
 
 	async saveDeck() {
-		const json = JSON.stringify(instanceToPlain(this.dataService.deck));
+		const plain = instanceToPlain(this.dataService.deck);
+		const json = JSON.stringify(plain);
 		const compressed = compressToUTF16(json);
 		localStorage.setItem(STORAGE_DECK_KEY, compressed);
 	}
@@ -131,25 +132,28 @@ export class PreloadService {
 			const compressed = localStorage.getItem(STORAGE_DECK_KEY) ?? '';
 			if (compressed === '') throw new Error();
 
-			const json = JSON.parse(decompressFromUTF16(compressed) ?? '{}');
-			return this.dataService.setDeck(json);
+			const json = decompressFromUTF16(compressed) ?? '{}';
+			const plain = JSON.parse(json);
+			return this.dataService.setDeck(plain);
 		} catch (e: unknown) {}
 
 		return this.dataService.setDeck({});
 	}
 
-	async exportDeck() {
+	async exportData() {
 		const json = JSON.stringify(instanceToPlain(this.dataService.deck));
 		return compressToBase64(json);
 	}
 
-	async importDeck(compressed: string) {
-		compressed = compressed.trim();
-		if (compressed === '') throw new TypeError();
+	async importData(input: string) {
+		input = input.trim();
+		if (input === '') throw new TypeError();
 
-		const json = JSON.parse(decompressFromBase64(compressed));
-		if (json == null) throw new TypeError();
+		const json = decompressFromBase64(input);
+		const plain = JSON.parse(json);
+		if (plain == null || typeof plain !== 'object') throw new TypeError();
 
-		return this.dataService.setDeck(json);
+		const compressed = compressToUTF16(json);
+		localStorage.setItem(STORAGE_DECK_KEY, compressed);
 	}
 }

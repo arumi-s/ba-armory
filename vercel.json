@@ -5,7 +5,7 @@
 	},
 	"headers": [
 		{
-			"source": "/(.*)\\.(html|json)",
+			"source": "/(.*)\\.(html|json|xml)",
 			"headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
 		},
 		{

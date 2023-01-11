@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml"
+	xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+											http://www.w3.org/1999/xhtml http://www.w3.org/2002/08/xhtml/xhtml1-strict.xsd">
+	<url>
+		<loc>https://ba.toho.moe</loc>
+		<xhtml:link rel="alternate" hreflang="en" href="https://ba.toho.moe/en" />
+		<xhtml:link rel="alternate" hreflang="ja" href="https://ba.toho.moe/jp" />
+		<xhtml:link rel="alternate" hreflang="zh-Hans" href="https://ba.toho.moe/cn" />
+		<xhtml:link rel="alternate" hreflang="zh-Hant" href="https://ba.toho.moe/tw" />
+	</url>
+	<url>
+		<loc>https://ba.toho.moe/en</loc>
+		<xhtml:link rel="alternate" hreflang="en" href="https://ba.toho.moe/en" />
+		<xhtml:link rel="alternate" hreflang="ja" href="https://ba.toho.moe/jp" />
+		<xhtml:link rel="alternate" hreflang="zh-Hans" href="https://ba.toho.moe/cn" />
+		<xhtml:link rel="alternate" hreflang="zh-Hant" href="https://ba.toho.moe/tw" />
+	</url>
+	<url>
+		<loc>https://ba.toho.moe/jp</loc>
+		<xhtml:link rel="alternate" hreflang="en" href="https://ba.toho.moe/en" />
+		<xhtml:link rel="alternate" hreflang="ja" href="https://ba.toho.moe/jp" />
+		<xhtml:link rel="alternate" hreflang="zh-Hans" href="https://ba.toho.moe/cn" />
+		<xhtml:link rel="alternate" hreflang="zh-Hant" href="https://ba.toho.moe/tw" />
+	</url>
+	<url>
+		<loc>https://ba.toho.moe/cn</loc>
+		<xhtml:link rel="alternate" hreflang="en" href="https://ba.toho.moe/en" />
+		<xhtml:link rel="alternate" hreflang="ja" href="https://ba.toho.moe/jp" />
+		<xhtml:link rel="alternate" hreflang="zh-Hans" href="https://ba.toho.moe/cn" />
+		<xhtml:link rel="alternate" hreflang="zh-Hant" href="https://ba.toho.moe/tw" />
+	</url>
+	<url>
+		<loc>https://ba.toho.moe/tw</loc>
+		<xhtml:link rel="alternate" hreflang="en" href="https://ba.toho.moe/en" />
+		<xhtml:link rel="alternate" hreflang="ja" href="https://ba.toho.moe/jp" />
+		<xhtml:link rel="alternate" hreflang="zh-Hans" href="https://ba.toho.moe/cn" />
+		<xhtml:link rel="alternate" hreflang="zh-Hant" href="https://ba.toho.moe/tw" />
+	</url>
+</urlset>

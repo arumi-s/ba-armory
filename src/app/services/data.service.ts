@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 import { Common } from '../entities/common';
 import { Deck, ELIGMA_ID, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities/deck';
-import { ArmorType, BulletType, EquipmentCategory, ItemCategory, StuffCategory } from '../entities/enum';
+import { ArmorType, BulletType, EquipmentCategory, ItemCategory, SkillType, StuffCategory } from '../entities/enum';
 import { Equipment } from '../entities/equipment';
 import { I18N } from '../entities/i18n';
 import { Localization } from '../entities/localization';
@@ -76,7 +76,16 @@ export class DataService {
 			plainToInstance(Student, json, {
 				excludeExtraneousValues: true,
 				exposeDefaultValues: true,
-			}).map((student) => [student.id, student])
+			}).map((student) => {
+				student.skills = student.skills.filter(
+					(skill) =>
+						skill.skillType === SkillType.Ex ||
+						skill.skillType === SkillType.Normal ||
+						skill.skillType === SkillType.Passive ||
+						skill.skillType === SkillType.Sub
+				);
+				return [student.id, student];
+			})
 		);
 	}
 

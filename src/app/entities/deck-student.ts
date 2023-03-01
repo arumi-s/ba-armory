@@ -153,6 +153,10 @@ export class DeckStudent {
 	}
 
 	private hydrateSkills(dataService: DataService, student: Student) {
+		if (Array.isArray(this.skills)) {
+			this.skills.splice(4, this.skills.length);
+		}
+
 		if (this.skills == null || (Array.isArray(this.skills) && this.skills.length === 0)) {
 			(this as { skills: DeckSkill[] }).skills = plainToInstance(
 				DeckSkill,

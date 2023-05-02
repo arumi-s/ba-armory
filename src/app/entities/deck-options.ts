@@ -53,5 +53,21 @@ export class DeckOptions {
 		}
 	}
 
+	@Expose({ name: 'showDuplicatedStudents' })
+	private __showDuplicatedStudents__: boolean = false;
+
+	get showDuplicatedStudents() {
+		return this.__showDuplicatedStudents__;
+	}
+
+	set showDuplicatedStudents(showDuplicatedStudents: boolean) {
+		showDuplicatedStudents = !!showDuplicatedStudents;
+		if (this.__showDuplicatedStudents__ !== showDuplicatedStudents) {
+			const showDuplicatedStudentsOld = this.__showDuplicatedStudents__;
+			this.__showDuplicatedStudents__ = showDuplicatedStudents;
+			this.change$.next({ showDuplicatedStudents: new Change(showDuplicatedStudentsOld as false, this.__showDuplicatedStudents__ as false) });
+		}
+	}
+
 	readonly change$ = new Subject<Changes<DeckOptions>>();
 }

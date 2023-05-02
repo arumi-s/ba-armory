@@ -45,7 +45,7 @@ export class Equipment {
 	}
 
 	isItem() {
-		return this.category === StuffCategory.Material || this.category === StuffCategory.SecretStone;
+		return this.category === StuffCategory.Material || this.category === StuffCategory.SecretStone || this.category === StuffCategory.Favor;
 	}
 
 	isEquipment() {

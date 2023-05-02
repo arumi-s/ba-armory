@@ -23,6 +23,7 @@
 	"student_action_remove": "移除",
 	"student_action_upgrade": "当前最高",
 	"student_action_target": "目标",
+	"selector_show_duplicated_students": "允许重复学生",
 	"squad_name": "队伍",
 	"squad_action_remove": "移除队伍",
 	"item_show_surplus_items": "显示溢出",

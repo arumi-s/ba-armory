@@ -87,6 +87,7 @@
 		</div>
 		<div class="equipments">
 			<ba-equipment-card *ngFor="let equipment of model.equipments" [model]="equipment" [isTarget]="isTarget"></ba-equipment-card>
+			<ba-gear-card [id]="id" [isTarget]="isTarget"></ba-gear-card>
 		</div>
 	</mat-card-content>
 	<mat-card-actions>

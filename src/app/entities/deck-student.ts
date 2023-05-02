@@ -48,6 +48,17 @@ export class DeckStudent {
 	readonly weaponMin: number = 0;
 	readonly weaponMax: number = 3;
 
+	@Expose({ name: 'gear' })
+	@Stat({ name: 'gear' })
+	private __gear__: number = 0;
+	gear: number;
+	@Expose({ name: 'gearTarget' })
+	@StatTarget({ name: 'gear' })
+	private __gearTarget__: number = 0;
+	gearTarget: number;
+	readonly gearMin: number = 0;
+	readonly gearMax: number = 2;
+
 	@Expose({ name: 'elephCost' })
 	@Stat({ name: 'elephCost', target: false })
 	private __elephCost__: number = 1;
@@ -96,6 +107,7 @@ export class DeckStudent {
 				level: 1,
 				star: student.starGrade,
 				weapon: 0,
+				gear: 0,
 				elephCost: 1,
 				elephRemain: 20,
 				skills: student.skills.map((_, skillIndex) => ({
@@ -116,19 +128,35 @@ export class DeckStudent {
 
 		(this as { levelMax: number }).levelMax = dataService.studentLevelMax;
 		(this as { starMin: number }).starMin = student.starGrade;
+		(this as { gearMax: number }).gearMax = student.gear?.tierUpMaterial?.length ? student.gear.tierUpMaterial.length + 1 : 0;
 
 		this.level = this.level;
 		this.star = this.star;
 		this.weapon = this.weapon;
+		this.gear = this.gear;
 		this.elephCost = this.elephCost;
 		this.elephRemain = this.elephRemain ?? 20;
 
 		this.levelTarget = this.levelTarget ?? -1;
 		this.starTarget = this.starTarget ?? -1;
 		this.weaponTarget = this.weaponTarget ?? -1;
+		this.gearTarget = this.gearTarget ?? -1;
 
 		this.hydrateEquipments(dataService, student);
 		this.hydrateSkills(dataService, student);
+
+		this.change$.subscribe((changes) => {
+			if (changes.hasOwnProperty('star')) {
+				if (changes.star.currentValue < this.starMax && this.weapon > this.weaponMin) {
+					this.weapon = this.weaponMin;
+				}
+			}
+			if (changes.hasOwnProperty('starTarget')) {
+				if (changes.starTarget.currentValue < this.starMax && this.weaponTarget > this.weaponMin) {
+					this.weaponTarget = this.weaponMin;
+				}
+			}
+		});
 
 		merge(
 			of(null),
@@ -141,6 +169,8 @@ export class DeckStudent {
 						changes.hasOwnProperty('starTarget') ||
 						changes.hasOwnProperty('weapon') ||
 						changes.hasOwnProperty('weaponTarget') ||
+						changes.hasOwnProperty('gear') ||
+						changes.hasOwnProperty('gearTarget') ||
 						changes.hasOwnProperty('elephCost') ||
 						changes.hasOwnProperty('elephRemain')
 				),
@@ -275,6 +305,29 @@ export class DeckStudent {
 					(this.requiredItems.get(student.id) ?? 0) +
 						Math.max(dataService.weaponSecretStoneAmount[toWeapon] - dataService.weaponSecretStoneAmount[fromWeapon], 0)
 				);
+			}
+		}
+
+		/* Gear */
+		{
+			const fromGear = Math.max(this.gear, 1);
+			const toGear = this.gearTarget;
+
+			if (fromGear < toGear) {
+				const gear = student.gear;
+
+				const tierMaterialIds = gear.tierUpMaterial;
+				const tierAmounts = gear.tierUpMaterialAmount;
+
+				for (let level = fromGear; level < toGear; level++) {
+					const materialIds = tierMaterialIds[level - 1];
+					const amounts = tierAmounts[level - 1];
+
+					for (let index = 0; index < materialIds.length; index++) {
+						const materialId = materialIds[index];
+						this.requiredItems.set(materialId, (this.requiredItems.get(materialId) ?? 0) + (amounts[index] ?? 0));
+					}
+				}
 			}
 		}
 

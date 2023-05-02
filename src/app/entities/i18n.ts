@@ -23,6 +23,7 @@ export interface I18N {
 	student_action_remove: string;
 	student_action_upgrade: string;
 	student_action_target: string;
+	selector_show_duplicated_students: string;
 	squad_name: string;
 	squad_action_remove: string;
 	item_show_surplus_items: string;

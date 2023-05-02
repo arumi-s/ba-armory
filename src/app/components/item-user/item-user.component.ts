@@ -28,14 +28,18 @@ export class ItemUserComponent implements OnInit {
 	ngOnInit(): void {
 		const item = this.dataService.getStuff(this.id);
 
+		const counted = new Set<number>();
 		this.users = [];
 
 		for (const studentId of this.dataService.deck.selectedSquad.students) {
+			if (counted.has(studentId)) continue;
 			const amount = this.dataService.deck.students.get(studentId)?.requiredItems?.get(item.id) ?? 0;
 
 			if (amount > 0) {
 				this.users.push([studentId, amount]);
 			}
+
+			counted.add(studentId);
 		}
 	}
 }

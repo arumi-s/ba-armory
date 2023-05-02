@@ -1,4 +1,15 @@
 <h2 mat-dialog-title>{{ title }}</h2>
+<div class="options">
+	<!-- TODO: i18n -->
+	<div class="options-spacer"></div>
+	<mat-checkbox
+		class="selector_action-show_duplicated_students"
+		[(ngModel)]="dataService.deck.options.showDuplicatedStudents"
+		color="accent"
+	>
+		{{ dataService.i18n.selector_show_duplicated_students }}
+	</mat-checkbox>
+</div>
 <div class="students" mat-dialog-content>
 	<ba-student-icon *ngFor="let id of missingStudents" [id]="id" (click)="handleClickStudent(id)"></ba-student-icon>
 </div>

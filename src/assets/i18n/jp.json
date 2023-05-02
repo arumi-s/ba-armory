@@ -23,6 +23,7 @@
 	"student_action_remove": "削除",
 	"student_action_upgrade": "最先端",
 	"student_action_target": "ターゲット",
+	"selector_show_duplicated_students": "重複を表示",
 	"squad_name": "分隊",
 	"squad_action_remove": "分隊を削除",
 	"item_show_surplus_items": "オーバーを表示",

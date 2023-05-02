@@ -46,7 +46,7 @@ export class Deck {
 	set selectedSquadId(selectedSquadId: number) {
 		selectedSquadId = Math.max(Math.min(selectedSquadId, this.squads.length - 1), 0);
 
-		if (this.selectedSquad?.id !== selectedSquadId) {
+		if (this.selectedSquad !== this.squads[selectedSquadId]) {
 			const selectedSquadIdOld = this.__selectedSquadId__;
 			this.__selectedSquadId__ = selectedSquadId;
 
@@ -105,6 +105,7 @@ export class Deck {
 
 	removeSquad(dataService: DataService) {
 		if (this.squads.length === 1) return;
+
 		const selectedSquad = this.selectedSquad;
 		const selectedSquadId = selectedSquad.id;
 		this.squads.splice(selectedSquadId, 1);

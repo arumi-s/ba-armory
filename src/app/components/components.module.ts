@@ -13,6 +13,7 @@ import { HoverinputModule } from '../services/hoverinput';
 import { CampaignCardComponent } from './campaign-card/campaign-card.component';
 import { ElephCardComponent } from './eleph-card/eleph-card.component';
 import { EquipmentCardComponent } from './equipment-card/equipment-card.component';
+import { GearCardComponent } from './gear-card/gear-card.component';
 import { ItemIconComponent } from './item-icon/item-icon.component';
 import { ItemUserComponent } from './item-user/item-user.component';
 import { SkillCardComponent } from './skill-card/skill-card.component';
@@ -28,6 +29,7 @@ import { StudentIconComponent } from './student-icon/student-icon.component';
 		ItemIconComponent,
 		CampaignCardComponent,
 		ElephCardComponent,
+		GearCardComponent,
 		ItemUserComponent,
 	],
 	imports: [
@@ -49,6 +51,7 @@ import { StudentIconComponent } from './student-icon/student-icon.component';
 		ItemIconComponent,
 		CampaignCardComponent,
 		ElephCardComponent,
+		GearCardComponent,
 		ItemUserComponent,
 	],
 })

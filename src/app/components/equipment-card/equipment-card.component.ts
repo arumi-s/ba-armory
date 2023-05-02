@@ -72,6 +72,7 @@ export class EquipmentCardComponent implements OnInit, OnChanges, OnDestroy {
 			this.handleTierChange();
 		}
 	}
+
 	ngOnDestroy(): void {
 		this.changeSubscription?.unsubscribe();
 	}

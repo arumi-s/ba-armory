@@ -231,4 +231,8 @@ export class Student {
 	get schoolIconUrl() {
 		return `${CDN_BASE}/images/schoolicon/School_Icon_${this.school.toUpperCase()}_W.png`;
 	}
+
+	get gearIconUrl() {
+		return `${CDN_BASE}/images/gear/${this.gear?.icon ?? 'Gear_Icon_Empty'}.png`;
+	}
 }

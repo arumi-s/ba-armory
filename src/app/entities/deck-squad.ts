@@ -6,7 +6,7 @@ import { ACTION_POINT_ID } from './deck';
 import { DeckStocks, DeckStocksClear, wrapStocks } from './deck-stocks';
 import { DeckStudent } from './deck-student';
 import { CampaignDifficulty, StuffCategory } from './enum';
-import { ElephSortOption, ItemSortOption, StudentSortOption } from './types';
+import { ElephSortOption, ItemSortOption, SortOption, StudentSortOption } from './types';
 
 import type { DataService } from '../services/data.service';
 @Exclude()
@@ -100,7 +100,7 @@ export class DeckSquad {
 	}
 
 	addStudent(dataService: DataService, studentId: number) {
-		if (this.hasStudent(studentId)) return true;
+		if (!dataService.deck.options.showDuplicatedStudents && this.hasStudent(studentId)) return true;
 
 		if (!dataService.students.has(studentId)) return false;
 
@@ -121,11 +121,17 @@ export class DeckSquad {
 	updateRequiredItems(dataService: DataService) {
 		this.required[DeckStocksClear]();
 
+		const counted = new Set<number>();
 		for (const studentId of this.students) {
+			if (counted.has(studentId)) continue;
+
 			const deckStudent = dataService.deck.students.get(studentId);
+
 			for (const [id, amount] of deckStudent.requiredItems) {
 				this.required[id] += amount;
 			}
+
+			counted.add(studentId);
 		}
 
 		this.updateStages(dataService);
@@ -183,22 +189,8 @@ export class DeckSquad {
 			this.students.reverse();
 			return;
 		}
-		const compare = (a: string | number, b: string | number) => {
-			return typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : +a - +b;
-		};
 
-		this.students.sort((aId, bId) => {
-			const a = dataService.deck.students.get(aId);
-			const b = dataService.deck.students.get(bId);
-
-			for (const key of option.key) {
-				const aValue = key(a);
-				const bValue = key(b);
-				const diff = compare(aValue, bValue);
-				if (diff !== 0) return direction * diff;
-			}
-			return 0;
-		});
+		this.students.sort((aId, bId) => sortObject(dataService.deck.students.get(aId), dataService.deck.students.get(bId), option, direction));
 	}
 
 	sortItems(dataService: DataService, option: ItemSortOption, direction: -1 | 1) {
@@ -206,44 +198,39 @@ export class DeckSquad {
 			dataService.stockables.reverse();
 			return;
 		}
-		const compare = (a: string | number, b: string | number) => {
-			return typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : +a - +b;
-		};
 
-		dataService.stockables.sort((aId, bId) => {
-			const a = dataService.getStuff(aId);
-			const b = dataService.getStuff(bId);
-
-			for (const key of option.key) {
-				const aValue = key(a);
-				const bValue = key(b);
-				const diff = compare(aValue, bValue);
-				if (diff !== 0) return direction * diff;
-			}
-			return 0;
-		});
+		dataService.stockables.sort((aId, bId) => sortObject(dataService.getStuff(aId), dataService.getStuff(bId), option, direction));
 	}
 
-	sortElephs(dataService: DataService, students: number[], option: ElephSortOption, direction: -1 | 1) {
+	sortElephs(dataService: DataService, ids: number[], option: ElephSortOption, direction: -1 | 1) {
 		if (option == null) {
-			students.reverse();
+			ids.reverse();
 			return;
 		}
-		const compare = (a: string | number, b: string | number) => {
-			return typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : +a - +b;
-		};
 
-		students.sort((aId, bId) => {
-			const a = dataService.deck.students.get(aId);
-			const b = dataService.deck.students.get(bId);
+		ids.sort((aId, bId) => sortObject(dataService.deck.students.get(aId), dataService.deck.students.get(bId), option, direction));
+	}
 
-			for (const key of option.key) {
-				const aValue = key(a);
-				const bValue = key(b);
-				const diff = compare(aValue, bValue);
-				if (diff !== 0) return direction * diff;
-			}
-			return 0;
-		});
+	sortGears(dataService: DataService, ids: number[], option: ItemSortOption, direction: -1 | 1) {
+		if (option == null) {
+			ids.reverse();
+			return;
+		}
+
+		ids.sort((aId, bId) => sortObject(dataService.getStuff(aId), dataService.getStuff(bId), option, direction));
 	}
 }
+
+const compare = (a: string | number, b: string | number) => {
+	return typeof a === 'string' && typeof b === 'string' ? a.localeCompare(b) : +a - +b;
+};
+
+const sortObject = <T>(a: T, b: T, option: SortOption<T>, direction: -1 | 1) => {
+	for (const key of option.key) {
+		const aValue = key(a);
+		const bValue = key(b);
+		const diff = compare(aValue, bValue);
+		if (diff !== 0) return direction * diff;
+	}
+	return 0;
+};

@@ -16,7 +16,7 @@ export class SelectorComponent implements OnInit, OnDestroy {
 
 	private changeSubscription: Subscription;
 
-	constructor(private readonly dataService: DataService) {}
+	constructor(public readonly dataService: DataService) {}
 
 	ngOnInit(): void {
 		// i18n
@@ -27,6 +27,13 @@ export class SelectorComponent implements OnInit, OnDestroy {
 				this.handleChangeSquad();
 			}
 		});
+
+		this.dataService.deck.options.change$.subscribe((changes) => {
+			if (changes.showDuplicatedStudents) {
+				this.updateMissingStudents();
+			}
+		});
+
 		this.handleChangeSquad();
 	}
 
@@ -52,7 +59,8 @@ export class SelectorComponent implements OnInit, OnDestroy {
 		this.missingStudents = [];
 
 		for (const [, student] of this.dataService.students) {
-			if (!this.dataService.deck.selectedSquad.hasStudent(student.id)) this.missingStudents.push(student.id);
+			if (this.dataService.deck.options.showDuplicatedStudents || !this.dataService.deck.selectedSquad.hasStudent(student.id))
+				this.missingStudents.push(student.id);
 		}
 	}
 }

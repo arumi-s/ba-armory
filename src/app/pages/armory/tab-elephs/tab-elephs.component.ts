@@ -24,7 +24,6 @@ export class TabElephsComponent implements OnInit, OnDestroy {
 	constructor(public readonly dataService: DataService, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
-		console.log('ngOnInit');
 		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {
 			if (changes.hasOwnProperty('selectedSquadId')) {
 				this.handleChangeSquad();
@@ -40,7 +39,6 @@ export class TabElephsComponent implements OnInit, OnDestroy {
 	}
 
 	handleChangeSquad() {
-		console.log('handleChangeSquad');
 		this.requiredUpdatedSubscription?.unsubscribe();
 		this.squadChangeSubscription?.unsubscribe();
 		this.requiredUpdatedSubscription = this.dataService.deck.selectedSquad.requiredUpdated$.subscribe(() => {

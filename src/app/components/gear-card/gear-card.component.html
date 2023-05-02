@@ -1,0 +1,12 @@
+<div
+	mat-ripple
+	class="figure mat-elevation-z2"
+	[class.is_target-show]="isTarget"
+	[class.is_target-reached]="model.gear === model.gearTarget"
+	[title]="name"
+	[attr.gear]="gear"
+	(hoverinput)="gear = $event"
+>
+	<img class="icon" loading="lazy" [src]="iconUrl" />
+	<div class="gear">T{{ gear }}</div>
+</div>

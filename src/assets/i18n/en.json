@@ -23,6 +23,7 @@
 	"student_action_remove": "Remove",
 	"student_action_upgrade": "Latest",
 	"student_action_target": "Target",
+	"selector_show_duplicated_students": "Allow Duplicates",
 	"squad_name": "Squad",
 	"squad_action_remove": "Remove Squad",
 	"item_show_surplus_items": "Show Surplus",

@@ -64,6 +64,10 @@ export class Deck {
 			this.options = new DeckOptions();
 		}
 
+		if (this.stocks == null) {
+			this.stocks = wrapStocks({});
+		}
+
 		if (this.students == null) {
 			this.students = new Map();
 		}
@@ -77,11 +81,6 @@ export class Deck {
 				this.students.set(studentId, deckStudent);
 			}
 		}
-
-		if (this.stocks == null) {
-			this.stocks = wrapStocks({});
-		}
-
 		if (this.squads == null) {
 			this.squads = [];
 		}

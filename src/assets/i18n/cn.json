@@ -38,6 +38,6 @@
 	"item_sort_stock": "库存",
 	"eleph_sort_basic": "基本",
 	"eleph_sort_total": "总购买价格",
-	"eleph_sort_deficit": "",
-	"eleph_sort_required": ""
+	"eleph_sort_deficit": "缺少",
+	"eleph_sort_required": "需要"
 }

@@ -13,7 +13,7 @@ describe('ArmoryComponent', () => {
 
 		fixture = TestBed.createComponent(ArmoryComponent);
 		component = fixture.componentInstance;
-		fixture.markForCheck();
+		fixture.detectChanges();
 	});
 
 	it('should create', () => {

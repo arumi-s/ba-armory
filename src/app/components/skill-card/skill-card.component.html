@@ -5,7 +5,7 @@
 	[class.is_target-reached]="model.level === model.levelTarget"
 	[title]="name"
 	[attr.level]="level"
-	(hoverinput)="level = $event"
+	(hiHoverInput)="level = $event"
 >
 	<div class="skill_type">{{ skillTypeText }}</div>
 	<img [class]="'icon ' + typeClass" loading="lazy" [src]="iconUrl" />

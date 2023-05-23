@@ -21,6 +21,22 @@ export class DeckOptions {
 		}
 	}
 
+	@Expose({ name: 'showRequiredItems' })
+	private __showRequiredItems__: boolean = false;
+
+	get showRequiredItems() {
+		return this.__showRequiredItems__;
+	}
+
+	set showRequiredItems(showRequiredItems: boolean) {
+		showRequiredItems = !!showRequiredItems;
+		if (this.__showRequiredItems__ !== showRequiredItems) {
+			const showRequiredItemsOld = this.__showRequiredItems__;
+			this.__showRequiredItems__ = showRequiredItems;
+			this.change$.next({ showRequiredItems: new Change(showRequiredItemsOld as false, this.__showRequiredItems__ as false) });
+		}
+	}
+
 	@Expose({ name: 'showElephs' })
 	private __showElephs__: boolean = false;
 

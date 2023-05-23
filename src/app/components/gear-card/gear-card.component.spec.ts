@@ -13,7 +13,7 @@ describe('GearCardComponent', () => {
 
 		fixture = TestBed.createComponent(GearCardComponent);
 		component = fixture.componentInstance;
-		fixture.markForCheck();
+		fixture.detectChanges();
 	});
 
 	it('should create', () => {

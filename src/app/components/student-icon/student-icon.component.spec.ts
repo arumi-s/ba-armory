@@ -13,7 +13,7 @@ describe('StudentIconComponent', () => {
 
 		fixture = TestBed.createComponent(StudentIconComponent);
 		component = fixture.componentInstance;
-		fixture.markForCheck();
+		fixture.detectChanges();
 	});
 
 	it('should create', () => {

@@ -26,7 +26,9 @@ export interface I18N {
 	selector_show_duplicated_students: string;
 	squad_name: string;
 	squad_action_remove: string;
+	squad_action_pin: string;
 	item_show_surplus_items: string;
+	item_show_required_items: string;
 	item_show_elephs: string;
 	campaign_show_campaign_hard: string;
 	setting_save: string;

@@ -7,6 +7,7 @@ import { Deck, ELIGMA_ID, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities
 import { ArmorType, BulletType, EquipmentCategory, ItemCategory, SkillType, StuffCategory } from '../entities/enum';
 import { Equipment } from '../entities/equipment';
 import { I18N } from '../entities/i18n';
+import { EXTRA_ICONS, RAID_ICONS } from '../entities/icons';
 import { Localization } from '../entities/localization';
 import { Stage } from '../entities/stage';
 import { Student } from '../entities/student';
@@ -33,6 +34,8 @@ export class DataService {
 	common: Common;
 	localization: Localization;
 	i18n: I18N;
+
+	icons: string[] = [];
 
 	deck: Deck = new Deck();
 
@@ -168,6 +171,17 @@ export class DataService {
 	}
 
 	setOthers() {
+		this.icons.push(...RAID_ICONS);
+		this.icons.push(...EXTRA_ICONS);
+		const schoolIcons: string[] = [];
+		for (const [, student] of this.students) {
+			this.icons.push(student.collectionTextureUrl);
+			if (!schoolIcons.includes(student.schoolIconUrl)) {
+				schoolIcons.push(student.schoolIconUrl);
+			}
+		}
+		this.icons.push(...schoolIcons);
+
 		this.studentSortOptions = [
 			{
 				id: 'level',

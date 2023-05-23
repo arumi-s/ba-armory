@@ -13,7 +13,7 @@ describe('CampaignCardComponent', () => {
 
 		fixture = TestBed.createComponent(CampaignCardComponent);
 		component = fixture.componentInstance;
-		fixture.markForCheck();
+		fixture.detectChanges();
 	});
 
 	it('should create', () => {

@@ -13,7 +13,7 @@ describe('SelectorComponent', () => {
 
 		fixture = TestBed.createComponent(SelectorComponent);
 		component = fixture.componentInstance;
-		fixture.markForCheck();
+		fixture.detectChanges();
 	});
 
 	it('should create', () => {

@@ -3,6 +3,10 @@
 	<mat-checkbox class="gear_action-show_surplus_items" [(ngModel)]="dataService.deck.options.showSurplusItems" color="accent">
 		{{ dataService.i18n.item_show_surplus_items }}
 	</mat-checkbox>
+	<!-- TODO: i18n -->
+	<mat-checkbox class="item_action-show_required_items" [(ngModel)]="dataService.deck.options.showRequiredItems" color="accent">
+		{{ dataService.i18n.item_show_required_items }}
+	</mat-checkbox>
 
 	<div class="options-spacer"></div>
 
@@ -28,6 +32,10 @@
 		<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedGearSortDirection === -1 ? "north" : "south" }}</mat-icon>
 	</button>
 </div>
-<div class="grid required" [class.hide-surplus]="!dataService.deck.options.showSurplusItems">
+<div
+	class="grid"
+	[class.hide-surplus]="!dataService.deck.options.showSurplusItems"
+	[class.hide-required]="!dataService.deck.options.showRequiredItems"
+>
 	<ba-item-icon *ngFor="let id of ids" [id]="id"></ba-item-icon>
 </div>

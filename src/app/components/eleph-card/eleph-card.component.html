@@ -27,6 +27,7 @@
 				<input
 					class="remain-input"
 					type="number"
+					[attr.name]="'remain-input' + id"
 					[(ngModel)]="model.elephRemain"
 					[min]="model.elephRemainMin"
 					[max]="model.elephRemainMax"

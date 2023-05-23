@@ -5,22 +5,28 @@
 	[selectedIndex]="dataService.deck.selectedSquadId"
 	(selectedTabChange)="handleTabChangeSquad($event)"
 >
-	<mat-tab *ngFor="let squad of dataService.deck.squads">
+	<mat-tab *ngFor="let squad of dataService.deck.squads" [labelClass]="squad.pinned ? 'squad-pinned' : 'squad-unpinned'">
 		<ng-template mat-tab-label>
 			<button
 				mat-icon-button
 				class="squad_action-move_left"
-				(mousedown)="handleMousedownSquadMove($event)"
+				(mousedown)="handleMousedownSquadStopPropagation($event)"
 				(click)="handleClickSquadMoveLeft()"
 			>
 				<mat-icon>chevron_left</mat-icon>
 			</button>
-			<input class="squad_action-input_name" type="text" [(ngModel)]="squad.name" />
+			<img
+				class="squad-icon"
+				[src]="squad.icon === '' ? squad.autoIcon : squad.icon"
+				(mousedown)="handleMousedownSquadStopPropagation($event)"
+				(click)="handleClickIconSelector()"
+			/>
+			<input class="squad_action-input_name" type="text" [attr.name]="'squad-name' + squad.id" [(ngModel)]="squad.name" />
 			<div class="squad_action-name">{{ squad.name }}</div>
 			<button
 				mat-icon-button
 				class="squad_action-move_right"
-				(mousedown)="handleMousedownSquadMove($event)"
+				(mousedown)="handleMousedownSquadStopPropagation($event)"
 				(click)="handleClickSquadMoveRight()"
 			>
 				<mat-icon>chevron_right</mat-icon>
@@ -57,6 +63,16 @@
 	</button>
 
 	<div class="options-spacer"></div>
+
+	<!-- TODO: i18n -->
+	<button
+		class="squad_action-pin"
+		mat-stroked-button
+		[color]="dataService.deck.selectedSquad.pinned ? 'accent' : 'basic'"
+		(click)="handleClickSquadPin()"
+	>
+		<mat-icon>push_pin</mat-icon> {{ dataService.i18n.squad_action_pin }}
+	</button>
 
 	<!-- TODO: i18n -->
 	<button class="student_action-sort" mat-stroked-button [matMenuTriggerFor]="studentSortMenu">

@@ -33,6 +33,7 @@
 		"class-transformer": "^0.5.1",
 		"lz-string": "^1.4.4",
 		"ngx-bar-rating": "^4.0.1",
+		"ngx-hover-input": "^1.0.0",
 		"ngx-sortablejs-simple": "^1.1.1",
 		"rxjs": "~7.5.0",
 		"sortablejs": "^1.15.0",

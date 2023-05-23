@@ -27,6 +27,7 @@
 				<input
 					class="stock-input"
 					type="number"
+					[attr.name]="'stock-input' + id"
 					[(ngModel)]="dataService.deck.stocks[id]"
 					[min]="0"
 					[step]="1"

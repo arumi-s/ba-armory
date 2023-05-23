@@ -26,8 +26,19 @@ ba-student-card {
 			display: none;
 		}
 
+		.squad-icon {
+			display: block;
+			width: 32px;
+			height: 32px;
+			border-radius: 9999px;
+			background: #4f6395;
+			object-fit: cover;
+			pointer-events: none;
+		}
+
 		.squad_action-input_name {
-			width: 110px;
+			margin-left: var(--spacing-xx-small);
+			width: 120px;
 			border: 1px solid #eee;
 			text-align: center;
 			font: inherit;
@@ -35,32 +46,73 @@ ba-student-card {
 			border-radius: var(--border-radius-medium);
 		}
 
-		.mat-tab-label-active {
-			padding-left: 0;
-			padding-right: 0;
-			position: relative;
+		.squad_action-name {
+			opacity: 0.6;
+			margin-left: var(--spacing-xx-small);
+		}
 
-			.squad_action-input_name {
-				display: block;
-			}
-			.squad_action-name {
-				display: none;
-			}
+		.mat-tab-label {
+			opacity: 1;
+		}
 
-			.squad_action-move_left,
-			.squad_action-move_right {
-				display: block;
-				position: absolute;
-				width: 24px;
-				height: 24px;
-				line-height: 24px;
-			}
+		.squad-pinned {
+			&.mat-tab-label {
+				min-width: 0;
+				padding: 0;
+				justify-content: flex-start;
+				margin-left: -1px;
 
-			.squad_action-move_left {
-				left: 0;
+				&:not(.mat-tab-label-active) {
+					max-width: 80px;
+
+					.squad_action-name {
+						display: none;
+					}
+				}
+
+				.squad_action-name {
+					opacity: 1;
+				}
+
+				.mat-tab-label-content {
+					overflow: hidden;
+					justify-content: flex-start;
+					border-left: 1px solid rgba(0, 0, 0, 0.12);
+					border-right: 1px solid rgba(0, 0, 0, 0.12);
+					padding: 0 8px;
+				}
 			}
-			.squad_action-move_right {
-				right: 0;
+		}
+
+		.squad-unpinned {
+			&.mat-tab-label-active {
+				position: relative;
+
+				.squad-icon {
+					pointer-events: auto;
+				}
+				.squad_action-input_name {
+					display: block;
+				}
+				.squad_action-name {
+					display: none;
+				}
+
+				.squad_action-move_left,
+				.squad_action-move_right {
+					display: block;
+					position: absolute;
+					width: 24px;
+					height: 24px;
+					line-height: 24px;
+				}
+
+				.squad_action-move_left {
+					left: 0;
+				}
+				.squad_action-move_right {
+					right: 0;
+				}
 			}
 		}
 

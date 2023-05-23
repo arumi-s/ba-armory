@@ -1,0 +1,3 @@
+<div class="icons" mat-dialog-content>
+	<img *ngFor="let icon of dataService.icons" class="mat-elevation-z3 icon" loading="lazy" [src]="icon" (click)="handleClickIcon(icon)" />
+</div>

@@ -4,6 +4,10 @@
 		{{ dataService.i18n.item_show_surplus_items }}
 	</mat-checkbox>
 	<!-- TODO: i18n -->
+	<mat-checkbox class="item_action-show_required_items" [(ngModel)]="dataService.deck.options.showRequiredItems" color="accent">
+		{{ dataService.i18n.item_show_required_items }}
+	</mat-checkbox>
+	<!-- TODO: i18n -->
 	<mat-checkbox class="item_action-show_elephs" [(ngModel)]="dataService.deck.options.showElephs" color="accent">
 		{{ dataService.i18n.item_show_elephs }}
 	</mat-checkbox>
@@ -33,8 +37,9 @@
 	</button>
 </div>
 <div
-	class="grid required"
+	class="grid hide-favor"
 	[class.hide-surplus]="!dataService.deck.options.showSurplusItems"
+	[class.hide-required]="!dataService.deck.options.showRequiredItems"
 	[class.hide-elephs]="!dataService.deck.options.showElephs"
 >
 	<ba-item-icon *ngFor="let item of dataService.stockables" [id]="item"></ba-item-icon>

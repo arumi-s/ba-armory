@@ -18,6 +18,7 @@
 			<div class="stats-level">
 				<input
 					type="number"
+					[attr.name]="'stats-level' + id"
 					[(ngModel)]="model.level"
 					[min]="model.levelMin"
 					[max]="model.levelMax"

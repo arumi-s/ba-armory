@@ -32,7 +32,10 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 
 	@HostBinding('class')
 	get classes() {
-		return this.deficit ? 'deficit' : 'surplus';
+		return {
+			[this.deficit ? 'is-deficit' : 'is-surplus']: true,
+			'is-required': this.dataService.deck.selectedSquad.required[this.id] > 0,
+		};
 	}
 
 	private changeSubscription: Subscription;

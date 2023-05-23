@@ -13,12 +13,18 @@ import type { DataService } from '../services/data.service';
 export class DeckSquad {
 	id: number = 0;
 
+	@Expose({ name: 'icon' })
+	icon: string = '';
+
 	@Expose({ name: 'name' })
 	name: string = '';
 
 	@Expose({ name: 'students' })
 	@Type(() => Number)
 	students: number[] = [];
+
+	@Expose({ name: 'pinned' })
+	pinned: boolean = false;
 
 	readonly required: DeckStocks = wrapStocks({});
 
@@ -31,6 +37,8 @@ export class DeckSquad {
 	readonly requiredStaled$ = new Subject<void>();
 	readonly requiredUpdated$ = new Subject<void>();
 
+	autoIcon: string = '';
+
 	hydrate(dataService: DataService) {
 		this.id = dataService.deck.squads.indexOf(this);
 
@@ -39,7 +47,16 @@ export class DeckSquad {
 			this.name = `${dataService.i18n.squad_name} #${this.id + 1}`;
 		}
 
+		if (this.pinned == null) {
+			this.pinned = false;
+		}
+
 		this.students = (this.students ?? []).filter((studentId) => dataService.students.has(studentId));
+
+		if (this.icon == null || this.icon === '') {
+			this.icon = '';
+		}
+		this.updateAutoIcon(dataService);
 
 		const changeSubscriptionMap = new Map<number, Subscription>();
 
@@ -60,7 +77,6 @@ export class DeckSquad {
 			if (Array.isArray(changes.students)) {
 				for (const studentChange of changes.students) {
 					if (studentChange.previousValue) {
-						const deckStudent = dataService.deck.students.get(studentChange.previousValue);
 						unsubscribeDeckStudent(dataService.deck.students.get(studentChange.previousValue));
 						this.requiredStaled$.next();
 					}
@@ -71,6 +87,7 @@ export class DeckSquad {
 						this.requiredStaled$.next();
 					}
 				}
+				this.updateAutoIcon(dataService);
 			}
 		});
 
@@ -182,6 +199,14 @@ export class DeckSquad {
 			});
 
 		this.stages.splice(0, this.stages.length, ...candidates);
+	}
+
+	updateAutoIcon(dataService: DataService) {
+		if (this.students.length > 0) {
+			this.autoIcon = dataService.students.get(this.students[0]).collectionTextureUrl;
+		} else {
+			this.autoIcon = '/assets/icons/icon-32x32.png';
+		}
 	}
 
 	sortStudents(dataService: DataService, option: StudentSortOption, direction: -1 | 1) {

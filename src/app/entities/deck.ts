@@ -1,13 +1,13 @@
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
-import { Subject } from 'rxjs';
+import { ChangeDispatcher, dispatchChange, Dispatcher } from 'prop-change-decorators';
 
-import { Change, Changes } from './change';
 import { DeckOptions } from './deck-options';
 import { DeckSquad } from './deck-squad';
 import { DeckStocks, transformStocks, wrapStocks } from './deck-stocks';
 import { DeckStudent } from './deck-student';
 
 import type { DataService } from '../services/data.service';
+
 export const GACHA_OFFSET = 4000000;
 export const CURRENCY_OFFSET = 3000000;
 export const EQUIPMENT_OFFSET = 2000000;
@@ -51,13 +51,14 @@ export class Deck {
 			this.__selectedSquadId__ = selectedSquadId;
 
 			this.selectedSquad = this.squads[selectedSquadId];
-			this.change$.next({ selectedSquadId: new Change(selectedSquadIdOld, this.__selectedSquadId__) });
+			dispatchChange(this, 'selectedSquadId', selectedSquadIdOld, this.__selectedSquadId__);
 		}
 	}
 
 	selectedSquad: DeckSquad = undefined;
 
-	readonly change$ = new Subject<Changes<Deck>>();
+	@Dispatcher()
+	readonly change$: ChangeDispatcher<Deck>;
 
 	hydrate(dataService: DataService) {
 		if (this.options == null) {

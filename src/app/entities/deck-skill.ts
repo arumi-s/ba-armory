@@ -1,11 +1,10 @@
 import { Exclude, Expose } from 'class-transformer';
-import { Subject } from 'rxjs';
+import { ChangeDispatcher, Clamp, ClampTarget, Dispatcher } from 'prop-change-decorators';
 
-import { Stat, StatTarget } from '../decorators/stat';
-import { Change, Changes } from './change';
 import { SkillType } from './enum';
 
 import type { DataService } from '../services/data.service';
+
 @Exclude()
 export class DeckSkill {
 	@Expose({ name: 'studentId' })
@@ -15,17 +14,18 @@ export class DeckSkill {
 	readonly index: number = 0;
 
 	@Expose({ name: 'level' })
-	@Stat({ name: 'level' })
+	@Clamp({ name: 'level' })
 	private __level__: number = 1;
 	public level: number;
 	@Expose({ name: 'levelTarget' })
-	@StatTarget({ name: 'level' })
+	@ClampTarget({ name: 'level' })
 	private __levelTarget__: number = 0;
 	levelTarget: number;
 	readonly levelMin: number = 1;
 	readonly levelMax: number = 0;
 
-	readonly change$ = new Subject<Changes<DeckSkill>>();
+	@Dispatcher()
+	readonly change$: ChangeDispatcher<DeckSkill>;
 
 	hydrate(dataService: DataService) {
 		const skill = dataService.students.get(this.studentId).skills[this.index];

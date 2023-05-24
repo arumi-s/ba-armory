@@ -35,6 +35,7 @@
 		"ngx-bar-rating": "^4.0.1",
 		"ngx-hover-input": "^1.0.0",
 		"ngx-sortablejs-simple": "^1.1.1",
+		"prop-change-decorators": "^1.0.1",
 		"rxjs": "~7.5.0",
 		"sortablejs": "^1.15.0",
 		"tslib": "^2.3.0",

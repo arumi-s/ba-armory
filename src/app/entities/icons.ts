@@ -10,6 +10,11 @@ for (const raid of raids) {
 }
 
 const extras = [
+	'images/items/Currency_Icon_AP.png',
+	'images/items/Currency_Icon_Exp.png',
+	'images/items/Currency_Icon_Gem.png',
+	'images/items/Currency_Icon_Gold.png',
+	'images/items/Currency_Icon_MasterCoin.png',
 	'images/items/Item_Icon_RaidCoin.png',
 	'images/items/Item_Icon_ArenaCoin.png',
 	'images/items/Item_Icon_RaidCoin_High.png',
@@ -25,6 +30,19 @@ const extras = [
 	'images/items/Item_Icon_Event_Token_Special_0.png',
 	'images/items/Item_Icon_Event_Token_Special_1.png',
 	'images/items/Item_Icon_Event_Item_0.png',
+	'images/items/Currency_Icon_RaidTicket.png',
+	'images/items/Currency_Icon_AcademyTicket.png',
+	'images/items/Currency_Icon_ArenaTicket.png',
+	'images/items/Currency_Icon_ChaserATicket.png',
+	'images/items/Currency_Icon_ChaserBTicket.png',
+	'images/items/Currency_Icon_ChaserCTicket.png',
+	'images/items/Currency_Icon_ChaserTotalTicket.png',
+	'images/items/Currency_Icon_SchoolATicket.png',
+	'images/items/Currency_Icon_SchoolBTicket.png',
+	'images/items/Currency_Icon_SchoolCTicket.png',
+	'images/items/Currency_Icon_SchoolTotalTicket.png',
+	'images/items/Currency_Icon_TimeAttackTicket.png',
+	'images/items/Currency_Icon_WorldRaidCommonTicket.png',
 ];
 
 for (const extra of extras) {

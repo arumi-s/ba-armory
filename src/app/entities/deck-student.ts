@@ -1,8 +1,7 @@
 import { Exclude, Expose, plainToInstance, Type } from 'class-transformer';
+import { Change, ChangeDispatcher, Clamp, ClampTarget, dispatchChanges, Dispatcher, WatchBoolean } from 'prop-change-decorators';
 import { debounceTime, filter, merge, of, Subject } from 'rxjs';
 
-import { Stat, StatTarget } from '../decorators/stat';
-import { Change, Changes } from './change';
 import { ELIGMA_ID } from './deck';
 import { DeckEquipment } from './deck-equipment';
 import { DeckSkill } from './deck-skill';
@@ -10,81 +9,73 @@ import { SkillType } from './enum';
 import { Student } from './student';
 
 import type { DataService } from '../services/data.service';
+
 @Exclude()
 export class DeckStudent {
 	@Expose({ name: 'id' })
 	readonly id: number = 0;
 
 	@Expose({ name: 'level' })
-	@Stat({ name: 'level' })
+	@Clamp({ name: 'level' })
 	private __level__: number = 1;
 	public level: number;
 	@Expose({ name: 'levelTarget' })
-	@StatTarget({ name: 'level' })
+	@ClampTarget({ name: 'level' })
 	private __levelTarget__: number = 0;
 	levelTarget: number;
 	readonly levelMin: number = 1;
 	readonly levelMax: number = 0;
 
 	@Expose({ name: 'star' })
-	@Stat({ name: 'star' })
+	@Clamp({ name: 'star' })
 	private __star__: number = 1;
 	public star: number;
 	@Expose({ name: 'starTarget' })
-	@StatTarget({ name: 'star' })
+	@ClampTarget({ name: 'star' })
 	private __starTarget__: number = 0;
 	starTarget: number;
 	readonly starMin: number = 0;
 	readonly starMax: number = 5;
 
 	@Expose({ name: 'weapon' })
-	@Stat({ name: 'weapon' })
+	@Clamp({ name: 'weapon' })
 	private __weapon__: number = 1;
 	weapon: number;
 	@Expose({ name: 'weaponTarget' })
-	@StatTarget({ name: 'weapon' })
+	@ClampTarget({ name: 'weapon' })
 	private __weaponTarget__: number = 0;
 	weaponTarget: number;
 	readonly weaponMin: number = 0;
 	readonly weaponMax: number = 3;
 
 	@Expose({ name: 'gear' })
-	@Stat({ name: 'gear' })
+	@Clamp({ name: 'gear' })
 	private __gear__: number = 0;
 	gear: number;
 	@Expose({ name: 'gearTarget' })
-	@StatTarget({ name: 'gear' })
+	@ClampTarget({ name: 'gear' })
 	private __gearTarget__: number = 0;
 	gearTarget: number;
 	readonly gearMin: number = 0;
 	readonly gearMax: number = 2;
 
 	@Expose({ name: 'elephCost' })
-	@Stat({ name: 'elephCost', target: false })
+	@Clamp({ name: 'elephCost', target: '' })
 	private __elephCost__: number = 1;
 	elephCost: number;
 	readonly elephCostMin: number = 1;
 	readonly elephCostMax: number = 5;
 
 	@Expose({ name: 'elephRemain' })
-	@Stat({ name: 'elephRemain', target: false })
+	@Clamp({ name: 'elephRemain', target: '' })
 	private __elephRemain__: number = 20;
 	elephRemain: number;
 	readonly elephRemainMin: number = 0;
 	readonly elephRemainMax: number = 20;
 
+	@WatchBoolean({ name: 'isTarget' })
 	private __isTarget__: boolean = false;
-	get isTarget(): boolean {
-		return this.__isTarget__;
-	}
-	set isTarget(isTarget: boolean) {
-		isTarget = !!isTarget;
-		if (this.__isTarget__ !== isTarget) {
-			const isTargetOld = this.__isTarget__;
-			this.__isTarget__ = isTarget;
-			this.change$.next({ isTarget: new Change(isTargetOld as false, this.__isTarget__ as false) });
-		}
-	}
+	isTarget: boolean;
 
 	@Expose({ name: 'skills' })
 	@Type(() => DeckSkill)
@@ -96,7 +87,8 @@ export class DeckStudent {
 
 	readonly requiredItems = new Map<number, number>();
 
-	readonly change$ = new Subject<Changes<DeckStudent>>();
+	@Dispatcher()
+	readonly change$: ChangeDispatcher<DeckStudent>;
 	readonly requiredUpdated$ = new Subject<void>();
 
 	static fromStudent(dataService: DataService, student: Student) {
@@ -182,7 +174,7 @@ export class DeckStudent {
 		});
 	}
 
-	private hydrateSkills(dataService: DataService, student: Student) {
+	private hydrateSkills(this: DeckStudent, dataService: DataService, student: Student) {
 		if (Array.isArray(this.skills)) {
 			this.skills.splice(4, this.skills.length);
 		}
@@ -199,31 +191,31 @@ export class DeckStudent {
 				),
 				{ excludeExtraneousValues: true, exposeDefaultValues: true }
 			);
-			this.change$.next({ skills: this.skills.map((skill) => new Change(undefined, skill)) });
+			dispatchChanges(this, { skills: this.skills.map((skill) => new Change(undefined, skill)) });
 		}
 
 		for (const deckSkill of this.skills) {
 			deckSkill.hydrate(dataService);
 			deckSkill.change$.subscribe((changes) => {
-				this.change$.next({ skills: { [deckSkill.index]: changes } });
+				dispatchChanges(this, { skills: { [deckSkill.index]: changes } });
 			});
 		}
 	}
 
-	private hydrateEquipments(dataService: DataService, student: Student) {
+	private hydrateEquipments(this: DeckStudent, dataService: DataService, student: Student) {
 		if (this.equipments == null || (Array.isArray(this.equipments) && this.equipments.length === 0)) {
 			(this as { equipments: DeckEquipment[] }).equipments = plainToInstance(
 				DeckEquipment,
 				student.equipment.map((_, equipmentIndex): Partial<DeckEquipment> => ({ studentId: student.id, index: equipmentIndex, tier: 0 })),
 				{ excludeExtraneousValues: true, exposeDefaultValues: true }
 			);
-			this.change$.next({ equipments: this.equipments.map((equipment) => new Change(undefined, equipment)) });
+			dispatchChanges(this, { equipments: this.equipments.map((equipment) => new Change(undefined, equipment)) });
 		}
 
 		for (const deckEquipment of this.equipments) {
 			deckEquipment.hydrate(dataService);
 			deckEquipment.change$.subscribe((changes) => {
-				this.change$.next({ equipments: { [deckEquipment.index]: changes } });
+				dispatchChanges(this, { equipments: { [deckEquipment.index]: changes } });
 			});
 		}
 	}

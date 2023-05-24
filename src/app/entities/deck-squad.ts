@@ -1,7 +1,7 @@
 import { Exclude, Expose, Type } from 'class-transformer';
+import { Change, ChangeDispatcher, dispatchChanges, Dispatcher } from 'prop-change-decorators';
 import { debounceTime, filter, Subject, Subscription } from 'rxjs';
 
-import { Change, Changes } from './change';
 import { ACTION_POINT_ID } from './deck';
 import { DeckStocks, DeckStocksClear, wrapStocks } from './deck-stocks';
 import { DeckStudent } from './deck-student';
@@ -9,6 +9,7 @@ import { CampaignDifficulty, StuffCategory } from './enum';
 import { ElephSortOption, ItemSortOption, SortOption, StudentSortOption } from './types';
 
 import type { DataService } from '../services/data.service';
+
 @Exclude()
 export class DeckSquad {
 	id: number = 0;
@@ -33,7 +34,8 @@ export class DeckSquad {
 		amount: number;
 	}[] = [];
 
-	readonly change$ = new Subject<Changes<DeckSquad>>();
+	@Dispatcher()
+	readonly change$: ChangeDispatcher<DeckSquad>;
 	readonly requiredStaled$ = new Subject<void>();
 	readonly requiredUpdated$ = new Subject<void>();
 
@@ -116,22 +118,24 @@ export class DeckSquad {
 		return this.students.includes(studentId);
 	}
 
-	addStudent(dataService: DataService, studentId: number) {
+	addStudent(this: DeckSquad, dataService: DataService, studentId: number) {
 		if (!dataService.deck.options.showDuplicatedStudents && this.hasStudent(studentId)) return true;
 
 		if (!dataService.students.has(studentId)) return false;
 
 		this.students.push(studentId);
-		this.change$.next({ students: [new Change(undefined, studentId)] });
+		dispatchChanges(this, { students: [new Change(undefined, studentId)] });
+
 		return true;
 	}
 
-	removeStudent(studentId: number) {
+	removeStudent(this: DeckSquad, studentId: number) {
 		const index = this.students.indexOf(studentId);
 		if (index === -1) return false;
 
 		const deckStudent = this.students.splice(index, 1);
-		this.change$.next({ students: [new Change(deckStudent[0], undefined)] });
+		dispatchChanges(this, { students: [new Change(deckStudent[0], undefined)] });
+
 		return true;
 	}
 

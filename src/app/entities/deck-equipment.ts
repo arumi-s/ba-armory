@@ -1,10 +1,8 @@
 import { Exclude, Expose } from 'class-transformer';
-import { Subject } from 'rxjs';
-
-import { Stat, StatTarget } from '../decorators/stat';
-import { Changes } from './change';
+import { ChangeDispatcher, Clamp, ClampTarget, Dispatcher } from 'prop-change-decorators';
 
 import type { DataService } from '../services/data.service';
+
 @Exclude()
 export class DeckEquipment {
 	@Expose({ name: 'studentId' })
@@ -14,17 +12,18 @@ export class DeckEquipment {
 	readonly index: number = 0;
 
 	@Expose({ name: 'tier' })
-	@Stat({ name: 'tier' })
+	@Clamp({ name: 'tier' })
 	private __tier__: number = 0;
 	public tier: number;
 	@Expose({ name: 'tierTarget' })
-	@StatTarget({ name: 'tier' })
+	@ClampTarget({ name: 'tier' })
 	private __tierTarget__: number = 0;
 	tierTarget: number;
 	readonly tierMin: number = 0;
 	readonly tierMax: number = 0;
 
-	readonly change$ = new Subject<Changes<DeckEquipment>>();
+	@Dispatcher()
+	readonly change$: ChangeDispatcher<DeckEquipment>;
 
 	hydrate(dataService: DataService) {
 		const equipmentCategory = dataService.students.get(this.studentId).equipment[this.index];

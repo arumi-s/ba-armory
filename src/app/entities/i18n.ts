@@ -9,6 +9,7 @@ export interface I18N {
 	footer_3_end: string;
 	action_export: string;
 	action_import: string;
+	action_save_remote: string;
 	action_setting: string;
 	action_save: string;
 	action_saved: string;

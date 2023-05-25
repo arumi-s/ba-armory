@@ -63,6 +63,8 @@ export class DataService {
 	itemSortOptions: ItemSortOption[] = [];
 	elephSortOptions: ElephSortOption[] = [];
 
+	link = '';
+
 	constructor() {}
 
 	setCommon(json: any) {

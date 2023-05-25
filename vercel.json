@@ -3,6 +3,16 @@
 	"github": {
 		"silent": true
 	},
+	"rewrites": [
+		{
+			"source": "/api/save",
+			"destination": "/api/save"
+		},
+		{
+			"source": "/api/save/:id",
+			"destination": "/api/save"
+		}
+	],
 	"headers": [
 		{
 			"source": "/(.*)\\.(html|json|xml)",
@@ -13,5 +23,6 @@
 			"headers": [{ "key": "Cache-Control", "value": "public, max-age=31556952, s-maxage=31556952, immutable" }]
 		}
 	],
-	"trailingSlash": false
+	"trailingSlash": false,
+	"regions": ["hkg1"]
 }

@@ -6,10 +6,9 @@
 		name="export-data"
 		[(ngModel)]="data"
 		[placeholder]="dataService.i18n.action_import"
-		(click)="handleClickInputData($event)"
+		(click)="handleClickInput($event)"
 	/>
 	<div *ngIf="error" class="export-input_error">{{ dataService.i18n.import_error }}</div>
-	<mat-divider></mat-divider>
 
 	<div class="options">
 		<button mat-stroked-button color="primary" (click)="handleClickExport()">
@@ -22,4 +21,23 @@
 			<mat-icon>file_download</mat-icon> {{ dataService.i18n.action_import }}
 		</button>
 	</div>
+
+	<mat-divider></mat-divider>
+
+	<div class="options">
+		<button mat-stroked-button color="primary" [disabled]="remoteLoading" (click)="handleClickSaveRemote()">
+			<!-- TODO: i18n -->
+			<mat-icon>link</mat-icon> {{ dataService.i18n.action_save_remote }}
+		</button>
+	</div>
+	<input
+		*ngIf="link"
+		class="export-input_link"
+		type="text"
+		name="export-link"
+		readonly
+		[ngModel]="link"
+		(click)="handleClickInput($event)"
+	/>
+	<div *ngIf="remoteError" class="export-input_error">{{ remoteError }}</div>
 </div>

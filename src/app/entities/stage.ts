@@ -1,6 +1,6 @@
 import { Exclude, Expose, Type } from 'class-transformer';
 
-import { CDN_BASE } from './constant';
+import { environment } from '../../environments/environment';
 import { CampaignDifficulty, EntryCost, Reward, SchoolDungeonType, Terrain, WeekDungeonType } from './enum';
 
 import type { DataService } from '../services/data.service';
@@ -93,7 +93,7 @@ export class Campaign {
 	rewards: Rewards;
 
 	get iconUrl() {
-		return `${CDN_BASE}/images/campaign/Campaign_Image_${this.area.toString().padStart(2, '0')}_${
+		return `${environment.CDN_BASE}/images/campaign/Campaign_Image_${this.area.toString().padStart(2, '0')}_${
 			this.difficulty == CampaignDifficulty.Hard ? 'Hard' : 'Normal'
 		}.png`;
 	}

@@ -4,6 +4,8 @@
 
 export const environment = {
 	production: false,
+	SAVE_API: 'http://localhost:3000/api/save',
+	CDN_BASE: 'https://fastly.jsdelivr.net/gh/lonqie/SchaleDB',
 };
 
 /*

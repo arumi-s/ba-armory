@@ -9,6 +9,7 @@
 	"footer_3_end": "",
 	"action_export": "Export",
 	"action_import": "Import",
+	"action_save_remote": "Export Link",
 	"action_setting": "Setting",
 	"action_save": "Save",
 	"action_saved": "Saved",

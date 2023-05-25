@@ -1,12 +1,12 @@
-import { CDN_BASE } from './constant';
+import { environment } from '../../environments/environment';
 
 export const RAID_ICONS: string[] = [];
 export const EXTRA_ICONS: string[] = [];
 
 const raids = ['Binah', 'Chesed', 'Shirokuro', 'Hieronymus', 'KaitenFxMk0', 'Perorozilla', 'HOD', 'Goz'];
 for (const raid of raids) {
-	RAID_ICONS.push(`${CDN_BASE}/images/raid/icon/Icon_${raid}.png`);
-	RAID_ICONS.push(`${CDN_BASE}/images/raid/icon/Icon_${raid}_Insane.png`);
+	RAID_ICONS.push(`${environment.CDN_BASE}/images/raid/icon/Icon_${raid}.png`);
+	RAID_ICONS.push(`${environment.CDN_BASE}/images/raid/icon/Icon_${raid}_Insane.png`);
 }
 
 const extras = [
@@ -46,5 +46,5 @@ const extras = [
 ];
 
 for (const extra of extras) {
-	EXTRA_ICONS.push(`${CDN_BASE}/${extra}`);
+	EXTRA_ICONS.push(`${environment.CDN_BASE}/${extra}`);
 }

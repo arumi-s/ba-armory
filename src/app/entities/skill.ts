@@ -1,6 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 
-import { CDN_BASE } from './constant';
+import { environment } from '../../environments/environment';
 import { FavorStatType, SkillType } from './enum';
 
 export class Skill {
@@ -29,6 +29,6 @@ export class Skill {
 	summonStatCoefficient?: number[][];
 
 	get iconUrl() {
-		return `${CDN_BASE}/images/skill/${this.icon}.png`;
+		return `${environment.CDN_BASE}/images/skill/${this.icon}.png`;
 	}
 }

@@ -22,14 +22,14 @@
 			"installMode": "lazy",
 			"updateMode": "lazy",
 			"resources": {
-				"urls": ["https://cdn.jsdelivr.net/gh/lonqie/SchaleDB/images/**"]
+				"urls": ["https://fastly.jsdelivr.net/gh/lonqie/SchaleDB/images/**"]
 			}
 		}
 	],
 	"dataGroups": [
 		{
 			"name": "remote-data",
-			"urls": ["https://cdn.jsdelivr.net/gh/lonqie/SchaleDB/data/**"],
+			"urls": ["https://fastly.jsdelivr.net/gh/lonqie/SchaleDB/data/**"],
 			"cacheConfig": {
 				"maxSize": 10,
 				"maxAge": "7d",

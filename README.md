@@ -14,7 +14,7 @@ This tool is for non commercial use only.
 - [ ] Show gacha drop
 - [ ] Sortable add student list
 - [ ] Auto reduce stock
-- [ ] Export deck as a short link
+- [x] Export deck as a short link
 - [x] Eleph store cost calculator
 - [x] Cache game data
 

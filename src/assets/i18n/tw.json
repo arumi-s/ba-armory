@@ -9,6 +9,7 @@
 	"footer_3_end": "",
 	"action_export": "匯出",
 	"action_import": "匯入",
+	"action_save_remote": "匯出連結",
 	"action_setting": "設定",
 	"action_save": "保存",
 	"action_saved": "已保存",

@@ -9,6 +9,7 @@
 	"footer_3_end": "",
 	"action_export": "書き出し",
 	"action_import": "取り込み",
+	"action_save_remote": "リンク",
 	"action_setting": "設定",
 	"action_save": "保存",
 	"action_saved": "保存しました",

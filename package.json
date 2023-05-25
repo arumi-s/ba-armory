@@ -1,6 +1,7 @@
 {
 	"name": "ba-armory",
 	"version": "0.0.0",
+	"type": "module",
 	"scripts": {
 		"format": "prettier --write ./src",
 		"ng": "ng",

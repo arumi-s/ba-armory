@@ -81,6 +81,7 @@ export enum ArmorType {
 	LightArmor = 'LightArmor',
 	HeavyArmor = 'HeavyArmor',
 	Unarmed = 'Unarmed',
+	ElasticArmor = 'ElasticArmor',
 }
 
 export enum BulletType {

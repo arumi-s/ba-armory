@@ -10,6 +10,7 @@
 		{{ dataService.i18n.selector_show_duplicated_students }}
 	</mat-checkbox>
 </div>
+<mat-divider></mat-divider>
 <div class="students" mat-dialog-content>
 	<ba-student-icon *ngFor="let id of missingStudents" [id]="id" (click)="handleClickStudent(id)"></ba-student-icon>
 </div>

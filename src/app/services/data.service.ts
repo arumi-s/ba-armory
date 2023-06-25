@@ -2,16 +2,17 @@ import { plainToClassFromExist, plainToInstance } from 'class-transformer';
 
 import { Injectable } from '@angular/core';
 
+import { environment } from '../../environments/environment';
 import { Common } from '../entities/common';
 import { Deck, ELIGMA_ID, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities/deck';
-import { ArmorType, BulletType, EquipmentCategory, ItemCategory, SkillType, StuffCategory } from '../entities/enum';
+import { ArmorType, BulletType, EquipmentCategory, ItemCategory, SkillType, StuffCategory, Terrain } from '../entities/enum';
 import { Equipment } from '../entities/equipment';
 import { I18N } from '../entities/i18n';
 import { EXTRA_ICONS, RAID_ICONS } from '../entities/icons';
 import { Localization } from '../entities/localization';
 import { Stage } from '../entities/stage';
 import { Student } from '../entities/student';
-import { ElephSortOption, ItemSortOption, LanguageOption, RegionOption, StudentSortOption } from '../entities/types';
+import { ElephSortOption, ItemSortOption, LanguageOption, RegionOption, StudentSortOption, TerrainOption } from '../entities/types';
 
 @Injectable({
 	providedIn: 'root',
@@ -48,6 +49,8 @@ export class DataService {
 	studentLevelMax = 0;
 	weaponLevelMax = 0;
 
+	adaptaionAmount = ['D', 'C', 'B', 'A', 'S', 'SS'];
+
 	regionOptions: RegionOption[] = [
 		{ id: 0, label: 'Japan' },
 		{ id: 1, label: 'Global' },
@@ -62,6 +65,8 @@ export class DataService {
 	studentSortOptions: StudentSortOption[] = [];
 	itemSortOptions: ItemSortOption[] = [];
 	elephSortOptions: ElephSortOption[] = [];
+
+	terrainOptions: TerrainOption[] = [];
 
 	link = '';
 
@@ -309,6 +314,11 @@ export class DataService {
 				key: [(student) => -this.deck.selectedSquad.required[student.id], (student) => -student.id],
 			},
 		];
+
+		this.terrainOptions = [Terrain.Street, Terrain.Outdoor, Terrain.Indoor].map((terrain) => ({
+			id: terrain,
+			label: this.localization.AdaptationType[terrain],
+		}));
 	}
 
 	setDeck(json: any) {

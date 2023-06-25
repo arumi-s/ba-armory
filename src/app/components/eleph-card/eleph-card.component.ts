@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 
+import { environment } from '../../../environments/environment';
 import { ELIGMA_ID } from '../../entities/deck';
 import { DeckStudent } from '../../entities/deck-student';
 import { DataService } from '../../services/data.service';
@@ -18,6 +19,7 @@ export class ElephCardComponent implements OnInit, OnDestroy {
 	model: DeckStudent;
 
 	name: string;
+	dbUrl: string;
 
 	readonly eligmaId = ELIGMA_ID;
 
@@ -31,6 +33,7 @@ export class ElephCardComponent implements OnInit, OnDestroy {
 		const student = this.dataService.students.get(this.id);
 
 		this.name = student.name;
+		this.dbUrl = `${environment.SCHALEDB_BASE}/?item=${encodeURIComponent(this.id)}`;
 
 		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {
 			if (changes.hasOwnProperty('selectedSquadId')) {

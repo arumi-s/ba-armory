@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
+import { environment } from '../../../environments/environment';
 import { DataService } from '../../services/data.service';
 import { ItemUserComponent } from '../item-user/item-user.component';
 
@@ -24,6 +25,7 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 
 	name: string;
 	tier: number;
+	dbUrl: string;
 	iconUrl: string;
 
 	get deficit() {
@@ -53,6 +55,7 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 		this.name = item.name.replace(/&#x([0-9a-f]{1,4});/gi, (_, hex: string) => String.fromCharCode(parseInt(hex, 16)));
 		this.category = item.category.toLowerCase();
 		this.tier = item.tier;
+		this.dbUrl = `${environment.SCHALEDB_BASE}/?item=${encodeURIComponent(this.id)}`;
 		this.iconUrl = item.iconUrl;
 
 		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {

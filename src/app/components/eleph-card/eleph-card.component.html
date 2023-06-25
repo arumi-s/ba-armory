@@ -4,7 +4,9 @@
 	</mat-card-header>
 	<mat-card-content>
 		<div class="amount name">
-			<div class="amount-value">{{ name }}</div>
+			<div class="amount-value">
+				<a [href]="dbUrl" target="_blank" rel="noopener noreferrer">{{ name }}</a>
+			</div>
 		</div>
 		<div class="amount cost">
 			<!-- TODO: i18n -->

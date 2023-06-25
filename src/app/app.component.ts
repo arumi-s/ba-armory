@@ -61,13 +61,32 @@ export class AppComponent implements OnInit {
 		iconRegistry.addSvgIconLiteral(
 			'bullet_type',
 			sanitizer.bypassSecurityTrustHtml(
-				`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.92,5H5L14,14L15,13.06M19.96,19.12L19.12,19.96C18.73,20.35 18.1,20.35 17.71,19.96L14.59,16.84L11.91,19.5L10.5,18.09L11.92,16.67L3,7.75V3H7.75L16.67,11.92L18.09,10.5L19.5,11.91L16.83,14.58L19.95,17.7C20.35,18.1 20.35,18.73 19.96,19.12Z"/></svg>`
+				`<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="m5 17 18 15-2 2L3 19l2-2z"/><path d="m4 30 6 5 5-7-5-4-6 6zM12 19l7 6 15-14-2-11-10 1-10 18z"/></svg>`
 			)
 		);
 		iconRegistry.addSvgIconLiteral(
 			'armor_type',
 			sanitizer.bypassSecurityTrustHtml(
-				`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,21C15.75,20 19,15.54 19,11.22V6.3L12,3.18V21Z"/></svg>`
+				`<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M33 7c0 24-6 26-15 29C9 33 3 29 3 7c6 0 15.19-7 15.19-7S27 7 33 7Zm-23 4.9V21c2 5 5 6 8 7.11C21 27 24 26 26 21v-9c-4 0-6-1-8-3.29C16 11 14 12 10 11.9Z"/></svg>`
+			)
+		);
+
+		iconRegistry.addSvgIconLiteral(
+			'terrain_Street',
+			sanitizer.bypassSecurityTrustHtml(
+				`<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56"><path d="M16 20V8h24v22h14v16H2V20Zm0 4H6v18h10Zm20-12H20v30h16Zm14 22H40v8h10Z"/><path d="M23.5 16h3v6h-3zM29.5 16h3v6h-3zM23.5 26h3v6h-3zM29.5 26h3v6h-3zM9.5 26h3v6h-3z"/></svg>`
+			)
+		);
+		iconRegistry.addSvgIconLiteral(
+			'terrain_Indoor',
+			sanitizer.bypassSecurityTrustHtml(
+				`<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56"><path d="m28 7 24 20-3 3-21-17L7 30l-3-3L28 7z"/><path d="M12 22v24h32V22h-4v20H16V22h-4z"/><path d="M24 24h8v4h-8zM18 34h20v3h-3v5h-3v-5h-8v5h-3v-5h-3v-3z"/></svg>`
+			)
+		);
+		iconRegistry.addSvgIconLiteral(
+			'terrain_Outdoor',
+			sanitizer.bypassSecurityTrustHtml(
+				`<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56"><path d="M2 46h52L40 24 28 42h4l8-12 8 12H8l14-22 12 16 2-4-14-18L2 46z"/><path d="M16 26h8v3h-8zM10 34h8v3h-8zM40 14a6 6 0 1 1-6-6 6 6 0 0 1 6 6Zm-6-3a3 3 0 1 0 3 3 3 3 0 0 0-3-3Z"/></svg>`
 			)
 		);
 	}

@@ -2,8 +2,9 @@ import { Subscription } from 'rxjs';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 
+import { environment } from '../../../environments/environment';
 import { DeckStudent } from '../../entities/deck-student';
-import { ArmorType, BulletType } from '../../entities/enum';
+import { ArmorType, BulletType, SquadType, Terrain } from '../../entities/enum';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -16,6 +17,9 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 	@Input()
 	id: number;
 
+	@Input()
+	terrain?: Terrain;
+
 	model: DeckStudent;
 
 	action_remove: string;
@@ -23,12 +27,14 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 	action_target: string;
 
 	name: string;
+	dbUrl: string;
 	school: string;
 	bulletType: BulletType;
 	bulletTypeText: string;
 	armorType: ArmorType;
 	armorTypeText: string;
-	squadType: string;
+	squadType: SquadType;
+	squadTypeText: string;
 	position: string;
 	collectionTextureUrl: string;
 	schoolIconUrl: string;
@@ -56,6 +62,13 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 		else this.model.weapon = weapon;
 	}
 
+	get adaptationIcon() {
+		if (this.terrain == null) return null;
+
+		const adaptations = this.model.getAdaptations(this.dataService);
+		return `${environment.CDN_BASE}/images/ui/Ingame_Emo_Adaptresult${this.dataService.adaptaionAmount[adaptations[this.terrain]]}.png`;
+	}
+
 	private changeSubscription: Subscription;
 
 	constructor(private readonly dataService: DataService, private readonly changeDetectorRef: ChangeDetectorRef) {}
@@ -69,6 +82,7 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 		this.action_target = this.dataService.i18n.student_action_target;
 
 		this.name = student.name;
+		this.dbUrl = `${environment.SCHALEDB_BASE}/?chara=${encodeURIComponent(student.pathName)}`;
 		// i18n
 		this.school = this.dataService.localization.School[student.school];
 		this.bulletType = student.bulletType;
@@ -77,6 +91,9 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 		this.armorType = student.armorType;
 		// i18n
 		this.armorTypeText = this.dataService.localization.ArmorType[this.armorType];
+		this.squadType = student.squadType;
+		// i18n
+		this.squadTypeText = this.dataService.localization.SquadType[this.squadType];
 		this.collectionTextureUrl = student.collectionTextureUrl;
 		this.schoolIconUrl = student.schoolIconUrl;
 		this.isTarget = this.model.isTarget;

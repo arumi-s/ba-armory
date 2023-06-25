@@ -75,6 +75,23 @@
 	</button>
 
 	<!-- TODO: i18n -->
+	<button class="squad_action-terrain terrain-option" mat-stroked-button [matMenuTriggerFor]="squadTerrainMenu">
+		<mat-icon [svgIcon]="'terrain_' + selectedTerrainOption.id"></mat-icon>&nbsp;{{ selectedTerrainOption.label }}
+	</button>
+
+	<mat-menu #squadTerrainMenu="matMenu" class="squad_terrain-options options-terrain-options">
+		<button
+			*ngFor="let terrainOption of dataService.terrainOptions"
+			class="terrain-option options-terrain-option"
+			[value]="terrainOption.id"
+			mat-menu-item
+			(click)="handleClickSquadTerrainOption(terrainOption.id)"
+		>
+			<mat-icon [svgIcon]="'terrain_' + terrainOption.id"></mat-icon> {{ terrainOption.label }}
+		</button>
+	</mat-menu>
+
+	<!-- TODO: i18n -->
 	<button class="student_action-sort" mat-stroked-button [matMenuTriggerFor]="studentSortMenu">
 		<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
 		<mat-icon *ngIf="selectedStudentSortOption?.label === 'star'; else selectedStudentSortOptionsTextLabel" color="ratingActive"
@@ -85,14 +102,14 @@
 
 	<mat-menu #studentSortMenu="matMenu" class="student_sort-options options-sort-options">
 		<button
-			*ngFor="let sortOptions of dataService.studentSortOptions"
+			*ngFor="let sortOption of dataService.studentSortOptions"
 			class="student_sort-option options-sort-option"
-			[value]="sortOptions.id"
+			[value]="sortOption.id"
 			mat-menu-item
-			(click)="handleClickStudentSortOption(sortOptions.id)"
+			(click)="handleClickStudentSortOption(sortOption.id)"
 		>
-			<mat-icon *ngIf="sortOptions?.label === 'star'; else sortOptionsTextLabel" color="ratingActive">star</mat-icon>
-			<ng-template #sortOptionsTextLabel>{{ sortOptions?.label }}</ng-template>
+			<mat-icon *ngIf="sortOption?.label === 'star'; else sortOptionsTextLabel" color="ratingActive">star</mat-icon>
+			<ng-template #sortOptionsTextLabel>{{ sortOption?.label }}</ng-template>
 		</button>
 	</mat-menu>
 
@@ -102,7 +119,11 @@
 </div>
 
 <div class="grid students" [sortablejs]="dataService.deck.selectedSquad.students" [sortablejsOptions]="sortableOptions">
-	<ba-student-card *ngFor="let student of dataService.deck.selectedSquad.students" [id]="student"></ba-student-card>
+	<ba-student-card
+		*ngFor="let student of dataService.deck.selectedSquad.students"
+		[id]="student"
+		[terrain]="dataService.deck.selectedSquad.terrain"
+	></ba-student-card>
 </div>
 
 <mat-tab-group class="items-tabs" [animationDuration]="0" [disablePagination]="true" selectedIndex="0">

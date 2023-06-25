@@ -5,7 +5,7 @@ import { debounceTime, filter, merge, of, Subject } from 'rxjs';
 import { ELIGMA_ID } from './deck';
 import { DeckEquipment } from './deck-equipment';
 import { DeckSkill } from './deck-skill';
-import { SkillType } from './enum';
+import { SkillType, Terrain } from './enum';
 import { Student } from './student';
 
 import type { DataService } from '../services/data.service';
@@ -172,6 +172,22 @@ export class DeckStudent {
 			this.updateRequiredItems(dataService);
 			this.requiredUpdated$.next();
 		});
+	}
+
+	getAdaptations(dataService: DataService): Record<Terrain, number> {
+		const student = dataService.students.get(this.id);
+
+		const adaptations = {
+			[Terrain.Indoor]: student.indoorBattleAdaptation,
+			[Terrain.Outdoor]: student.outdoorBattleAdaptation,
+			[Terrain.Street]: student.streetBattleAdaptation,
+		};
+
+		if (this.weapon === this.weaponMax) {
+			adaptations[student.weapon.adaptationType] += student.weapon.adaptationValue;
+		}
+
+		return adaptations;
 	}
 
 	private hydrateSkills(this: DeckStudent, dataService: DataService, student: Student) {

@@ -5,7 +5,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
-import { StudentSortOption } from '../../entities/types';
+import { Terrain } from '../../entities/enum';
+import { StudentSortOption, TerrainOption } from '../../entities/types';
 import { DataService } from '../../services/data.service';
 import { IconSelectorComponent } from '../icon-selector/icon-selector.component';
 import { SelectorComponent } from '../selector/selector.component';
@@ -24,6 +25,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 	};
 
 	isTarget: boolean = false;
+	selectedTerrainOption: TerrainOption = undefined;
 	selectedStudentSortOption: StudentSortOption = undefined;
 	selectedStudentSortDirection: -1 | 1 = 1;
 
@@ -54,6 +56,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 		this.isTarget = false;
 		this.selectedStudentSortOption = undefined;
 		this.requiredUpdatedSubscription?.unsubscribe();
+		this.handleClickSquadTerrainOption(this.dataService.deck.selectedSquad.terrain);
 		this.requiredUpdatedSubscription = this.dataService.deck.selectedSquad.requiredUpdated$.subscribe(() => {
 			this.changeDetectorRef.markForCheck();
 		});
@@ -85,6 +88,11 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 
 		await firstValueFrom(dialogRef.afterClosed());
 		this.changeDetectorRef.markForCheck();
+	}
+
+	handleClickSquadTerrainOption(terrain: Terrain) {
+		this.selectedTerrainOption = this.dataService.terrainOptions.find((to) => to.id === terrain);
+		this.dataService.deck.selectedSquad.terrain = terrain;
 	}
 
 	handleClickStudentSortOption(sortOptionId: string) {

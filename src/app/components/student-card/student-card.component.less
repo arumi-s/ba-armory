@@ -45,7 +45,7 @@
 			flex-direction: column;
 			justify-content: flex-end;
 			overflow: hidden;
-			margin: 0 var(--spacing-x-small);
+			margin: 0 0 0 var(--spacing-x-small);
 		}
 
 		.mat-card-subtitle {
@@ -75,24 +75,33 @@
 }
 
 .tags {
-	flex-basis: min-content;
-	flex-grow: 0;
-	flex-shrink: 1;
+	display: flex;
+	align-items: center;
 
 	button {
-		border-radius: 0;
+		margin-right: var(--spacing-xx-small);
 		min-width: min-content;
 		padding-left: var(--spacing-x-small) !important;
 		padding-right: var(--spacing-x-small) !important;
+
+		::ng-deep .mat-icon {
+			line-height: 1;
+		}
 	}
+}
+
+.adaptation_icon {
+	margin-left: auto;
+	height: 1.5em;
+	user-select: none;
 }
 
 .school_icon {
 	filter: invert(1);
-	opacity: 0.25;
+	opacity: 0.15;
 	height: 100%;
 	position: absolute;
-	right: 36px;
+	right: 0;
 	top: 0;
 	pointer-events: none;
 	user-select: none;

@@ -4,7 +4,9 @@
 		<div *ngIf="tier != null" class="tier">T{{ tier }}</div>
 		<div *ngIf="rate != null" class="rate">{{ rate | percent }}</div>
 	</div>
-	<div class="name">{{ name }}</div>
+	<div class="name">
+		<a [href]="dbUrl" target="_blank" rel="noopener noreferrer">{{ name }}</a>
+	</div>
 	<div class="amounts">
 		<div class="amount required">
 			<!-- TODO: i18n -->

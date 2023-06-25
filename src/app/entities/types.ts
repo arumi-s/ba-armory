@@ -1,4 +1,6 @@
 import type { DeckStudent } from './deck-student';
+import { Terrain } from './enum';
+
 import type { Equipment } from './equipment';
 
 export interface SortOption<T> {
@@ -10,6 +12,11 @@ export interface SortOption<T> {
 export type StudentSortOption = SortOption<DeckStudent>;
 export type ItemSortOption = SortOption<Equipment>;
 export type ElephSortOption = SortOption<DeckStudent>;
+
+export interface TerrainOption {
+	id: Terrain;
+	label: string;
+}
 
 export interface LanguageOption {
 	id: string;

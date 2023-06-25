@@ -46,11 +46,11 @@ export class TabElephsComponent implements OnInit, OnDestroy {
 		});
 		this.squadChangeSubscription = this.dataService.deck.selectedSquad.change$.subscribe((changes) => {
 			if (Array.isArray(changes.students)) {
-				this.ids = this.dataService.deck.selectedSquad.students.slice();
+				this.ids = this.dataService.deck.selectedSquad.students.filter((v, i, a) => a.indexOf(v) === i);
 				this.handleClickElephSortOption('total');
 			}
 		});
-		this.ids = this.dataService.deck.selectedSquad.students.slice();
+		this.ids = this.dataService.deck.selectedSquad.students.filter((v, i, a) => a.indexOf(v) === i);
 		this.handleClickElephSortOption('total');
 		this.changeDetectorRef.markForCheck();
 	}

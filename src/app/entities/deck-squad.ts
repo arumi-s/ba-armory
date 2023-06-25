@@ -5,7 +5,7 @@ import { debounceTime, filter, Subject, Subscription } from 'rxjs';
 import { ACTION_POINT_ID } from './deck';
 import { DeckStocks, DeckStocksClear, wrapStocks } from './deck-stocks';
 import { DeckStudent } from './deck-student';
-import { CampaignDifficulty, StuffCategory } from './enum';
+import { CampaignDifficulty, StuffCategory, Terrain } from './enum';
 import { ElephSortOption, ItemSortOption, SortOption, StudentSortOption } from './types';
 
 import type { DataService } from '../services/data.service';
@@ -19,6 +19,9 @@ export class DeckSquad {
 
 	@Expose({ name: 'name' })
 	name: string = '';
+
+	@Expose({ name: 'terrain' })
+	terrain: Terrain = Terrain.Street;
 
 	@Expose({ name: 'students' })
 	@Type(() => Number)
@@ -47,6 +50,10 @@ export class DeckSquad {
 		// i18n
 		if (this.name == null || this.name === '') {
 			this.name = `${dataService.i18n.squad_name} #${this.id + 1}`;
+		}
+
+		if (this.terrain == null) {
+			this.terrain = Terrain.Street;
 		}
 
 		if (this.pinned == null) {

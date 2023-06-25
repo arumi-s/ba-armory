@@ -73,6 +73,8 @@ export class Student {
 	isReleased: IsReleased;
 	@Expose({ name: 'DefaultOrder' })
 	defaultOrder: number;
+	@Expose({ name: 'PathName' })
+	pathName: string;
 	@Expose({ name: 'DevName' })
 	devName: string;
 	@Expose({ name: 'Name' })

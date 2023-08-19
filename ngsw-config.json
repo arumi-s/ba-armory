@@ -6,7 +6,13 @@
 			"name": "app",
 			"installMode": "prefetch",
 			"resources": {
-				"files": ["/favicon.ico", "/index.html", "/manifest.webmanifest", "/*.css", "/*.js"]
+				"files": [
+					"/favicon.ico",
+					"/index.html",
+					"/manifest.webmanifest",
+					"/*.css",
+					"/*.js"
+				]
 			}
 		},
 		{
@@ -14,7 +20,10 @@
 			"installMode": "lazy",
 			"updateMode": "prefetch",
 			"resources": {
-				"files": ["/assets/**", "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"]
+				"files": [
+					"/assets/**",
+					"/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+				]
 			}
 		},
 		{
@@ -22,14 +31,18 @@
 			"installMode": "lazy",
 			"updateMode": "lazy",
 			"resources": {
-				"urls": ["https://fastly.jsdelivr.net/gh/lonqie/SchaleDB/images/**"]
+				"urls": [
+					"https://schale.gg/images/**"
+				]
 			}
 		}
 	],
 	"dataGroups": [
 		{
 			"name": "remote-data",
-			"urls": ["https://fastly.jsdelivr.net/gh/lonqie/SchaleDB/data/**"],
+			"urls": [
+				"https://schale.gg/data/**"
+			],
 			"cacheConfig": {
 				"maxSize": 10,
 				"maxAge": "7d",

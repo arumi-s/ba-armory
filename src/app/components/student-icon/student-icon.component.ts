@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
+import { environment } from '../../../environments/environment';
+import { Terrain } from '../../entities/enum';
 import { Student } from '../../entities/student';
 import { DataService } from '../../services/data.service';
 
@@ -15,6 +17,9 @@ export class StudentIconComponent implements OnInit {
 	@Input()
 	id: number;
 
+	@Input()
+	terrain?: Terrain;
+
 	bulletType: string;
 	armorType: string;
 
@@ -29,5 +34,12 @@ export class StudentIconComponent implements OnInit {
 			// i18n
 			this.armorType = this.dataService.localization.ArmorType[this.student.armorType];
 		}
+	}
+
+	get adaptationIcon() {
+		if (this.terrain == null) return null;
+
+		const adaptation = this.student[`${this.terrain.toLowerCase() as Lowercase<Terrain>}BattleAdaptation`];
+		return `${environment.CDN_BASE}/images/ui/Ingame_Emo_Adaptresult${this.dataService.adaptaionAmount[adaptation]}.png`;
 	}
 }

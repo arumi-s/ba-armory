@@ -5,7 +5,7 @@
 		<div *ngIf="rate != null" class="rate">{{ rate | percent }}</div>
 	</div>
 	<div class="name">
-		<a [href]="dbUrl" target="_blank" rel="noopener noreferrer">{{ name }}</a>
+		<a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a>
 	</div>
 	<div class="amounts">
 		<div class="amount required">

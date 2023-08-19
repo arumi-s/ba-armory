@@ -2,7 +2,7 @@
 	<mat-card-header>
 		<img mat-card-avatar loading="lazy" [src]="collectionTextureUrl" [alt]="name" />
 		<mat-card-title
-			><a [href]="dbUrl" target="_blank" rel="noopener noreferrer">{{ name }}</a></mat-card-title
+			><a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a></mat-card-title
 		>
 		<mat-card-subtitle class="tags">
 			<button mat-flat-button tabindex="-1" size="small" [color]="bulletType" [title]="bulletTypeText">

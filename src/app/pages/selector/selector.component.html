@@ -12,5 +12,10 @@
 </div>
 <mat-divider></mat-divider>
 <div class="students" mat-dialog-content>
-	<ba-student-icon *ngFor="let id of missingStudents" [id]="id" (click)="handleClickStudent(id)"></ba-student-icon>
+	<ba-student-icon
+		*ngFor="let id of missingStudents"
+		[id]="id"
+		[terrain]="dataService.deck.selectedSquad.terrain"
+		(click)="handleClickStudent(id)"
+	></ba-student-icon>
 </div>

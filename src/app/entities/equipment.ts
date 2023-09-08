@@ -39,9 +39,9 @@ export class Equipment {
 
 	get iconUrl() {
 		if (this.isItem()) {
-			return `${environment.CDN_BASE}/images/items/${this.icon}.png`;
+			return `${environment.CDN_BASE}/images/items/icon/${this.icon}.webp`;
 		}
-		return `${environment.CDN_BASE}/images/equipment/${this.icon}.png`;
+		return `${environment.CDN_BASE}/images/equipment/icon/${this.icon}.webp`;
 	}
 
 	isItem() {

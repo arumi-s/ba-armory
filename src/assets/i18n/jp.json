@@ -42,5 +42,6 @@
 	"eleph_sort_basic": "基本",
 	"eleph_sort_total": "合計",
 	"eleph_sort_deficit": "足りない",
-	"eleph_sort_required": "必要"
+	"eleph_sort_required": "必要",
+	"eleph_sort_stock": "在庫"
 }

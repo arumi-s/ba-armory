@@ -30,8 +30,6 @@ export class Gear {
 	name?: string;
 	@Expose({ name: 'Desc' })
 	desc?: string;
-	@Expose({ name: 'Icon' })
-	icon?: string;
 	@Expose({ name: 'TierUpMaterial' })
 	@Type(() => Array)
 	tierUpMaterial?: Array<number[]>;
@@ -115,8 +113,6 @@ export class Student {
 	equipment: EquipmentCategory[];
 	@Expose({ name: 'CollectionBG' })
 	collectionBG: string;
-	@Expose({ name: 'CollectionTexture' })
-	collectionTexture: string;
 	@Expose({ name: 'FamilyName' })
 	familyName: string;
 	@Expose({ name: 'FamilyNameRuby' })
@@ -223,7 +219,7 @@ export class Student {
 	skillMaterialAmount: Array<number[]>;
 
 	get collectionTextureUrl() {
-		return `${environment.CDN_BASE}/images/student/icon/${this.collectionTexture}.png`;
+		return `${environment.CDN_BASE}/images/student/collection/${this.id}.webp`;
 	}
 
 	get collectionBGUrl() {
@@ -235,6 +231,6 @@ export class Student {
 	}
 
 	get gearIconUrl() {
-		return `${environment.CDN_BASE}/images/gear/${this.gear?.icon ?? 'Gear_Icon_Empty'}.png`;
+		return `${environment.CDN_BASE}/images/gear/${this.gear?.released ? `icon/${this.id}.webp` : 'empty.png'}`;
 	}
 }

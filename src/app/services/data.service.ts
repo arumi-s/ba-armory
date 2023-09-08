@@ -313,6 +313,12 @@ export class DataService {
 				label: this.i18n.eleph_sort_required,
 				key: [(student) => -this.deck.selectedSquad.required[student.id], (student) => -student.id],
 			},
+			{
+				id: 'stock',
+				// i18n
+				label: this.i18n.eleph_sort_stock,
+				key: [(student) => -this.deck.stocks[student.id], (student) => -student.id],
+			},
 		];
 
 		this.terrainOptions = [Terrain.Street, Terrain.Outdoor, Terrain.Indoor].map((terrain) => ({

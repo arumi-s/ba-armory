@@ -29,6 +29,6 @@ export class Skill {
 	summonStatCoefficient?: number[][];
 
 	get iconUrl() {
-		return `${environment.CDN_BASE}/images/skill/${this.icon}.png`;
+		return `${environment.CDN_BASE}/images/skill/${this.icon}.webp`;
 	}
 }

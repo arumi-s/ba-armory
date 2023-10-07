@@ -1,0 +1,48 @@
+:host {
+	display: block;
+}
+
+.rank-calc {
+	width: min-content;
+	margin: 0 auto;
+}
+
+.rank {
+	margin: var(--spacing-small) 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.rank-input,
+.next-rank-value {
+	width: 6rem;
+	border: 1px solid #eee;
+	padding: var(--spacing-x-small) var(--spacing-small);
+	border-radius: var(--border-radius-medium);
+}
+
+.next-rank {
+	margin: var(--spacing-small) 0;
+}
+
+.next-rank-label {
+	margin: var(--spacing-x-small) 0;
+}
+
+.next-rank-values {
+	display: grid;
+	grid-template-columns: repeat(5, min-content);
+	gap: var(--spacing-x-small);
+}
+
+.next-rank-value {
+	display: flex;
+	justify-content: flex-end;
+
+	img {
+		display: block;
+		margin-right: auto;
+		object-fit: cover;
+	}
+}

@@ -1,5 +1,11 @@
 .students {
 	min-height: 313px;
+
+	&.bounded {
+		max-width: 1600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
 ba-student-card {
@@ -135,5 +141,15 @@ ba-student-card {
 	img {
 		filter: invert(1);
 		height: 2em;
+	}
+}
+
+.squad_action-remove,
+.student_action-target,
+.student_action-add,
+.squad_action-pin,
+.squad_action-bound {
+	mat-icon {
+		margin-bottom: 0.15em;
 	}
 }

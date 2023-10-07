@@ -1,5 +1,5 @@
 import { Exclude, Expose } from 'class-transformer';
-import { ChangeDispatcher, Dispatcher, WatchBoolean } from 'prop-change-decorators';
+import { ChangeDispatcher, Clamp, Dispatcher, WatchBoolean } from 'prop-change-decorators';
 
 import { ArmorType, BulletType, SquadType, Terrain } from './enum';
 
@@ -46,6 +46,13 @@ export class DeckOptions {
 
 	@Expose({ name: 'filterTerrain' })
 	filterTerrain: Terrain[] = [];
+
+	@Expose({ name: 'currentRank' })
+	@Clamp({ name: 'currentRank', target: '' })
+	private __currentRank__: number = 15000;
+	currentRank: number;
+	readonly currentRankMin: number = 1;
+	readonly currentRankMax: number = 15000;
 
 	@Dispatcher()
 	readonly change$: ChangeDispatcher<DeckOptions>;

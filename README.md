@@ -13,6 +13,7 @@ This tool is for non commercial use only.
 - [ ] User manual
 - [ ] Show gacha drop
 - [ ] Auto reduce stock
+- [ ] More arena tools?
 - [x] Sortable student selector
 - [x] Export deck as a short link
 - [x] Eleph store cost calculator

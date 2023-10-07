@@ -44,5 +44,7 @@
 	"eleph_sort_total": "合計",
 	"eleph_sort_deficit": "足りない",
 	"eleph_sort_required": "必要",
-	"eleph_sort_stock": "在庫"
+	"eleph_sort_stock": "在庫",
+	"arena_current_rank": "現在の順位",
+	"arena_next_rank": "対戦相手の最高順位"
 }

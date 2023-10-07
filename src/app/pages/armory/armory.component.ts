@@ -139,6 +139,10 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 		this.dataService.deck.selectedSquad.pinned = !this.dataService.deck.selectedSquad.pinned;
 	}
 
+	handleClickSquadBound() {
+		this.dataService.deck.selectedSquad.bounded = !this.dataService.deck.selectedSquad.bounded;
+	}
+
 	handleMousedownSquadStopPropagation(event: MouseEvent) {
 		event.stopPropagation();
 	}

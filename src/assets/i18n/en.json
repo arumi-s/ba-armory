@@ -44,5 +44,7 @@
 	"eleph_sort_total": "Total Cost",
 	"eleph_sort_deficit": "Deficit",
 	"eleph_sort_required": "Required",
-	"eleph_sort_stock": "Stock"
+	"eleph_sort_stock": "Stock",
+	"arena_current_rank": "Your Current Ranking",
+	"arena_next_rank": "Highest Opponent Rankings"
 }

@@ -45,4 +45,6 @@ export interface I18N {
 	eleph_sort_deficit: string;
 	eleph_sort_required: string;
 	eleph_sort_stock: string;
+	arena_current_rank: string;
+	arena_next_rank: string;
 }

@@ -8,6 +8,7 @@ export enum Tab {
 	campaigns = 1,
 	elephs = 2,
 	gears = 3,
+	arena = 4,
 }
 
 export interface SortOption<T> {

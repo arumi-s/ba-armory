@@ -1,0 +1,27 @@
+<div class="options"></div>
+<div class="rank-calc">
+	<div class="rank">
+		<!-- TODO: i18n -->
+		<div class="rank-label">{{ dataService.i18n.arena_current_rank }}</div>
+		<input
+			type="number"
+			id="rank-input"
+			name="rank-input"
+			class="rank-input"
+			[(ngModel)]="dataService.deck.options.currentRank"
+			[min]="dataService.deck.options.currentRankMin"
+			[max]="dataService.deck.options.currentRankMax"
+			[step]="1"
+		/>
+	</div>
+	<div class="next-rank">
+		<!-- TODO: i18n -->
+		<div class="next-rank-label">{{ dataService.i18n.arena_next_rank }}</div>
+		<div class="next-rank-values">
+			<div class="next-rank-value" *ngFor="let nextRank of nextRanks">
+				<img *ngIf="nextRank.tierUp" [src]="rewardImage" height="20" width="20" />
+				{{ nextRank.rank === 0 ? "" : nextRank.rank }}
+			</div>
+		</div>
+	</div>
+</div>

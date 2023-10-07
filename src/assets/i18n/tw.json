@@ -44,5 +44,7 @@
 	"eleph_sort_total": "總購買價格",
 	"eleph_sort_deficit": "缺少",
 	"eleph_sort_required": "需要",
-	"eleph_sort_stock": "庫存"
+	"eleph_sort_stock": "庫存",
+	"arena_current_rank": "現在名次",
+	"arena_next_rank": "最高對手名次"
 }

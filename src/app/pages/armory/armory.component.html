@@ -75,6 +75,16 @@
 	</button>
 
 	<!-- TODO: i18n -->
+	<button
+		class="squad_action-bound"
+		mat-stroked-button
+		[color]="dataService.deck.selectedSquad.bounded ? 'accent' : 'basic'"
+		(click)="handleClickSquadBound()"
+	>
+		<mat-icon>looks_6</mat-icon>
+	</button>
+
+	<!-- TODO: i18n -->
 	<button class="squad_action-terrain terrain-option" mat-stroked-button [matMenuTriggerFor]="squadTerrainMenu">
 		<mat-icon [svgIcon]="'terrain_' + selectedTerrainOption.id"></mat-icon>&nbsp;{{ selectedTerrainOption.label }}
 	</button>
@@ -116,7 +126,12 @@
 	</button>
 </div>
 
-<div class="grid students" [sortablejs]="dataService.deck.selectedSquad.students" [sortablejsOptions]="sortableOptions">
+<div
+	class="grid students"
+	[class.bounded]="dataService.deck.selectedSquad.bounded"
+	[sortablejs]="dataService.deck.selectedSquad.students"
+	[sortablejsOptions]="sortableOptions"
+>
 	<ba-student-card
 		*ngFor="let student of dataService.deck.selectedSquad.students"
 		[id]="student"
@@ -157,6 +172,13 @@
 		<ng-template mat-tab-label>{{ dataService.localization.ui["ex_gear"] }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-gears></ba-tab-gears>
+		</ng-template>
+	</mat-tab>
+	<mat-tab>
+		<!-- TODO: i18n -->
+		<ng-template mat-tab-label>{{ dataService.localization.ShopCategory["Arena"] }}</ng-template>
+		<ng-template matTabContent>
+			<ba-tab-arena></ba-tab-arena>
 		</ng-template>
 	</mat-tab>
 </mat-tab-group>

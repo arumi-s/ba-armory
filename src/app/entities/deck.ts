@@ -1,9 +1,9 @@
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
-import { ChangeDispatcher, dispatchChange, Dispatcher } from 'prop-change-decorators';
+import { Change, ChangeDispatcher, dispatchChange, dispatchChanges, Dispatcher } from 'prop-change-decorators';
 
 import { DeckOptions } from './deck-options';
 import { DeckSquad } from './deck-squad';
-import { DeckStocks, transformStocks, wrapStocks } from './deck-stocks';
+import { DeckStocks, DeckStocksChange, transformStocks, wrapStocks } from './deck-stocks';
 import { DeckStudent } from './deck-student';
 
 import type { DataService } from '../services/data.service';
@@ -60,7 +60,7 @@ export class Deck {
 	@Dispatcher()
 	readonly change$: ChangeDispatcher<Deck>;
 
-	hydrate(dataService: DataService) {
+	hydrate(this: Deck, dataService: DataService) {
 		if (this.options == null) {
 			this.options = new DeckOptions();
 		}
@@ -68,6 +68,9 @@ export class Deck {
 		if (this.stocks == null) {
 			this.stocks = wrapStocks({});
 		}
+		this.stocks[DeckStocksChange]().subscribe(([itemId, oldValue]) => {
+			dispatchChanges(this, { stocks: { [itemId]: new Change(oldValue, this.stocks[itemId]) } });
+		});
 
 		if (this.students == null) {
 			this.students = new Map();

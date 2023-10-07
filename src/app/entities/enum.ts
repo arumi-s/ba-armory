@@ -81,13 +81,17 @@ export enum ArmorType {
 	LightArmor = 'LightArmor',
 	HeavyArmor = 'HeavyArmor',
 	Unarmed = 'Unarmed',
+	Structure = 'Structure',
 	ElasticArmor = 'ElasticArmor',
+	Normal = 'Normal',
 }
 
 export enum BulletType {
+	Normal = 'Normal',
 	Pierce = 'Pierce',
 	Explosion = 'Explosion',
 	Mystic = 'Mystic',
+	Sonic = 'Sonic',
 }
 
 export enum FavorStatType {

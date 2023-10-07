@@ -1,6 +1,8 @@
 import { Exclude, Expose } from 'class-transformer';
 import { ChangeDispatcher, Dispatcher, WatchBoolean } from 'prop-change-decorators';
 
+import { ArmorType, BulletType, SquadType, Terrain } from './enum';
+
 @Exclude()
 export class DeckOptions {
 	@Expose({ name: 'showSurplusItems' })
@@ -27,6 +29,23 @@ export class DeckOptions {
 	@WatchBoolean({ name: 'showDuplicatedStudents' })
 	private __showDuplicatedStudents__: boolean = false;
 	showDuplicatedStudents: boolean;
+
+	@Expose({ name: 'showFutureStudents' })
+	@WatchBoolean({ name: 'showFutureStudents' })
+	private __showFutureStudents__: boolean = false;
+	showFutureStudents: boolean;
+
+	@Expose({ name: 'filterBulletType' })
+	filterBulletType: BulletType[] = [];
+
+	@Expose({ name: 'filterArmorType' })
+	filterArmorType: ArmorType[] = [];
+
+	@Expose({ name: 'filterSquadType' })
+	filterSquadType: SquadType[] = [];
+
+	@Expose({ name: 'filterTerrain' })
+	filterTerrain: Terrain[] = [];
 
 	@Dispatcher()
 	readonly change$: ChangeDispatcher<DeckOptions>;

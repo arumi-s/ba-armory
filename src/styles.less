@@ -201,6 +201,10 @@ bar-rating {
 		.mat-button-focus-overlay {
 			background-color: @color;
 		}
+		&[active] {
+			background-color: @color;
+			color: @text;
+		}
 	}
 
 	&.mat-flat-button,
@@ -435,10 +439,10 @@ bar-rating {
 }
 
 .mat-success {
-	.mat-color(#6ed33f, #fff);
+	.mat-color(#22c55e, #fff);
 }
 .mat-badge-success .mat-badge-content {
-	background: #6ed33f;
+	background: #22c55e;
 	color: #fff;
 }
 

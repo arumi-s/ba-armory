@@ -12,6 +12,7 @@ import {
 	SquadType,
 	StatLevelUpType,
 	TacticRole,
+	Terrain,
 	WeaponType,
 } from './enum';
 import { Skill } from './skill';
@@ -217,6 +218,10 @@ export class Student {
 	@Expose({ name: 'SkillMaterialAmount' })
 	@Type(() => Array)
 	skillMaterialAmount: Array<number[]>;
+
+	getBattleAdaptation(terrain: Terrain) {
+		return this[`${terrain.toLowerCase() as Lowercase<Terrain>}BattleAdaptation`];
+	}
 
 	get collectionTextureUrl() {
 		return `${environment.CDN_BASE}/images/student/collection/${this.id}.webp`;

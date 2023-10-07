@@ -1,13 +1,70 @@
 <h2 mat-dialog-title>{{ title }}</h2>
 <div class="options">
-	<!-- TODO: i18n -->
+	<div class="selector_action-filter selector_action-filter_bullet_type">
+		<button
+			*ngFor="let option of dataService.bulletTypeOptions"
+			mat-stroked-button
+			[color]="option.id"
+			[title]="option.label"
+			[attr.active]="selectedBulletTypeOptions.has(option.id) || undefined"
+			(click)="handleClickFilterBulletTypeOption(option.id)"
+		>
+			{{ option.label }}
+		</button>
+	</div>
+
+	<div class="selector_action-filter selector_action-filter_armor_type">
+		<button
+			*ngFor="let option of dataService.armorTypeOptions"
+			mat-stroked-button
+			[color]="option.id"
+			[title]="option.label"
+			[attr.active]="selectedArmorTypeOptions.has(option.id) || undefined"
+			(click)="handleClickFilterArmorTypeOption(option.id)"
+		>
+			{{ option.label }}
+		</button>
+	</div>
+
+	<div class="selector_action-filter selector_action-filter_squad_type">
+		<button
+			*ngFor="let option of dataService.squadTypeOptions"
+			mat-stroked-button
+			[color]="option.id"
+			[title]="option.label"
+			[attr.active]="selectedSquadTypeOptions.has(option.id) || undefined"
+			(click)="handleClickFilterSquadTypeOption(option.id)"
+		>
+			{{ option.label }}
+		</button>
+	</div>
+
+	<div class="selector_action-filter selector_action-filter_adaptation_type">
+		<button
+			*ngFor="let option of dataService.terrainOptions"
+			mat-stroked-button
+			color="success"
+			[title]="option.label"
+			[attr.active]="selectedTerrainOptions.has(option.id) || undefined"
+			(click)="handleClickFilterTerrainOption(option.id)"
+		>
+			<mat-icon [svgIcon]="'terrain_' + option.id"></mat-icon>
+			{{ option.label }}
+		</button>
+	</div>
+
 	<div class="options-spacer"></div>
 	<mat-checkbox
 		class="selector_action-show_duplicated_students"
 		[(ngModel)]="dataService.deck.options.showDuplicatedStudents"
 		color="accent"
 	>
+		<!-- TODO: i18n -->
 		{{ dataService.i18n.selector_show_duplicated_students }}
+	</mat-checkbox>
+	<mat-checkbox class="selector_action-show_future_students" [(ngModel)]="dataService.deck.options.showFutureStudents" color="accent">
+		<!-- TODO: i18n -->
+		{{ dataService.i18n.selector_show_future_students }}
 	</mat-checkbox>
 </div>
 <mat-divider></mat-divider>

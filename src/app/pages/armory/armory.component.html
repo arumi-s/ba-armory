@@ -83,7 +83,6 @@
 		<button
 			*ngFor="let terrainOption of dataService.terrainOptions"
 			class="terrain-option options-terrain-option"
-			[value]="terrainOption.id"
 			mat-menu-item
 			(click)="handleClickSquadTerrainOption(terrainOption.id)"
 		>
@@ -104,7 +103,6 @@
 		<button
 			*ngFor="let sortOption of dataService.studentSortOptions"
 			class="student_sort-option options-sort-option"
-			[value]="sortOption.id"
 			mat-menu-item
 			(click)="handleClickStudentSortOption(sortOption.id)"
 		>
@@ -126,7 +124,13 @@
 	></ba-student-card>
 </div>
 
-<mat-tab-group class="items-tabs" [animationDuration]="0" [disablePagination]="true" selectedIndex="0">
+<mat-tab-group
+	class="items-tabs"
+	[animationDuration]="0"
+	[disablePagination]="true"
+	[selectedIndex]="selectedTab"
+	(selectedIndexChange)="handleChangeTab($event)"
+>
 	<mat-tab>
 		<!-- TODO: i18n -->
 		<ng-template mat-tab-label>{{ dataService.localization.ui["navbar_items"] }}</ng-template>

@@ -25,6 +25,7 @@
 	"student_action_upgrade": "Latest",
 	"student_action_target": "Target",
 	"selector_show_duplicated_students": "Allow Duplicates",
+	"selector_show_future_students": "Allow Future",
 	"squad_name": "Squad",
 	"squad_action_remove": "Remove Squad",
 	"squad_action_pin": "Pin Squad",

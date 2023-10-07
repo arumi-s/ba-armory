@@ -25,6 +25,7 @@
 	"student_action_upgrade": "当前最高",
 	"student_action_target": "目标",
 	"selector_show_duplicated_students": "允许重复学生",
+	"selector_show_future_students": "允许未来学生",
 	"squad_name": "队伍",
 	"squad_action_remove": "移除队伍",
 	"squad_action_pin": "固定队伍",

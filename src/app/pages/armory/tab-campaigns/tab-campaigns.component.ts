@@ -13,6 +13,7 @@ import { DataService } from '../../../services/data.service';
 export class TabCampaignsComponent implements OnInit, OnDestroy {
 	private changeSubscription: Subscription;
 	private requiredUpdatedSubscription: Subscription;
+	private stagesUpdatedSubscription: Subscription;
 
 	constructor(public readonly dataService: DataService, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
@@ -27,14 +28,20 @@ export class TabCampaignsComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.requiredUpdatedSubscription?.unsubscribe();
+		this.stagesUpdatedSubscription?.unsubscribe();
 		this.changeSubscription?.unsubscribe();
 	}
 
 	handleChangeSquad() {
 		this.requiredUpdatedSubscription?.unsubscribe();
+		this.stagesUpdatedSubscription?.unsubscribe();
 		this.requiredUpdatedSubscription = this.dataService.deck.selectedSquad.requiredUpdated$.subscribe(() => {
 			this.changeDetectorRef.markForCheck();
 		});
+		this.stagesUpdatedSubscription = this.dataService.deck.selectedSquad.stagesUpdated$.subscribe(() => {
+			this.changeDetectorRef.markForCheck();
+		});
 		this.changeDetectorRef.markForCheck();
+		this.dataService.deck.selectedSquad.stagesStaled$.next();
 	}
 }

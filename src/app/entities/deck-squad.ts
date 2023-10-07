@@ -6,7 +6,7 @@ import { ACTION_POINT_ID } from './deck';
 import { DeckStocks, DeckStocksClear, wrapStocks } from './deck-stocks';
 import { DeckStudent } from './deck-student';
 import { CampaignDifficulty, StuffCategory, Terrain } from './enum';
-import { ElephSortOption, ItemSortOption, SortOption, StudentSortOption } from './types';
+import { ElephSortOption, ItemSortOption, SortOption, StudentSortOption, Tab } from './types';
 
 import type { DataService } from '../services/data.service';
 
@@ -30,6 +30,9 @@ export class DeckSquad {
 	@Expose({ name: 'pinned' })
 	pinned: boolean = false;
 
+	@Expose({ name: 'tab' })
+	tab: Tab = Tab.items;
+
 	readonly required: DeckStocks = wrapStocks({});
 
 	readonly stages: {
@@ -41,6 +44,8 @@ export class DeckSquad {
 	readonly change$: ChangeDispatcher<DeckSquad>;
 	readonly requiredStaled$ = new Subject<void>();
 	readonly requiredUpdated$ = new Subject<void>();
+	readonly stagesStaled$ = new Subject<void>();
+	readonly stagesUpdated$ = new Subject<void>();
 
 	autoIcon: string = '';
 
@@ -58,6 +63,10 @@ export class DeckSquad {
 
 		if (this.pinned == null) {
 			this.pinned = false;
+		}
+
+		if (this.tab == null) {
+			this.tab = 0;
 		}
 
 		this.students = (this.students ?? []).filter((studentId) => dataService.students.has(studentId));
@@ -106,6 +115,12 @@ export class DeckSquad {
 			}
 		});
 
+		dataService.deck.change$.subscribe((changes) => {
+			if (changes.stocks) {
+				this.stagesStaled$.next();
+			}
+		});
+
 		this.requiredStaled$
 			.pipe(
 				filter(() => dataService.deck.selectedSquadId === this.id),
@@ -113,6 +128,15 @@ export class DeckSquad {
 			)
 			.subscribe(() => {
 				this.updateRequiredItems(dataService);
+			});
+
+		this.stagesStaled$
+			.pipe(
+				filter(() => dataService.deck.selectedSquadId === this.id && dataService.deck.selectedSquad.tab === Tab.campaigns),
+				debounceTime(200)
+			)
+			.subscribe(() => {
+				this.updateStages(dataService);
 			});
 
 		for (const studentId of this.students) {
@@ -162,8 +186,8 @@ export class DeckSquad {
 			counted.add(studentId);
 		}
 
-		this.updateStages(dataService);
 		this.requiredUpdated$.next();
+		this.updateStages(dataService);
 	}
 
 	updateStages(dataService: DataService) {
@@ -210,6 +234,8 @@ export class DeckSquad {
 			});
 
 		this.stages.splice(0, this.stages.length, ...candidates);
+
+		this.stagesUpdated$.next();
 	}
 
 	updateAutoIcon(dataService: DataService) {

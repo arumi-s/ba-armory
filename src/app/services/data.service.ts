@@ -2,17 +2,26 @@ import { plainToClassFromExist, plainToInstance } from 'class-transformer';
 
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../environments/environment';
-import { Common } from '../entities/common';
+import { Config } from '../entities/config';
 import { Deck, ELIGMA_ID, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities/deck';
-import { ArmorType, BulletType, EquipmentCategory, ItemCategory, SkillType, StuffCategory, Terrain } from '../entities/enum';
+import { ArmorType, BulletType, EquipmentCategory, ItemCategory, SkillType, SquadType, StuffCategory, Terrain } from '../entities/enum';
 import { Equipment } from '../entities/equipment';
 import { I18N } from '../entities/i18n';
 import { EXTRA_ICONS, RAID_ICONS } from '../entities/icons';
 import { Localization } from '../entities/localization';
 import { Stage } from '../entities/stage';
 import { Student } from '../entities/student';
-import { ElephSortOption, ItemSortOption, LanguageOption, RegionOption, StudentSortOption, TerrainOption } from '../entities/types';
+import {
+	ArmorTypeOption,
+	BulletTypeOption,
+	ElephSortOption,
+	ItemSortOption,
+	LanguageOption,
+	RegionOption,
+	SquadTypeOption,
+	StudentSortOption,
+	TerrainOption,
+} from '../entities/types';
 
 @Injectable({
 	providedIn: 'root',
@@ -32,7 +41,7 @@ export class DataService {
 
 	stages: Stage = new Stage();
 
-	common: Common;
+	config: Config;
 	localization: Localization;
 	i18n: I18N;
 
@@ -54,6 +63,7 @@ export class DataService {
 	regionOptions: RegionOption[] = [
 		{ id: 0, label: 'Japan' },
 		{ id: 1, label: 'Global' },
+		{ id: 2, label: 'China' },
 	];
 	languageOptions: LanguageOption[] = [
 		{ id: 'cn', label: '简体中文', code: 'zh-Hans' },
@@ -66,19 +76,22 @@ export class DataService {
 	itemSortOptions: ItemSortOption[] = [];
 	elephSortOptions: ElephSortOption[] = [];
 
+	bulletTypeOptions: BulletTypeOption[];
+	armorTypeOptions: ArmorTypeOption[];
+	squadTypeOptions: SquadTypeOption[];
 	terrainOptions: TerrainOption[] = [];
 
 	link = '';
 
 	constructor() {}
 
-	setCommon(json: any) {
-		this.common = json;
+	setConfig(json: any) {
+		this.config = json;
 
-		const region = this.common.regions[this.region];
+		const region = this.config.Regions[this.region];
 
-		this.studentLevelMax = region.studentlevel_max;
-		this.weaponLevelMax = region.weaponlevel_max;
+		this.studentLevelMax = region.StudentMaxLevel;
+		this.weaponLevelMax = region.WeaponMaxLevel;
 	}
 
 	setStudents(json: any[]) {
@@ -320,6 +333,21 @@ export class DataService {
 				key: [(student) => -this.deck.stocks[student.id], (student) => -student.id],
 			},
 		];
+
+		this.bulletTypeOptions = [BulletType.Explosion, BulletType.Pierce, BulletType.Mystic, BulletType.Sonic].map((bullet) => ({
+			id: bullet,
+			label: this.localization.BulletType[bullet],
+		}));
+
+		this.armorTypeOptions = [ArmorType.LightArmor, ArmorType.HeavyArmor, ArmorType.Unarmed, ArmorType.ElasticArmor].map((armor) => ({
+			id: armor,
+			label: this.localization.ArmorType[armor],
+		}));
+
+		this.squadTypeOptions = [SquadType.Main, SquadType.Support].map((squad) => ({
+			id: squad,
+			label: this.localization.SquadType[squad],
+		}));
 
 		this.terrainOptions = [Terrain.Street, Terrain.Outdoor, Terrain.Indoor].map((terrain) => ({
 			id: terrain,

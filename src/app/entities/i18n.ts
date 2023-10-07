@@ -25,6 +25,7 @@ export interface I18N {
 	student_action_upgrade: string;
 	student_action_target: string;
 	selector_show_duplicated_students: string;
+	selector_show_future_students: string;
 	squad_name: string;
 	squad_action_remove: string;
 	squad_action_pin: string;

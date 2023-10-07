@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
 import { Terrain } from '../../entities/enum';
-import { StudentSortOption, TerrainOption } from '../../entities/types';
+import { StudentSortOption, Tab, TerrainOption } from '../../entities/types';
 import { DataService } from '../../services/data.service';
 import { IconSelectorComponent } from '../icon-selector/icon-selector.component';
 import { SelectorComponent } from '../selector/selector.component';
@@ -25,6 +25,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 	};
 
 	isTarget: boolean = false;
+	selectedTab: Tab = Tab.items;
 	selectedTerrainOption: TerrainOption = undefined;
 	selectedStudentSortOption: StudentSortOption = undefined;
 	selectedStudentSortDirection: -1 | 1 = 1;
@@ -56,6 +57,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 		this.isTarget = false;
 		this.selectedStudentSortOption = undefined;
 		this.requiredUpdatedSubscription?.unsubscribe();
+		this.handleChangeTab(this.dataService.deck.selectedSquad.tab);
 		this.handleClickSquadTerrainOption(this.dataService.deck.selectedSquad.terrain);
 		this.requiredUpdatedSubscription = this.dataService.deck.selectedSquad.requiredUpdated$.subscribe(() => {
 			this.changeDetectorRef.markForCheck();
@@ -80,7 +82,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 	async handleClickSelector() {
 		const dialogRef = this.dialog.open(SelectorComponent, {
 			width: '100%',
-			height: 'auto',
+			height: '100%',
 			maxHeight: 'calc(100% - var(--spacing-xx-large))',
 			autoFocus: false,
 			restoreFocus: false,
@@ -88,6 +90,11 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 
 		await firstValueFrom(dialogRef.afterClosed());
 		this.changeDetectorRef.markForCheck();
+	}
+
+	handleChangeTab(tab: number) {
+		this.selectedTab = tab;
+		this.dataService.deck.selectedSquad.tab = tab;
 	}
 
 	handleClickSquadTerrainOption(terrain: Terrain) {

@@ -26,7 +26,7 @@ export class StudentIconComponent implements OnInit {
 	constructor(private readonly dataService: DataService) {}
 
 	ngOnInit(): void {
-		this.student = this.dataService.students.get(this.id) ?? null;
+		this.student = this.dataService.getStudent(this.id) ?? null;
 
 		if (this.student) {
 			// i18n

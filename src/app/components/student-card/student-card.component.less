@@ -15,6 +15,12 @@
 		}
 	}
 
+	&.is_alt {
+		.mat-card-header {
+			background-color: #f5efd6;
+		}
+	}
+
 	&:not(.is_target) {
 		::ng-deep .is_target-show {
 			display: none;
@@ -233,12 +239,19 @@ ba-skill-card[skill_type="gearnormal"] {
 	margin-left: 0;
 	margin-right: 0;
 	padding: var(--spacing-x-small);
+	gap: var(--spacing-xxx-small);
 
 	.mat-button {
 		margin: 0;
+		flex-shrink: 0;
+		min-width: unset;
 	}
 
-	.action-upgrade {
-		margin-left: auto;
+	.action-remove {
+		margin-right: auto !important;
+	}
+
+	.action-assist {
+		pointer-events: none;
 	}
 }

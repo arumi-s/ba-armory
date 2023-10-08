@@ -28,7 +28,7 @@ export class DeckSkill {
 	readonly change$: ChangeDispatcher<DeckSkill>;
 
 	hydrate(dataService: DataService) {
-		const skill = dataService.students.get(this.studentId).skills[this.index];
+		const skill = dataService.getStudent(this.studentId).skills[this.index];
 
 		(this as { levelMax: number }).levelMax = skill?.skillType === SkillType.Ex ? 5 : 10;
 

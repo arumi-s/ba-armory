@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
+import { ALT_OFFSET } from '../../../entities/deck';
 import { ElephSortOption } from '../../../entities/types';
 import { DataService } from '../../../services/data.service';
 
@@ -46,12 +47,11 @@ export class TabElephsComponent implements OnInit, OnDestroy {
 		});
 		this.squadChangeSubscription = this.dataService.deck.selectedSquad.change$.subscribe((changes) => {
 			if (Array.isArray(changes.students)) {
-				this.ids = this.dataService.deck.selectedSquad.students.filter((v, i, a) => a.indexOf(v) === i);
-				this.handleClickElephSortOption('total');
+				this.updateStudentIds();
+				this.changeDetectorRef.markForCheck();
 			}
 		});
-		this.ids = this.dataService.deck.selectedSquad.students.filter((v, i, a) => a.indexOf(v) === i);
-		this.handleClickElephSortOption('total');
+		this.updateStudentIds();
 		this.changeDetectorRef.markForCheck();
 	}
 
@@ -65,5 +65,10 @@ export class TabElephsComponent implements OnInit, OnDestroy {
 		this.selectedElephSortDirection = this.selectedElephSortDirection === -1 ? 1 : -1;
 
 		this.dataService.deck.selectedSquad.sortElephs(this.dataService, this.ids, this.selectedElephSortOption, this.selectedElephSortDirection);
+	}
+
+	updateStudentIds() {
+		this.ids = this.dataService.deck.selectedSquad.students.filter((v, i, a) => !(v > ALT_OFFSET) && a.indexOf(v) === i);
+		this.handleClickElephSortOption('total');
 	}
 }

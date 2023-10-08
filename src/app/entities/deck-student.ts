@@ -2,7 +2,7 @@ import { Exclude, Expose, plainToInstance, Type } from 'class-transformer';
 import { Change, ChangeDispatcher, Clamp, ClampTarget, dispatchChanges, Dispatcher, WatchBoolean } from 'prop-change-decorators';
 import { debounceTime, filter, merge, of, Subject } from 'rxjs';
 
-import { ELIGMA_ID } from './deck';
+import { ALT_OFFSET, ELIGMA_ID } from './deck';
 import { DeckEquipment } from './deck-equipment';
 import { DeckSkill } from './deck-skill';
 import { SkillType, Terrain } from './enum';
@@ -116,7 +116,7 @@ export class DeckStudent {
 	}
 
 	hydrate(dataService: DataService) {
-		const student = dataService.students.get(this.id);
+		const student = dataService.getStudent(this.id);
 
 		(this as { levelMax: number }).levelMax = dataService.studentLevelMax;
 		(this as { starMin: number }).starMin = student.starGrade;
@@ -174,8 +174,12 @@ export class DeckStudent {
 		});
 	}
 
+	isAlt() {
+		return this.id > ALT_OFFSET;
+	}
+
 	getAdaptations(dataService: DataService): Record<Terrain, number> {
-		const student = dataService.students.get(this.id);
+		const student = dataService.getStudent(this.id);
 
 		const adaptations = {
 			[Terrain.Indoor]: student.indoorBattleAdaptation,
@@ -237,7 +241,7 @@ export class DeckStudent {
 	}
 
 	private updateRequiredItems(dataService: DataService) {
-		const student = dataService.students.get(this.id);
+		const student = dataService.getStudent(this.id);
 		this.requiredItems.clear();
 
 		/* Skills */

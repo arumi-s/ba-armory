@@ -41,7 +41,7 @@ export class SkillCardComponent implements OnInit, OnDestroy {
 	constructor(private readonly dataService: DataService, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
-		const student = this.dataService.students.get(this.model.studentId);
+		const student = this.dataService.getStudent(this.model.studentId);
 		const skill = student.skills[this.model.index];
 
 		this.name = skill.name;

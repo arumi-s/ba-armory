@@ -42,7 +42,7 @@ export class GearCardComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.model = this.dataService.deck.students.get(this.id);
-		const student = this.dataService.students.get(this.id);
+		const student = this.dataService.getStudent(this.id);
 
 		this.name = student.name;
 		this.iconUrl = student.gearIconUrl;

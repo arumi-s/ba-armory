@@ -16,6 +16,8 @@ export const GOLD_ID = 1;
 export const ACTION_POINT_ID = 5;
 export const ELIGMA_ID = 23;
 
+export const ALT_OFFSET = 1000000;
+
 @Exclude()
 export class Deck {
 	@Expose({ name: 'options' })

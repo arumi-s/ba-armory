@@ -71,7 +71,7 @@
 		[color]="dataService.deck.selectedSquad.pinned ? 'accent' : 'basic'"
 		(click)="handleClickSquadPin()"
 	>
-		<mat-icon>push_pin</mat-icon> {{ dataService.i18n.squad_action_pin }}
+		<mat-icon>push_pin</mat-icon>
 	</button>
 
 	<!-- TODO: i18n -->
@@ -82,6 +82,11 @@
 		(click)="handleClickSquadBound()"
 	>
 		<mat-icon>looks_6</mat-icon>
+	</button>
+
+	<!-- TODO: i18n -->
+	<button class="squad_action-text" mat-stroked-button color="primary" (click)="handleClickSquadText()">
+		<mat-icon>text_snippet</mat-icon>
 	</button>
 
 	<!-- TODO: i18n -->
@@ -142,7 +147,7 @@
 <mat-tab-group
 	class="items-tabs"
 	[animationDuration]="0"
-	[disablePagination]="true"
+	[disablePagination]="false"
 	[selectedIndex]="selectedTab"
 	(selectedIndexChange)="handleChangeTab($event)"
 >

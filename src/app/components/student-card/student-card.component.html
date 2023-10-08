@@ -1,9 +1,9 @@
 <mat-card class="mat-elevation-z3">
 	<mat-card-header>
 		<img mat-card-avatar loading="lazy" [src]="collectionTextureUrl" [alt]="name" />
-		<mat-card-title
-			><a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a></mat-card-title
-		>
+		<mat-card-title>
+			<a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a>
+		</mat-card-title>
 		<mat-card-subtitle class="tags">
 			<button mat-flat-button tabindex="-1" size="small" [color]="bulletType" [title]="bulletTypeText">
 				<mat-icon svgIcon="bullet_type"></mat-icon>
@@ -101,21 +101,39 @@
 		<button class="action-remove" mat-button color="warn" tabindex="-1" size="small" (click)="handleClickDelete()">
 			<mat-icon>block</mat-icon> {{ action_remove }}
 		</button>
-		<!-- TODO: i18n -->
-		<button class="action-upgrade" mat-button color="basic" tabindex="-1" size="small" [disabled]="isUpgraded" (click)="handleClickUpgrade()">
-			<mat-icon>upgrade</mat-icon> {{ action_upgrade }}
-		</button>
-		<!-- TODO: i18n -->
-		<button
-			class="action-target"
-			mat-flat-button
-			[color]="isTarget ? 'accent' : 'basic'"
-			tabindex="-1"
-			size="small"
-			(click)="handleClickTarget()"
-		>
-			<mat-icon>gps_fixed</mat-icon> {{ action_target }}
-		</button>
+
+		<ng-container *ngIf="!isAlt; else is_alt">
+			<!-- TODO: i18n -->
+			<button
+				class="action-upgrade"
+				mat-button
+				color="basic"
+				tabindex="-1"
+				size="small"
+				[disabled]="isUpgraded"
+				(click)="handleClickUpgrade()"
+			>
+				<mat-icon>upgrade</mat-icon> {{ action_upgrade }}
+			</button>
+			<!-- TODO: i18n -->
+			<button
+				class="action-target"
+				mat-flat-button
+				[color]="isTarget ? 'accent' : 'basic'"
+				tabindex="-1"
+				size="small"
+				(click)="handleClickTarget()"
+			>
+				<mat-icon>gps_fixed</mat-icon> {{ action_target }}
+			</button>
+		</ng-container>
+
+		<ng-template #is_alt>
+			<!-- TODO: i18n -->
+			<button class="action-assist" mat-button color="accent" tabindex="-1" size="small">
+				<mat-icon>assistant</mat-icon> {{ action_assist }}
+			</button>
+		</ng-template>
 	</mat-card-actions>
 	<mat-card-footer></mat-card-footer>
 </mat-card>

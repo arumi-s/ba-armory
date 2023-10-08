@@ -30,7 +30,7 @@ export class ElephCardComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.model = this.dataService.deck.students.get(this.id);
-		const student = this.dataService.students.get(this.id);
+		const student = this.dataService.getStudent(this.id);
 
 		this.name = student.name;
 		this.dbUrl = `${environment.SCHALEDB_BASE}/?item=${encodeURIComponent(this.id)}`;

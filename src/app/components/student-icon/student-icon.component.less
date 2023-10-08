@@ -10,11 +10,24 @@
 	position: relative;
 }
 
+.base {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: var(--border-radius-circle);
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	&:active {
+		box-shadow: none;
+	}
+}
+
 .icon {
 	display: block;
 	width: 100%;
 	height: 100%;
-	object-fit: contain;
+	object-fit: cover;
 	border-radius: var(--border-radius-circle);
 }
 

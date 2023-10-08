@@ -35,6 +35,36 @@ export class DeckOptions {
 	private __showFutureStudents__: boolean = false;
 	showFutureStudents: boolean;
 
+	@Expose({ name: 'isAssistStudents' })
+	@WatchBoolean({ name: 'isAssistStudents' })
+	private __isAssistStudents__: boolean = false;
+	isAssistStudents: boolean;
+
+	@Expose({ name: 'showSquadTextStar' })
+	@WatchBoolean({ name: 'showSquadTextStar' })
+	private __showSquadTextStar__: boolean = false;
+	showSquadTextStar: boolean;
+	@Expose({ name: 'showSquadTextLevel' })
+	@WatchBoolean({ name: 'showSquadTextLevel' })
+	private __showSquadTextLevel__: boolean = false;
+	showSquadTextLevel: boolean;
+	@Expose({ name: 'showSquadTextSkills' })
+	@WatchBoolean({ name: 'showSquadTextSkills' })
+	private __showSquadTextSkills__: boolean = false;
+	showSquadTextSkills: boolean;
+	@Expose({ name: 'showSquadTextEquipments' })
+	@WatchBoolean({ name: 'showSquadTextEquipments' })
+	private __showSquadTextEquipments__: boolean = false;
+	showSquadTextEquipments: boolean;
+	@Expose({ name: 'showSquadTextGear' })
+	@WatchBoolean({ name: 'showSquadTextGear' })
+	private __showSquadTextGear__: boolean = false;
+	showSquadTextGear: boolean;
+	@Expose({ name: 'showSquadTextWeapon' })
+	@WatchBoolean({ name: 'showSquadTextWeapon' })
+	private __showSquadTextWeapon__: boolean = false;
+	showSquadTextWeapon: boolean;
+
 	@Expose({ name: 'filterBulletType' })
 	filterBulletType: BulletType[] = [];
 

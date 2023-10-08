@@ -3,7 +3,7 @@ import { plainToClassFromExist, plainToInstance } from 'class-transformer';
 import { Injectable } from '@angular/core';
 
 import { Config } from '../entities/config';
-import { Deck, ELIGMA_ID, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities/deck';
+import { ALT_OFFSET, Deck, ELIGMA_ID, EQUIPMENT_OFFSET, FURNITURE_OFFSET } from '../entities/deck';
 import { ArmorType, BulletType, EquipmentCategory, ItemCategory, SkillType, SquadType, StuffCategory, Terrain } from '../entities/enum';
 import { Equipment } from '../entities/equipment';
 import { I18N } from '../entities/i18n';
@@ -61,9 +61,9 @@ export class DataService {
 	adaptaionAmount = ['D', 'C', 'B', 'A', 'S', 'SS'];
 
 	regionOptions: RegionOption[] = [
-		{ id: 0, label: 'Japan' },
-		{ id: 1, label: 'Global' },
-		{ id: 2, label: 'China' },
+		{ id: 0, label: '' },
+		{ id: 1, label: '' },
+		{ id: 2, label: '' },
 	];
 	languageOptions: LanguageOption[] = [
 		{ id: 'cn', label: '简体中文', code: 'zh-Hans' },
@@ -184,6 +184,10 @@ export class DataService {
 
 	setLocalization(json: any) {
 		this.localization = json;
+
+		this.regionOptions.forEach((regionOption) => {
+			regionOption.label = this.localization.ServerName[regionOption.id];
+		});
 	}
 
 	setI18N(json: any) {
@@ -361,6 +365,14 @@ export class DataService {
 			exposeDefaultValues: true,
 		});
 		this.deck.hydrate(this);
+	}
+
+	hasStudent(id: number) {
+		return this.students.has(id % ALT_OFFSET);
+	}
+
+	getStudent(id: number) {
+		return this.students.get(id % ALT_OFFSET);
 	}
 
 	getEquipmentTier(equipmentCategory: EquipmentCategory, tier: number) {

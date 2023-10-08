@@ -27,6 +27,7 @@ export interface Localization {
 	BuffName: { [key: string]: string };
 	BuffNameLong: { [key: string]: string };
 	BuffTooltip: { [key: string]: string };
+	ServerName: { [key: string]: string };
 	ShopCategory: { [key: string]: string };
 	ui: { [key: string]: string };
 }

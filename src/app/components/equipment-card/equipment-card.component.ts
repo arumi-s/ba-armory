@@ -53,7 +53,7 @@ export class EquipmentCardComponent implements OnInit, OnChanges, OnDestroy {
 	constructor(private readonly dataService: DataService, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
-		const student = this.dataService.students.get(this.model.studentId);
+		const student = this.dataService.getStudent(this.model.studentId);
 		this.category = student.equipment[this.model.index];
 
 		this.equipmentMap = this.dataService.equipmentsByCategory.get(this.category) ?? new Map();

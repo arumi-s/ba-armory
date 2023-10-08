@@ -25,6 +25,7 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 	action_remove: string;
 	action_upgrade: string;
 	action_target: string;
+	action_assist: string;
 
 	name: string;
 	dbUrl: string;
@@ -38,6 +39,9 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 	position: string;
 	collectionTextureUrl: string;
 	schoolIconUrl: string;
+
+	@HostBinding('class.is_alt')
+	isAlt = false;
 
 	@HostBinding('class.is_target')
 	isTarget = false;
@@ -75,11 +79,12 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.model = this.dataService.deck.students.get(this.id);
-		const student = this.dataService.students.get(this.id);
+		const student = this.dataService.getStudent(this.id);
 
 		this.action_remove = this.dataService.i18n.student_action_remove;
 		this.action_upgrade = this.dataService.i18n.student_action_upgrade;
 		this.action_target = this.dataService.i18n.student_action_target;
+		this.action_assist = this.dataService.i18n.student_action_assist;
 
 		this.name = student.name;
 		this.dbUrl = `${environment.SCHALEDB_BASE}/?chara=${encodeURIComponent(student.pathName)}`;
@@ -96,6 +101,8 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 		this.squadTypeText = this.dataService.localization.SquadType[this.squadType];
 		this.collectionTextureUrl = student.collectionTextureUrl;
 		this.schoolIconUrl = student.schoolIconUrl;
+
+		this.isAlt = this.model.isAlt();
 		this.isTarget = this.model.isTarget;
 
 		this.updateIsUpgraded();

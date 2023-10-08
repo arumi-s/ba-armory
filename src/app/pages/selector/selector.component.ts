@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 
+import { ALT_OFFSET } from '../../entities/deck';
 import { ArmorType, BulletType, SquadType, Terrain } from '../../entities/enum';
 import { DataService } from '../../services/data.service';
 
@@ -104,7 +105,13 @@ export class SelectorComponent implements OnInit, OnDestroy {
 	}
 
 	handleClickStudent(id: number) {
-		this.dataService.deck.selectedSquad.addStudent(this.dataService, id);
+		if (this.dataService.deck.options.isAssistStudents) {
+			id += ALT_OFFSET;
+		}
+
+		if (this.dataService.deck.options.showDuplicatedStudents || !this.dataService.deck.selectedSquad.hasStudent(id)) {
+			this.dataService.deck.selectedSquad.addStudent(this.dataService, id);
+		}
 	}
 
 	updateMissingStudents() {
@@ -115,7 +122,9 @@ export class SelectorComponent implements OnInit, OnDestroy {
 		for (const [, student] of this.dataService.students) {
 			if (
 				(this.dataService.deck.options.showFutureStudents || student.isReleased[region]) &&
-				(this.dataService.deck.options.showDuplicatedStudents || !this.dataService.deck.selectedSquad.hasStudent(student.id)) &&
+				(this.dataService.deck.options.showDuplicatedStudents ||
+					(!this.dataService.deck.selectedSquad.hasStudent(student.id) &&
+						!this.dataService.deck.selectedSquad.hasStudent(student.id + ALT_OFFSET))) &&
 				(this.selectedBulletTypeOptions.size === 0 || this.selectedBulletTypeOptions.has(student.bulletType)) &&
 				(this.selectedArmorTypeOptions.size === 0 || this.selectedArmorTypeOptions.has(student.armorType)) &&
 				(this.selectedSquadTypeOptions.size === 0 || this.selectedSquadTypeOptions.has(student.squadType)) &&

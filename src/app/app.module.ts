@@ -19,6 +19,7 @@ import { ExportModule } from './pages/export/export.module';
 import { IconSelectorModule } from './pages/icon-selector/icon-selector.module';
 import { SelectorModule } from './pages/selector/selector.module';
 import { SettingModule } from './pages/setting/setting.module';
+import { SquadTextModule } from './pages/squad-text/squad-text.module';
 import { PreloadService } from './services/preload.service';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { PreloadService } from './services/preload.service';
 		SelectorModule,
 		IconSelectorModule,
 		SettingModule,
+		SquadTextModule,
 
 		MatButtonModule,
 		MatDialogModule,

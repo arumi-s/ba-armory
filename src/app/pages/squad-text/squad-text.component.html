@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<div class="options">
+	<mat-checkbox class="text_action-show_star" [(ngModel)]="dataService.deck.options.showSquadTextStar" color="accent">
+		<!-- TODO: i18n -->
+		{{ starText }}
+	</mat-checkbox>
+	<mat-checkbox class="text_action-show_level" [(ngModel)]="dataService.deck.options.showSquadTextLevel" color="accent">
+		<!-- TODO: i18n -->
+		{{ levelText }}
+	</mat-checkbox>
+	<mat-checkbox class="text_action-show_skills" [(ngModel)]="dataService.deck.options.showSquadTextSkills" color="accent">
+		<!-- TODO: i18n -->
+		{{ skillsText }}
+	</mat-checkbox>
+	<mat-checkbox class="text_action-show_equipments" [(ngModel)]="dataService.deck.options.showSquadTextEquipments" color="accent">
+		<!-- TODO: i18n -->
+		{{ equipmentsText }}
+	</mat-checkbox>
+	<mat-checkbox class="text_action-show_weapon" [(ngModel)]="dataService.deck.options.showSquadTextWeapon" color="accent">
+		<!-- TODO: i18n -->
+		{{ weaponText }}
+	</mat-checkbox>
+	<mat-checkbox class="text_action-show_gear" [(ngModel)]="dataService.deck.options.showSquadTextGear" color="accent">
+		<!-- TODO: i18n -->
+		{{ gearText }}
+	</mat-checkbox>
+</div>
+
+<mat-divider></mat-divider>
+
+<div>
+	<textarea
+		class="text-input_text"
+		name="text-input_text"
+		readonly
+		[rows]="rows"
+		[ngModel]="text"
+		(click)="handleClickInput($event)"
+	></textarea>
+</div>

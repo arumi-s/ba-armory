@@ -10,6 +10,7 @@ import { StudentSortOption, Tab, TerrainOption } from '../../entities/types';
 import { DataService } from '../../services/data.service';
 import { IconSelectorComponent } from '../icon-selector/icon-selector.component';
 import { SelectorComponent } from '../selector/selector.component';
+import { SquadTextComponent } from '../squad-text/squad-text.component';
 
 @Component({
 	selector: 'ba-armory',
@@ -141,6 +142,18 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 
 	handleClickSquadBound() {
 		this.dataService.deck.selectedSquad.bounded = !this.dataService.deck.selectedSquad.bounded;
+	}
+
+	async handleClickSquadText() {
+		const dialogRef = this.dialog.open(SquadTextComponent, {
+			height: 'auto',
+			maxHeight: 'calc(100% - var(--spacing-xx-large))',
+			autoFocus: false,
+			restoreFocus: false,
+		});
+
+		await firstValueFrom(dialogRef.afterClosed());
+		this.changeDetectorRef.markForCheck();
 	}
 
 	handleMousedownSquadStopPropagation(event: MouseEvent) {

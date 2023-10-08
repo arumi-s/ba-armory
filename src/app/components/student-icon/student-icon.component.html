@@ -1,8 +1,10 @@
-<img class="icon mat-elevation-z3" [src]="student.collectionTextureUrl" loading="lazy" [alt]="student.name" />
-<button class="bullet_type" mat-mini-fab tabindex="-1" [color]="student.bulletType">
-	<mat-icon svgIcon="bullet_type"></mat-icon>
+<button class="base mat-elevation-z3">
+	<img class="icon" [src]="student.collectionTextureUrl" loading="lazy" [alt]="student.name" />
+	<button class="bullet_type" mat-mini-fab tabindex="-1" [color]="student.bulletType">
+		<mat-icon svgIcon="bullet_type"></mat-icon>
+	</button>
+	<button class="armor_type" mat-mini-fab tabindex="-1" [color]="student.armorType">
+		<mat-icon svgIcon="armor_type"></mat-icon>
+	</button>
+	<img *ngIf="terrain" class="adaptation_icon" tabindex="-1" [src]="adaptationIcon" width="30" height="30" alt="" />
 </button>
-<button class="armor_type" mat-mini-fab tabindex="-1" [color]="student.armorType">
-	<mat-icon svgIcon="armor_type"></mat-icon>
-</button>
-<img *ngIf="terrain" class="adaptation_icon" tabindex="-1" [src]="adaptationIcon" width="30" height="30" alt="" />

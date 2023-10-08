@@ -26,7 +26,7 @@ export class DeckEquipment {
 	readonly change$: ChangeDispatcher<DeckEquipment>;
 
 	hydrate(dataService: DataService) {
-		const equipmentCategory = dataService.students.get(this.studentId).equipment[this.index];
+		const equipmentCategory = dataService.getStudent(this.studentId).equipment[this.index];
 
 		(this as { tierMax: number }).tierMax = dataService.equipmentCategoryMaxTier.get(equipmentCategory);
 

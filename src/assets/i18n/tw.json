@@ -24,6 +24,7 @@
 	"student_action_remove": "移除",
 	"student_action_upgrade": "當前最高",
 	"student_action_target": "目標",
+	"student_action_maximize": "最大值",
 	"student_action_assist": "幫手",
 	"selector_show_duplicated_students": "允許重複學生",
 	"selector_show_future_students": "允許未來學生",

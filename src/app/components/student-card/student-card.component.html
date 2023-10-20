@@ -130,6 +130,18 @@
 
 		<ng-template #is_alt>
 			<!-- TODO: i18n -->
+			<button
+				class="action-upgrade"
+				mat-button
+				color="basic"
+				tabindex="-1"
+				size="small"
+				[disabled]="isUpgraded"
+				(click)="handleClickMaximize()"
+			>
+				<mat-icon>upgrade</mat-icon> {{ action_maximize }}
+			</button>
+			<!-- TODO: i18n -->
 			<button class="action-assist" mat-button color="accent" tabindex="-1" size="small">
 				<mat-icon>assistant</mat-icon> {{ action_assist }}
 			</button>

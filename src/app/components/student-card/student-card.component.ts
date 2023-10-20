@@ -25,6 +25,7 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 	action_remove: string;
 	action_upgrade: string;
 	action_target: string;
+	action_maximize: string;
 	action_assist: string;
 
 	name: string;
@@ -84,6 +85,7 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 		this.action_remove = this.dataService.i18n.student_action_remove;
 		this.action_upgrade = this.dataService.i18n.student_action_upgrade;
 		this.action_target = this.dataService.i18n.student_action_target;
+		this.action_maximize = this.dataService.i18n.student_action_maximize;
 		this.action_assist = this.dataService.i18n.student_action_assist;
 
 		this.name = student.name;
@@ -129,6 +131,20 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 	handleClickUpgrade() {
 		for (const equipment of this.model.equipments) {
 			equipment.tierTarget = equipment.tierMax;
+		}
+	}
+
+	handleClickMaximize() {
+		this.model.level = this.model.levelMax;
+		this.model.star = this.model.starMax;
+		this.model.weapon = this.model.weaponMax;
+		this.model.gear = this.model.gearMax;
+
+		for (const skill of this.model.skills) {
+			skill.level = skill.levelMax;
+		}
+		for (const equipment of this.model.equipments) {
+			equipment.tier = equipment.tierMax;
 		}
 	}
 

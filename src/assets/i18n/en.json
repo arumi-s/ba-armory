@@ -24,6 +24,7 @@
 	"student_action_remove": "Remove",
 	"student_action_upgrade": "Latest",
 	"student_action_target": "Target",
+	"student_action_maximize": "Maximize",
 	"student_action_assist": "Assist",
 	"selector_show_duplicated_students": "Allow Duplicates",
 	"selector_show_future_students": "Allow Future",

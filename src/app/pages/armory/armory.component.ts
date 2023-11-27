@@ -1,3 +1,4 @@
+import { hasKeys } from 'prop-change-decorators';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { SortableOptions } from 'sortablejs';
 
@@ -42,7 +43,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {
-			if (changes.hasOwnProperty('selectedSquadId')) {
+			if (hasKeys(changes, 'selectedSquadId')) {
 				this.handleChangeSquad();
 			}
 		});

@@ -1,6 +1,6 @@
 import { Exclude, Expose, plainToInstance, Type } from 'class-transformer';
-import { Change, ChangeDispatcher, Clamp, ClampTarget, dispatchChanges, Dispatcher, WatchBoolean } from 'prop-change-decorators';
-import { debounceTime, filter, merge, of, Subject } from 'rxjs';
+import { Change, ChangeDispatcher, Clamp, ClampTarget, dispatchChanges, Dispatcher, hasKeys, WatchBoolean } from 'prop-change-decorators';
+import { debounceTime, filter, merge, of, Subject, tap } from 'rxjs';
 
 import { ALT_OFFSET, ELIGMA_ID } from './deck';
 import { DeckEquipment } from './deck-equipment';
@@ -138,12 +138,12 @@ export class DeckStudent {
 		this.hydrateSkills(dataService, student);
 
 		this.change$.subscribe((changes) => {
-			if (changes.hasOwnProperty('star')) {
+			if (hasKeys(changes, 'star')) {
 				if (changes.star.currentValue < this.starMax && this.weapon > this.weaponMin) {
 					this.weapon = this.weaponMin;
 				}
 			}
-			if (changes.hasOwnProperty('starTarget')) {
+			if (hasKeys(changes, 'starTarget')) {
 				if (changes.starTarget.currentValue < this.starMax && this.weaponTarget > this.weaponMin) {
 					this.weaponTarget = this.weaponMin;
 				}
@@ -153,18 +153,20 @@ export class DeckStudent {
 		merge(
 			of(null),
 			this.change$.pipe(
-				filter(
-					(changes) =>
-						changes.hasOwnProperty('equipments') ||
-						changes.hasOwnProperty('skills') ||
-						changes.hasOwnProperty('star') ||
-						changes.hasOwnProperty('starTarget') ||
-						changes.hasOwnProperty('weapon') ||
-						changes.hasOwnProperty('weaponTarget') ||
-						changes.hasOwnProperty('gear') ||
-						changes.hasOwnProperty('gearTarget') ||
-						changes.hasOwnProperty('elephCost') ||
-						changes.hasOwnProperty('elephRemain')
+				filter((changes) =>
+					hasKeys(
+						changes,
+						'equipments',
+						'skills',
+						'star',
+						'starTarget',
+						'weapon',
+						'weaponTarget',
+						'gear',
+						'gearTarget',
+						'elephCost',
+						'elephRemain'
+					)
 				),
 				debounceTime(100)
 			)

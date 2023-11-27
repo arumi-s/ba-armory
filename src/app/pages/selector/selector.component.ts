@@ -1,3 +1,4 @@
+import { hasKeys } from 'prop-change-decorators';
 import { Subscription } from 'rxjs';
 
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
@@ -36,7 +37,7 @@ export class SelectorComponent implements OnInit, OnDestroy {
 		this.selectedTerrainOptions = new Set<Terrain>(this.dataService.deck.options.filterTerrain);
 
 		this.dataService.deck.change$.subscribe((changes) => {
-			if (changes.hasOwnProperty('selectedSquadId')) {
+			if (hasKeys(changes, 'selectedSquadId')) {
 				this.handleChangeSquad();
 			}
 		});

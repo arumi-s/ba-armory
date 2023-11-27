@@ -1,3 +1,4 @@
+import { hasKeys } from 'prop-change-decorators';
 import { Subscription } from 'rxjs';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
@@ -52,7 +53,7 @@ export class CampaignCardComponent implements OnInit, OnDestroy {
 		this.cost = campaign.entryCost.find(([itemId]) => itemId === ACTION_POINT_ID)?.[1] ?? 0;
 
 		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {
-			if (changes.hasOwnProperty('selectedSquadId')) {
+			if (hasKeys(changes, 'selectedSquadId')) {
 				this.handleChangeSquad();
 			}
 		});

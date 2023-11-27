@@ -1,3 +1,4 @@
+import { hasKeys } from 'prop-change-decorators';
 import { Subscription } from 'rxjs';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
@@ -59,7 +60,7 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 		this.iconUrl = item.iconUrl;
 
 		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {
-			if (changes.hasOwnProperty('selectedSquadId')) {
+			if (hasKeys(changes, 'selectedSquadId')) {
 				this.handleChangeSquad();
 			}
 		});

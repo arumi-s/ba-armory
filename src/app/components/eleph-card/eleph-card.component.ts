@@ -1,3 +1,4 @@
+import { hasKeys } from 'prop-change-decorators';
 import { Subscription } from 'rxjs';
 
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
@@ -36,7 +37,7 @@ export class ElephCardComponent implements OnInit, OnDestroy {
 		this.dbUrl = `${environment.SCHALEDB_BASE}/?item=${encodeURIComponent(this.id)}`;
 
 		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {
-			if (changes.hasOwnProperty('selectedSquadId')) {
+			if (hasKeys(changes, 'selectedSquadId')) {
 				this.handleChangeSquad();
 			}
 		});

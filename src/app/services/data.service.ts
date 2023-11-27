@@ -162,12 +162,10 @@ export class DataService {
 		for (const [_, item] of this.items) {
 			if (
 				(item.category === StuffCategory.Material &&
-					(item.tags.includes('MaterialItem') ||
-						item.tags.includes('CDItem') ||
-						item.tags.includes('BookItem') ||
-						item.tags.includes('ShiftingCraftCategory_BookItem'))) ||
-				item.tags.includes('SecretStone') ||
-				item.tags.includes('FavorItem')
+					item.id < 200000 &&
+					(item.icon.includes('icon_material') || item.icon.includes('icon_exskill') || item.icon.includes('icon_skillbook'))) ||
+				item.category === StuffCategory.SecretStone ||
+				item.category === StuffCategory.Favor
 			) {
 				this.stockables.push(item.id);
 			}

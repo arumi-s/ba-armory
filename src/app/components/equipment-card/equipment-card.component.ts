@@ -1,3 +1,4 @@
+import { hasKeys } from 'prop-change-decorators';
 import { Subscription } from 'rxjs';
 
 import {
@@ -60,7 +61,7 @@ export class EquipmentCardComponent implements OnInit, OnChanges, OnDestroy {
 		this.handleTierChange();
 
 		this.changeSubscription = this.model.change$.subscribe((changes) => {
-			if (changes.hasOwnProperty(this.isTarget ? 'tierTarget' : 'tier')) {
+			if (hasKeys(changes, this.isTarget ? 'tierTarget' : 'tier')) {
 				this.handleTierChange();
 			}
 			this.changeDetectorRef.markForCheck();
@@ -68,7 +69,7 @@ export class EquipmentCardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.hasOwnProperty('isTarget') && !changes['isTarget'].firstChange) {
+		if (hasKeys(changes, 'isTarget') && !changes['isTarget'].firstChange) {
 			this.handleTierChange();
 		}
 	}

@@ -1,6 +1,6 @@
 # Blue Archive Armory
 
-[Website](https://ba.toho.moe)
+[Website](https://ba.arumi.top)
 
 ## About this tool
 

@@ -3,7 +3,19 @@ import { environment } from '../../environments/environment';
 export const RAID_ICONS: string[] = [];
 export const EXTRA_ICONS: string[] = [];
 
-const raids = ['Binah', 'Chesed', 'Shirokuro', 'Hieronymus', 'KaitenFxMk0', 'Perorozilla', 'HOD', 'Goz'];
+const raids = [
+	'Binah',
+	'Chesed',
+	'Shirokuro',
+	'Hieronymus',
+	'KaitenFxMk0',
+	'Perorozilla',
+	'HOD',
+	'Goz',
+	'EN0005',
+	'RaidHoverCraft',
+	'EN0006',
+];
 for (const raid of raids) {
 	RAID_ICONS.push(`${environment.CDN_BASE}/images/raid/icon/Icon_${raid}.png`);
 	RAID_ICONS.push(`${environment.CDN_BASE}/images/raid/icon/Icon_${raid}_Insane.png`);
@@ -24,6 +36,8 @@ const extras = [
 	'images/items/icon/item_icon_secretstone.webp',
 	'images/items/icon/item_icon_timeattackcoin.webp',
 	'images/items/icon/item_icon_chasercoin.webp',
+	'images/items/icon/item_icon_eliminateraidcoin.webp',
+	'images/items/icon/item_icon_eliminateraidcoin_high.webp',
 	'images/items/icon/item_icon_favor_ssr_1.webp',
 	'images/items/icon/item_icon_skillbook_ultimate.webp',
 	'images/items/icon/item_icon_event_token_special_0.webp',
@@ -42,6 +56,10 @@ const extras = [
 	'images/items/icon/currency_icon_schooltotalticket.webp',
 	'images/items/icon/currency_icon_timeattackticket.webp',
 	'images/items/icon/currency_icon_worldraidcommonticket.webp',
+	'images/items/icon/item_icon_favor_random.webp',
+	'images/items/icon/item_icon_furniture_random.webp',
+	'images/items/icon/item_icon_favor_selection.webp',
+	'images/items/icon/item_icon_favor_random_lv2.webp',
 ];
 
 for (const extra of extras) {

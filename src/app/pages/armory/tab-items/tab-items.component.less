@@ -1,18 +1,6 @@
-:host {
-	display: block;
-}
-
 ba-item-icon {
-	margin: var(--spacing-xx-small);
-
-	.hide-surplus &.is-surplus:not(.is-required) {
-		display: none;
-	}
-
-	.hide-required.hide-surplus &.is-surplus {
-		display: none;
-	}
-
+	.hide-surplus &.is-surplus:not(.is-required),
+	.hide-required.hide-surplus &.is-surplus,
 	.hide-favor &[category="favor"],
 	.hide-elephs &[category="secretstone"] {
 		display: none;

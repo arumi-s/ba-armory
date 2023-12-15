@@ -4,10 +4,9 @@ import { NgxHoverInputModule } from 'ngx-hover-input';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 
 import { CampaignCardComponent } from './campaign-card/campaign-card.component';
@@ -32,17 +31,7 @@ import { StudentIconComponent } from './student-icon/student-icon.component';
 		GearCardComponent,
 		ItemUserComponent,
 	],
-	imports: [
-		CommonModule,
-		FormsModule,
-		BarRatingModule,
-		MatMenuModule,
-		MatCardModule,
-		MatIconModule,
-		MatButtonModule,
-		MatRippleModule,
-		NgxHoverInputModule,
-	],
+	imports: [CommonModule, FormsModule, BarRatingModule, MatMenuModule, MatIconModule, MatButtonModule, MatRippleModule, NgxHoverInputModule],
 	exports: [
 		EquipmentCardComponent,
 		StudentCardComponent,

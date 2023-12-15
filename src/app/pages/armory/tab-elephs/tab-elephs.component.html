@@ -1,28 +1,28 @@
-<div class="options">
-	<div class="options-spacer"></div>
-
-	<!-- TODO: i18n -->
-	<button class="eleph_action-sort" mat-stroked-button [matMenuTriggerFor]="elephSortMenu">
-		<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
-		{{ selectedElephSortOption?.label }}
-	</button>
-
-	<mat-menu #elephSortMenu="matMenu" class="eleph_sort-options options-sort-options">
-		<button
-			*ngFor="let sortOptions of dataService.elephSortOptions"
-			class="eleph_sort-option options-sort-option"
-			[value]="sortOptions.id"
-			mat-menu-item
-			(click)="handleClickElephSortOption(sortOptions.id)"
-		>
-			{{ sortOptions?.label }}
+<div class="actionbar">
+	<div class="actionbar-end">
+		<!-- i18n -->
+		<button class="eleph_action-sort" mat-stroked-button [matMenuTriggerFor]="elephSortMenu">
+			<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
+			{{ selectedElephSortOption?.label }}
 		</button>
-	</mat-menu>
 
-	<button class="eleph_action-direction option-sort-direction" mat-stroked-button (click)="handleClickElephSortDirection()">
-		<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedElephSortDirection === -1 ? "north" : "south" }}</mat-icon>
-	</button>
+		<mat-menu #elephSortMenu="matMenu" class="eleph_sort-options option-sort-options" xPosition="before">
+			<button
+				*ngFor="let sortOptions of dataService.elephSortOptions"
+				class="eleph_sort-option option-sort-option"
+				[value]="sortOptions.id"
+				mat-menu-item
+				(click)="handleClickElephSortOption(sortOptions.id)"
+			>
+				{{ sortOptions?.label }}
+			</button>
+		</mat-menu>
+
+		<button class="eleph_action-direction option-sort-direction" mat-stroked-button (click)="handleClickElephSortDirection()">
+			<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedElephSortDirection === -1 ? "north" : "south" }}</mat-icon>
+		</button>
+	</div>
 </div>
-<div class="grid">
+<div class="flex flex-wrap justify-center items-stretch my-3 gap-4">
 	<ba-eleph-card *ngFor="let id of ids" [id]="id"></ba-eleph-card>
 </div>

@@ -7,7 +7,6 @@ import { PreloadService } from '../../services/preload.service';
 @Component({
 	selector: 'ba-setting',
 	templateUrl: './setting.component.html',
-	styleUrls: ['./setting.component.less'],
 })
 export class SettingComponent implements OnInit {
 	title = '';

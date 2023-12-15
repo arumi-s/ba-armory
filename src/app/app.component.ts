@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { Component, HostBinding, Inject, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 
@@ -14,7 +14,6 @@ import { PreloadService } from './services/preload.service';
 @Component({
 	selector: 'ba-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.less'],
 })
 export class AppComponent implements OnInit {
 	title = '';
@@ -28,6 +27,9 @@ export class AppComponent implements OnInit {
 	footer_2_end = '';
 	footer_3_start = '';
 	footer_3_end = '';
+
+	@HostBinding('class')
+	readonly className = 'flex flex-col min-h-screen';
 
 	constructor(
 		@Inject(DOCUMENT) document: Document,

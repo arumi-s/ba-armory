@@ -1,128 +1,24 @@
 :host {
-	display: block;
-	width: 240px;
-	height: 289px;
+	@apply block;
 
 	&.is_target {
 		::ng-deep .is_target-show {
-			outline-style: solid;
-			outline-width: 2px;
-			outline-color: #f44336;
+			@apply ring-2 ring-red-400;
 
 			&.is_target-reached {
-				outline-color: #f6cf30;
+				@apply ring-yellow-400;
 			}
-		}
-	}
-
-	&.is_alt {
-		.mat-card-header {
-			background-color: #f5efd6;
 		}
 	}
 
 	&:not(.is_target) {
 		::ng-deep .is_target-show {
-			display: none;
+			@apply hidden;
 		}
 	}
-}
-
-.mat-card {
-	padding: 0;
-	padding-bottom: 8px;
-}
-
-.mat-card-header {
-	position: relative;
-	background-color: #d9e9f3;
-	padding: var(--spacing-x-small);
-
-	::ng-deep {
-		.mat-card-title {
-			font-size: 18px;
-			white-space: nowrap;
-			overflow: hidden;
-		}
-
-		.mat-card-header-text {
-			flex-grow: 1;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
-			overflow: hidden;
-			margin: 0 0 0 var(--spacing-x-small);
-		}
-
-		.mat-card-subtitle {
-			margin-bottom: 0;
-		}
-	}
-}
-
-.mat-card-header,
-.mat-card-content,
-.mat-card-actions {
-	margin-bottom: var(--spacing-x-small);
-	padding-left: var(--spacing-x-small);
-	padding-right: var(--spacing-x-small);
-}
-
-.mat-card-avatar {
-	height: 48px;
-	width: 48px;
-	cursor: grab;
-}
-
-.mat-card-title {
-	display: flex;
-	align-items: center;
-	gap: var(--spacing-x-small);
-}
-
-.tags {
-	display: flex;
-	align-items: center;
-
-	button {
-		margin-right: var(--spacing-xx-small);
-		min-width: min-content;
-		padding-left: var(--spacing-x-small) !important;
-		padding-right: var(--spacing-x-small) !important;
-
-		::ng-deep .mat-icon {
-			line-height: 1;
-		}
-	}
-}
-
-.adaptation_icon {
-	margin-left: auto;
-	height: 1.5em;
-	user-select: none;
-}
-
-.school_icon {
-	filter: invert(1);
-	opacity: 0.15;
-	height: 100%;
-	position: absolute;
-	right: 0;
-	top: 0;
-	pointer-events: none;
-	user-select: none;
-}
-
-.stats {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: var(--spacing-x-small);
 }
 
 bar-rating {
-	--br-font-size: 18px;
-
 	&:not([disabled]) {
 		&[value="1"] {
 			::ng-deep {
@@ -200,58 +96,7 @@ bar-rating {
 	}
 }
 
-.stats-level {
-	font-size: 18px;
-	display: flex;
-	align-items: center;
-
-	&::before {
-		content: "Lv.";
-		display: block;
-	}
-	button {
-		font-size: 18px !important;
-		padding: 0 4px !important;
-		min-width: unset !important;
-	}
-	input {
-		width: 2em;
-		padding-top: 2px;
-	}
-}
-
-.skills,
-.equipments {
-	display: flex;
-	flex-direction: row;
-	gap: var(--spacing-x-small);
-	margin-bottom: var(--spacing-x-small);
-}
-
 ba-skill-card[skill_type="weaponpassive"],
 ba-skill-card[skill_type="gearnormal"] {
-	display: none;
-}
-
-.mat-card-actions {
-	display: flex;
-	flex-direction: row;
-	margin-left: 0;
-	margin-right: 0;
-	padding: var(--spacing-x-small);
-	gap: var(--spacing-xxx-small);
-
-	.mat-button {
-		margin: 0;
-		flex-shrink: 0;
-		min-width: unset;
-	}
-
-	.action-remove {
-		margin-right: auto !important;
-	}
-
-	.action-assist {
-		pointer-events: none;
-	}
+	@apply hidden;
 }

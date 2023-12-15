@@ -10,7 +10,6 @@ import { DataService } from '../../../services/data.service';
 @Component({
 	selector: 'ba-tab-elephs',
 	templateUrl: './tab-elephs.component.html',
-	styleUrls: ['./tab-elephs.component.less'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabElephsComponent implements OnInit, OnDestroy {

@@ -8,7 +8,6 @@ import { DataService } from '../../services/data.service';
 @Component({
 	selector: 'ba-squad-text',
 	templateUrl: './squad-text.component.html',
-	styleUrls: ['./squad-text.component.less'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SquadTextComponent implements OnInit {

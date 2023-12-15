@@ -1,27 +1,36 @@
-<mat-card class="mat-elevation-z3">
-	<mat-card-header>
-		<img mat-card-avatar loading="lazy" [src]="collectionTextureUrl" [alt]="name" />
-		<mat-card-title>
-			<a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a>
-		</mat-card-title>
-		<mat-card-subtitle class="tags">
-			<button mat-flat-button tabindex="-1" size="small" [color]="bulletType" [title]="bulletTypeText">
-				<mat-icon svgIcon="bullet_type"></mat-icon>
-			</button>
-			<button mat-flat-button tabindex="-1" size="small" [color]="armorType" [title]="armorTypeText">
-				<mat-icon svgIcon="armor_type"></mat-icon>
-			</button>
-			<button mat-flat-button tabindex="-1" size="small" [color]="squadType" [title]="squadTypeText">
-				{{ squadTypeText }}
-			</button>
-			<img class="adaptation_icon" [src]="adaptationIcon" alt="" />
-		</mat-card-subtitle>
-		<img class="school_icon" loading="lazy" [src]="schoolIconUrl" />
-	</mat-card-header>
-	<mat-card-content>
-		<div class="stats">
-			<div class="stats-level">
+<div class="shadow-md rounded-md shadow-neutral-400 space-y-2">
+	<div class="relative flex flex-row p-2 bg-sky-100 gap-2" [class.bg-yellow-100]="isAlt">
+		<img class="h-12 w-12 cursor-grab rounded-full object-cover shrink-0" loading="lazy" [src]="collectionTextureUrl" [alt]="name" />
+		<div class="flex-1 flex flex-col overflow-hidden justify-between">
+			<a
+				class="text-lg/5 font-semibold whitespace-nowrap overflow-hidden"
+				[href]="dbUrl"
+				target="_blank"
+				rel="noopener noreferrer"
+				tabindex="-1"
+				>{{ name }}</a
+			>
+			<div class="flex items-center gap-1">
+				<button class="!min-w-min !px-2 !py-0" mat-flat-button tabindex="-1" size="small" [color]="bulletType" [title]="bulletTypeText">
+					<mat-icon svgIcon="bullet_type"></mat-icon>
+				</button>
+				<button class="!min-w-min !px-2 !py-0" mat-flat-button tabindex="-1" size="small" [color]="armorType" [title]="armorTypeText">
+					<mat-icon svgIcon="armor_type"></mat-icon>
+				</button>
+				<button class="!min-w-min !px-2 !py-0" mat-flat-button tabindex="-1" size="small" [color]="squadType" [title]="squadTypeText">
+					{{ squadTypeText }}
+				</button>
+				<img class="ml-auto h-[1.5em]" [src]="adaptationIcon" alt="" />
+			</div>
+		</div>
+		<img class="invert opacity-15 h-full absolute right-0 top-0 pointer-events-none" loading="lazy" [src]="schoolIconUrl" />
+	</div>
+	<div class="px-2 space-y-2">
+		<div class="flex justify-between items-center text-lg/none">
+			<div class="flex text-lg/5 items-center">
+				<div>Lv.</div>
 				<input
+					class="block w-10"
 					type="number"
 					[attr.name]="'stats-level' + id"
 					[(ngModel)]="model.level"
@@ -31,7 +40,7 @@
 					(focus)="handleFocusLevel($event)"
 				/>
 			</div>
-			<div class="stats-star">
+			<div>
 				<bar-rating *ngIf="!isTarget; else isTargetStar" [(rate)]="model.star" [max]="5" [attr.value]="model.star">
 					<ng-template ratingActive>
 						<mat-icon color="ratingActive">star</mat-icon>
@@ -57,7 +66,7 @@
 					</bar-rating>
 				</ng-template>
 			</div>
-			<div class="stats-weapon">
+			<div>
 				<bar-rating
 					*ngIf="!isTarget; else isTargetWeapon"
 					[attr.disabled]="model.star === 5 ? null : 'disabled'"
@@ -88,64 +97,40 @@
 				</ng-template>
 			</div>
 		</div>
-		<div class="skills">
+		<div class="flex gap-2">
 			<ba-skill-card *ngFor="let skill of model.skills" [model]="skill" [isTarget]="isTarget"></ba-skill-card>
 		</div>
-		<div class="equipments">
+		<div class="flex gap-2">
 			<ba-equipment-card *ngFor="let equipment of model.equipments" [model]="equipment" [isTarget]="isTarget"></ba-equipment-card>
 			<ba-gear-card [id]="id" [isTarget]="isTarget"></ba-gear-card>
 		</div>
-	</mat-card-content>
-	<mat-card-actions>
-		<!-- TODO: i18n -->
-		<button class="action-remove" mat-button color="warn" tabindex="-1" size="small" (click)="handleClickDelete()">
+	</div>
+	<div class="flex gap-2 p-2 [&>button]:shrink-0 [&>button]:min-w-min">
+		<!-- i18n -->
+		<button class="!mr-auto" mat-button color="warn" tabindex="-1" size="small" (click)="handleClickDelete()">
 			<mat-icon>block</mat-icon> {{ action_remove }}
 		</button>
 
 		<ng-container *ngIf="!isAlt; else is_alt">
-			<!-- TODO: i18n -->
-			<button
-				class="action-upgrade"
-				mat-button
-				color="basic"
-				tabindex="-1"
-				size="small"
-				[disabled]="isUpgraded"
-				(click)="handleClickUpgrade()"
-			>
+			<!-- i18n -->
+			<button mat-button color="basic" tabindex="-1" size="small" [disabled]="isUpgraded" (click)="handleClickUpgrade()">
 				<mat-icon>upgrade</mat-icon> {{ action_upgrade }}
 			</button>
-			<!-- TODO: i18n -->
-			<button
-				class="action-target"
-				mat-flat-button
-				[color]="isTarget ? 'accent' : 'basic'"
-				tabindex="-1"
-				size="small"
-				(click)="handleClickTarget()"
-			>
+			<!-- i18n -->
+			<button mat-flat-button [color]="isTarget ? 'accent' : 'basic'" tabindex="-1" size="small" (click)="handleClickTarget()">
 				<mat-icon>gps_fixed</mat-icon> {{ action_target }}
 			</button>
 		</ng-container>
 
 		<ng-template #is_alt>
-			<!-- TODO: i18n -->
-			<button
-				class="action-upgrade"
-				mat-button
-				color="basic"
-				tabindex="-1"
-				size="small"
-				[disabled]="isUpgraded"
-				(click)="handleClickMaximize()"
-			>
+			<!-- i18n -->
+			<button mat-button color="basic" tabindex="-1" size="small" [disabled]="isUpgraded" (click)="handleClickMaximize()">
 				<mat-icon>upgrade</mat-icon> {{ action_maximize }}
 			</button>
-			<!-- TODO: i18n -->
-			<button class="action-assist" mat-button color="accent" tabindex="-1" size="small">
+			<!-- i18n -->
+			<button class="pointer-events-none" mat-button color="accent" tabindex="-1" size="small">
 				<mat-icon>assistant</mat-icon> {{ action_assist }}
 			</button>
 		</ng-template>
-	</mat-card-actions>
-	<mat-card-footer></mat-card-footer>
-</mat-card>
+	</div>
+</div>

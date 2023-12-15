@@ -1,7 +1,7 @@
 <h2 mat-dialog-title><mat-icon>import_export</mat-icon> {{ title }}</h2>
 <div class="export" mat-dialog-content>
 	<input
-		class="export-input_data"
+		class="block w-96 border border-gray-200 rounded my-3 py-2 px-3"
 		type="text"
 		name="export-data"
 		[(ngModel)]="data"
@@ -10,34 +10,38 @@
 	/>
 	<div *ngIf="error" class="export-input_error">{{ dataService.i18n.import_error }}</div>
 
-	<div class="options">
-		<button mat-stroked-button color="primary" (click)="handleClickExport()">
-			<!-- TODO: i18n -->
-			<mat-icon>file_upload</mat-icon> {{ dataService.i18n.action_export }}
-		</button>
-		<div class="options-spacer"></div>
-		<button mat-stroked-button color="primary" (click)="handleClickImport()">
-			<!-- TODO: i18n -->
-			<mat-icon>file_download</mat-icon> {{ dataService.i18n.action_import }}
-		</button>
+	<div class="actionbar">
+		<div class="actionbar-start">
+			<button mat-stroked-button color="primary" (click)="handleClickExport()">
+				<!-- i18n -->
+				<mat-icon>file_upload</mat-icon> {{ dataService.i18n.action_export }}
+			</button>
+		</div>
+
+		<div class="actionbar-end">
+			<button mat-stroked-button color="primary" (click)="handleClickImport()">
+				<!-- i18n -->
+				<mat-icon>file_download</mat-icon> {{ dataService.i18n.action_import }}
+			</button>
+		</div>
 	</div>
 
 	<mat-divider></mat-divider>
 
-	<div class="options">
+	<div class="actionbar">
 		<button mat-stroked-button color="primary" [disabled]="remoteLoading" (click)="handleClickSaveRemote()">
-			<!-- TODO: i18n -->
+			<!-- i18n -->
 			<mat-icon>link</mat-icon> {{ dataService.i18n.action_save_remote }}
 		</button>
 	</div>
 	<input
 		*ngIf="link"
-		class="export-input_link"
+		class="block w-96 border border-gray-200 rounded my-3 py-2 px-3"
 		type="text"
 		name="export-link"
 		readonly
 		[ngModel]="link"
 		(click)="handleClickInput($event)"
 	/>
-	<div *ngIf="remoteError" class="export-input_error">{{ remoteError }}</div>
+	<div *ngIf="remoteError" class="py-2 px-3 -mt-3 text-red-500 font-medium">{{ remoteError }}</div>
 </div>

@@ -1,43 +1,45 @@
-<div class="options">
-	<!-- TODO: i18n -->
-	<mat-checkbox class="item_action-show_surplus_items" [(ngModel)]="dataService.deck.options.showSurplusItems" color="accent">
-		{{ dataService.i18n.item_show_surplus_items }}
-	</mat-checkbox>
-	<!-- TODO: i18n -->
-	<mat-checkbox class="item_action-show_required_items" [(ngModel)]="dataService.deck.options.showRequiredItems" color="accent">
-		{{ dataService.i18n.item_show_required_items }}
-	</mat-checkbox>
-	<!-- TODO: i18n -->
-	<mat-checkbox class="item_action-show_elephs" [(ngModel)]="dataService.deck.options.showElephs" color="accent">
-		{{ dataService.i18n.item_show_elephs }}
-	</mat-checkbox>
+<div class="actionbar">
+	<div class="actionbar-start">
+		<!-- i18n -->
+		<mat-checkbox class="item_action-show_surplus_items" [(ngModel)]="dataService.deck.options.showSurplusItems" color="accent">
+			{{ dataService.i18n.item_show_surplus_items }}
+		</mat-checkbox>
+		<!-- i18n -->
+		<mat-checkbox class="item_action-show_required_items" [(ngModel)]="dataService.deck.options.showRequiredItems" color="accent">
+			{{ dataService.i18n.item_show_required_items }}
+		</mat-checkbox>
+		<!-- i18n -->
+		<mat-checkbox class="item_action-show_elephs" [(ngModel)]="dataService.deck.options.showElephs" color="accent">
+			{{ dataService.i18n.item_show_elephs }}
+		</mat-checkbox>
+	</div>
 
-	<div class="options-spacer"></div>
-
-	<!-- TODO: i18n -->
-	<button class="item_action-sort" mat-stroked-button [matMenuTriggerFor]="itemSortMenu">
-		<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
-		{{ selectedItemSortOption?.label }}
-	</button>
-
-	<mat-menu #itemSortMenu="matMenu" class="item_sort-options options-sort-options">
-		<button
-			*ngFor="let sortOptions of dataService.itemSortOptions"
-			class="item_sort-option options-sort-option"
-			[value]="sortOptions.id"
-			mat-menu-item
-			(click)="handleClickItemSortOption(sortOptions.id)"
-		>
-			{{ sortOptions?.label }}
+	<div class="actionbar-end">
+		<!-- i18n -->
+		<button class="item_action-sort" mat-stroked-button [matMenuTriggerFor]="itemSortMenu">
+			<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
+			{{ selectedItemSortOption?.label }}
 		</button>
-	</mat-menu>
 
-	<button class="item_action-direction option-sort-direction" mat-stroked-button (click)="handleClickItemSortDirection()">
-		<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedItemSortDirection === -1 ? "north" : "south" }}</mat-icon>
-	</button>
+		<mat-menu #itemSortMenu="matMenu" class="item_sort-options option-sort-options" xPosition="before">
+			<button
+				*ngFor="let sortOptions of dataService.itemSortOptions"
+				class="item_sort-option option-sort-option"
+				[value]="sortOptions.id"
+				mat-menu-item
+				(click)="handleClickItemSortOption(sortOptions.id)"
+			>
+				{{ sortOptions?.label }}
+			</button>
+		</mat-menu>
+
+		<button class="item_action-direction option-sort-direction" mat-stroked-button (click)="handleClickItemSortDirection()">
+			<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedItemSortDirection === -1 ? "north" : "south" }}</mat-icon>
+		</button>
+	</div>
 </div>
 <div
-	class="grid hide-favor"
+	class="flex flex-wrap justify-center items-stretch my-3 gap-2 hide-favor"
 	[class.hide-surplus]="!dataService.deck.options.showSurplusItems"
 	[class.hide-required]="!dataService.deck.options.showRequiredItems"
 	[class.hide-elephs]="!dataService.deck.options.showElephs"

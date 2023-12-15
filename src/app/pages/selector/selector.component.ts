@@ -10,7 +10,6 @@ import { DataService } from '../../services/data.service';
 @Component({
 	selector: 'ba-selector',
 	templateUrl: './selector.component.html',
-	styleUrls: ['./selector.component.less'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectorComponent implements OnInit, OnDestroy {

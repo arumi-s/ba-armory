@@ -1,21 +1,3 @@
-.students {
-	min-height: 313px;
-
-	&.bounded {
-		max-width: 1600px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-}
-
-ba-student-card {
-	margin: var(--spacing-x-small);
-}
-
-.items-tabs {
-	min-height: 300px;
-}
-
 .mat-tab-group {
 	::ng-deep .mat-tab-header {
 		border-top: 1px solid rgba(0, 0, 0, 0.12);
@@ -43,18 +25,16 @@ ba-student-card {
 		}
 
 		.squad_action-input_name {
-			margin-left: var(--spacing-xx-small);
 			width: 120px;
 			border: 1px solid #eee;
 			text-align: center;
 			font: inherit;
-			padding: var(--spacing-xxx-small) var(--spacing-xx-small);
-			border-radius: var(--border-radius-medium);
+			@apply rounded ~"py-0.5" px-1 ml-1;
 		}
 
 		.squad_action-name {
 			opacity: 0.6;
-			margin-left: var(--spacing-xx-small);
+			@apply ml-1;
 		}
 
 		.mat-tab-label {
@@ -63,7 +43,7 @@ ba-student-card {
 
 		.squad-pinned {
 			&.mat-tab-label {
-				min-width: 0;
+				min-width: 50px;
 				padding: 0;
 				justify-content: flex-start;
 				margin-left: -1px;
@@ -124,7 +104,7 @@ ba-student-card {
 
 		.mat-tab-disabled {
 			opacity: 1;
-			min-width: 0;
+			min-width: 50px;
 			aspect-ratio: 1/1;
 			color: inherit;
 			padding: 0;
@@ -147,9 +127,7 @@ ba-student-card {
 .squad_action-text,
 .squad_action-pin,
 .squad_action-bound {
-	min-width: unset;
-	padding-left: 8px;
-	padding-right: 8px;
+	@apply min-w-fit px-2;
 }
 
 .squad_action-text,

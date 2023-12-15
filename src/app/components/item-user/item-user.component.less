@@ -9,8 +9,7 @@
 
 	&:not(:last-child) {
 		border-right: 1px solid #e0e0e0;
-		padding-right: var(--spacing-medium);
-		margin-right: var(--spacing-medium);
+		@apply pr-4 mr-4;
 	}
 }
 
@@ -34,11 +33,11 @@ ba-item-icon {
 }
 
 ba-student-icon {
-	margin: var(--spacing-xx-small);
+	@apply m-1;
 }
 
 .amount {
 	text-align: center;
-	margin: var(--spacing-xx-small);
+	@apply m-1;
 	font-size: 16px;
 }

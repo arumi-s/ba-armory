@@ -6,7 +6,6 @@ import { DataService } from '../../../services/data.service';
 @Component({
 	selector: 'ba-tab-arena',
 	templateUrl: './tab-arena.component.html',
-	styleUrls: ['./tab-arena.component.less'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabArenaComponent implements OnInit, OnDestroy {

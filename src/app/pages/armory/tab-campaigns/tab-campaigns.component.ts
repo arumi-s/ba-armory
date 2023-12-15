@@ -8,7 +8,6 @@ import { DataService } from '../../../services/data.service';
 @Component({
 	selector: 'ba-tab-campaigns',
 	templateUrl: './tab-campaigns.component.html',
-	styleUrls: ['./tab-campaigns.component.less'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabCampaignsComponent implements OnInit, OnDestroy {

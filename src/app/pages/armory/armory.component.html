@@ -21,7 +21,7 @@
 				(mousedown)="handleMousedownSquadStopPropagation($event)"
 				(click)="handleClickIconSelector()"
 			/>
-			<input class="squad_action-input_name" type="text" [attr.name]="'squad-name' + squad.id" [(ngModel)]="squad.name" />
+			<input class="block squad_action-input_name" type="text" [attr.name]="'squad-name' + squad.id" [(ngModel)]="squad.name" />
 			<div class="squad_action-name">{{ squad.name }}</div>
 			<button
 				mat-icon-button
@@ -40,100 +40,103 @@
 	</mat-tab>
 </mat-tab-group>
 
-<div class="options">
-	<!-- TODO: i18n -->
-	<button
-		class="squad_action-remove"
-		mat-stroked-button
-		color="warn"
-		(click)="handleClickSquadRemove()"
-		[disabled]="dataService.deck.squads.length === 1"
-	>
-		<mat-icon>block</mat-icon> {{ dataService.i18n.squad_action_remove }}
-	</button>
-
-	<!-- TODO: i18n -->
-	<button class="student_action-target" mat-stroked-button [color]="isTarget ? 'accent' : 'basic'" (click)="handleClickTarget()">
-		<mat-icon>gps_fixed</mat-icon> {{ dataService.i18n.student_action_target }}
-	</button>
-
-	<!-- TODO: i18n -->
-	<button class="student_action-add" mat-stroked-button color="primary" (click)="handleClickSelector()">
-		<mat-icon>person_add</mat-icon> {{ dataService.localization.ui["student"] }}
-	</button>
-
-	<div class="options-spacer"></div>
-
-	<!-- TODO: i18n -->
-	<button
-		class="squad_action-pin"
-		mat-stroked-button
-		[color]="dataService.deck.selectedSquad.pinned ? 'accent' : 'basic'"
-		(click)="handleClickSquadPin()"
-	>
-		<mat-icon>push_pin</mat-icon>
-	</button>
-
-	<!-- TODO: i18n -->
-	<button
-		class="squad_action-bound"
-		mat-stroked-button
-		[color]="dataService.deck.selectedSquad.bounded ? 'accent' : 'basic'"
-		(click)="handleClickSquadBound()"
-	>
-		<mat-icon>looks_6</mat-icon>
-	</button>
-
-	<!-- TODO: i18n -->
-	<button class="squad_action-text" mat-stroked-button color="primary" (click)="handleClickSquadText()">
-		<mat-icon>text_snippet</mat-icon>
-	</button>
-
-	<!-- TODO: i18n -->
-	<button class="squad_action-terrain terrain-option" mat-stroked-button [matMenuTriggerFor]="squadTerrainMenu">
-		<mat-icon [svgIcon]="'terrain_' + selectedTerrainOption.id"></mat-icon>&nbsp;{{ selectedTerrainOption.label }}
-	</button>
-
-	<mat-menu #squadTerrainMenu="matMenu" class="squad_terrain-options options-terrain-options">
+<div class="actionbar">
+	<div class="actionbar-start">
+		<!-- i18n -->
 		<button
-			*ngFor="let terrainOption of dataService.terrainOptions"
-			class="terrain-option options-terrain-option"
-			mat-menu-item
-			(click)="handleClickSquadTerrainOption(terrainOption.id)"
+			class="squad_action-remove"
+			mat-stroked-button
+			color="warn"
+			(click)="handleClickSquadRemove()"
+			[disabled]="dataService.deck.squads.length === 1"
 		>
-			<mat-icon [svgIcon]="'terrain_' + terrainOption.id"></mat-icon> {{ terrainOption.label }}
+			<mat-icon>block</mat-icon> {{ dataService.i18n.squad_action_remove }}
 		</button>
-	</mat-menu>
 
-	<!-- TODO: i18n -->
-	<button class="student_action-sort" mat-stroked-button [matMenuTriggerFor]="studentSortMenu">
-		<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
-		<mat-icon *ngIf="selectedStudentSortOption?.label === 'star'; else selectedStudentSortOptionsTextLabel" color="ratingActive"
-			>star</mat-icon
-		>
-		<ng-template #selectedStudentSortOptionsTextLabel>{{ selectedStudentSortOption?.label }}</ng-template>
-	</button>
+		<!-- i18n -->
+		<button class="student_action-target" mat-stroked-button [color]="isTarget ? 'accent' : 'basic'" (click)="handleClickTarget()">
+			<mat-icon>gps_fixed</mat-icon> {{ dataService.i18n.student_action_target }}
+		</button>
 
-	<mat-menu #studentSortMenu="matMenu" class="student_sort-options options-sort-options">
+		<!-- i18n -->
+		<button class="student_action-add" mat-stroked-button color="primary" (click)="handleClickSelector()">
+			<mat-icon>person_add</mat-icon> {{ dataService.localization.ui["student"] }}
+		</button>
+	</div>
+
+	<div class="actionbar-end">
+		<!-- i18n -->
 		<button
-			*ngFor="let sortOption of dataService.studentSortOptions"
-			class="student_sort-option options-sort-option"
-			mat-menu-item
-			(click)="handleClickStudentSortOption(sortOption.id)"
+			class="squad_action-pin"
+			mat-stroked-button
+			[color]="dataService.deck.selectedSquad.pinned ? 'accent' : 'basic'"
+			(click)="handleClickSquadPin()"
 		>
-			<mat-icon *ngIf="sortOption?.label === 'star'; else sortOptionsTextLabel" color="ratingActive">star</mat-icon>
-			<ng-template #sortOptionsTextLabel>{{ sortOption?.label }}</ng-template>
+			<mat-icon>push_pin</mat-icon>
 		</button>
-	</mat-menu>
 
-	<button class="student_action-direction option-sort-direction" mat-stroked-button (click)="handleClickStudentSortDirection()">
-		<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedStudentSortDirection === -1 ? "north" : "south" }}</mat-icon>
-	</button>
+		<!-- i18n -->
+		<button
+			class="squad_action-bound"
+			mat-stroked-button
+			[color]="dataService.deck.selectedSquad.bounded ? 'accent' : 'basic'"
+			(click)="handleClickSquadBound()"
+		>
+			<mat-icon>looks_6</mat-icon>
+		</button>
+
+		<!-- i18n -->
+		<button class="squad_action-text" mat-stroked-button color="primary" (click)="handleClickSquadText()">
+			<mat-icon>text_snippet</mat-icon>
+		</button>
+
+		<!-- i18n -->
+		<button class="squad_action-terrain terrain-option" mat-stroked-button [matMenuTriggerFor]="squadTerrainMenu">
+			<mat-icon [svgIcon]="'terrain_' + selectedTerrainOption.id"></mat-icon>&nbsp;{{ selectedTerrainOption.label }}
+		</button>
+
+		<mat-menu #squadTerrainMenu="matMenu" class="squad_terrain-options options-terrain-options" xPosition="before">
+			<button
+				*ngFor="let terrainOption of dataService.terrainOptions"
+				class="terrain-option options-terrain-option"
+				mat-menu-item
+				(click)="handleClickSquadTerrainOption(terrainOption.id)"
+			>
+				<mat-icon [svgIcon]="'terrain_' + terrainOption.id"></mat-icon> {{ terrainOption.label }}
+			</button>
+		</mat-menu>
+
+		<!-- i18n -->
+		<button class="student_action-sort" mat-stroked-button [matMenuTriggerFor]="studentSortMenu">
+			<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
+			<mat-icon *ngIf="selectedStudentSortOption?.label === 'star'; else selectedStudentSortOptionsTextLabel" color="ratingActive"
+				>star</mat-icon
+			>
+			<ng-template #selectedStudentSortOptionsTextLabel>{{ selectedStudentSortOption?.label }}</ng-template>
+		</button>
+
+		<mat-menu #studentSortMenu="matMenu" class="student_sort-options option-sort-options" xPosition="before">
+			<button
+				*ngFor="let sortOption of dataService.studentSortOptions"
+				class="student_sort-option option-sort-option"
+				mat-menu-item
+				(click)="handleClickStudentSortOption(sortOption.id)"
+			>
+				<mat-icon *ngIf="sortOption?.label === 'star'; else sortOptionsTextLabel" color="ratingActive">star</mat-icon>
+				<ng-template #sortOptionsTextLabel>{{ sortOption?.label }}</ng-template>
+			</button>
+		</mat-menu>
+
+		<button class="student_action-direction option-sort-direction" mat-stroked-button (click)="handleClickStudentSortDirection()">
+			<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedStudentSortDirection === -1 ? "north" : "south" }}</mat-icon>
+		</button>
+	</div>
 </div>
 
 <div
-	class="grid students"
-	[class.bounded]="dataService.deck.selectedSquad.bounded"
+	class="flex flex-wrap justify-center items-stretch my-3 min-h-[302px] gap-4"
+	[class.max-w-bounded]="dataService.deck.selectedSquad.bounded"
+	[class.mx-auto]="dataService.deck.selectedSquad.bounded"
 	[sortablejs]="dataService.deck.selectedSquad.students"
 	[sortablejsOptions]="sortableOptions"
 >
@@ -145,42 +148,42 @@
 </div>
 
 <mat-tab-group
-	class="items-tabs"
+	class="min-h-[302px]"
 	[animationDuration]="0"
 	[disablePagination]="false"
 	[selectedIndex]="selectedTab"
 	(selectedIndexChange)="handleChangeTab($event)"
 >
 	<mat-tab>
-		<!-- TODO: i18n -->
+		<!-- i18n -->
 		<ng-template mat-tab-label>{{ dataService.localization.ui["navbar_items"] }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-items></ba-tab-items>
 		</ng-template>
 	</mat-tab>
 	<mat-tab>
-		<!-- TODO: i18n -->
+		<!-- i18n -->
 		<ng-template mat-tab-label>{{ dataService.localization.ui["stages"] }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-campaigns></ba-tab-campaigns>
 		</ng-template>
 	</mat-tab>
 	<mat-tab>
-		<!-- TODO: i18n -->
+		<!-- i18n -->
 		<ng-template mat-tab-label>{{ dataService.localization.ui["item_tab_eleph"] }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-elephs></ba-tab-elephs>
 		</ng-template>
 	</mat-tab>
 	<mat-tab>
-		<!-- TODO: i18n -->
+		<!-- i18n -->
 		<ng-template mat-tab-label>{{ dataService.localization.ui["ex_gear"] }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-gears></ba-tab-gears>
 		</ng-template>
 	</mat-tab>
 	<mat-tab>
-		<!-- TODO: i18n -->
+		<!-- i18n -->
 		<ng-template mat-tab-label>{{ dataService.localization.ShopCategory["Arena"] }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-arena></ba-tab-arena>

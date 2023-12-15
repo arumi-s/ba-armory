@@ -19,7 +19,7 @@
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	padding: var(--spacing-small);
+	@apply p-3;
 	align-items: center;
 }
 
@@ -35,16 +35,14 @@
 }
 
 .name {
-	margin-top: var(--spacing-xx-small);
-	margin-left: calc(-1 * var(--spacing-x-small));
-	margin-right: calc(-1 * var(--spacing-x-small));
+	@apply mt-1 -mx-2;
 	font-size: 14px;
 	text-align: center;
 	flex-grow: 1;
 }
 
 .amounts {
-	margin-top: var(--spacing-xx-small);
+	@apply mt-1;
 }
 
 .amount {
@@ -55,18 +53,18 @@
 }
 
 .amount-label {
-	margin-right: var(--spacing-xx-small);
+	@apply mr-1;
 	white-space: nowrap;
 }
 
 .amount-value {
 	input {
 		width: 100%;
-		border-radius: var(--border-radius-medium);
+		@apply rounded;
 	}
 }
 
 .stock-input {
+	@apply p-1;
 	border: 1px solid #eee;
-	padding: var(--spacing-xx-small);
 }

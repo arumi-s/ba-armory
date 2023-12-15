@@ -1,39 +1,41 @@
-<div class="options">
-	<!-- TODO: i18n -->
-	<mat-checkbox class="gear_action-show_surplus_items" [(ngModel)]="dataService.deck.options.showSurplusItems" color="accent">
-		{{ dataService.i18n.item_show_surplus_items }}
-	</mat-checkbox>
-	<!-- TODO: i18n -->
-	<mat-checkbox class="item_action-show_required_items" [(ngModel)]="dataService.deck.options.showRequiredItems" color="accent">
-		{{ dataService.i18n.item_show_required_items }}
-	</mat-checkbox>
+<div class="actionbar">
+	<div class="actionbar-start">
+		<!-- i18n -->
+		<mat-checkbox class="gear_action-show_surplus_items" [(ngModel)]="dataService.deck.options.showSurplusItems" color="accent">
+			{{ dataService.i18n.item_show_surplus_items }}
+		</mat-checkbox>
+		<!-- i18n -->
+		<mat-checkbox class="item_action-show_required_items" [(ngModel)]="dataService.deck.options.showRequiredItems" color="accent">
+			{{ dataService.i18n.item_show_required_items }}
+		</mat-checkbox>
+	</div>
 
-	<div class="options-spacer"></div>
-
-	<!-- TODO: i18n -->
-	<button class="gear_action-sort" mat-stroked-button [matMenuTriggerFor]="gearSortMenu">
-		<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
-		{{ selectedGearSortOption?.label }}
-	</button>
-
-	<mat-menu #gearSortMenu="matMenu" class="gear_sort-options options-sort-options">
-		<button
-			*ngFor="let sortOptions of dataService.itemSortOptions"
-			class="gear_sort-option options-sort-option"
-			[value]="sortOptions.id"
-			mat-menu-item
-			(click)="handleClickGearSortOption(sortOptions.id)"
-		>
-			{{ sortOptions?.label }}
+	<div class="actionbar-end">
+		<!-- i18n -->
+		<button class="gear_action-sort" mat-stroked-button [matMenuTriggerFor]="gearSortMenu">
+			<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
+			{{ selectedGearSortOption?.label }}
 		</button>
-	</mat-menu>
 
-	<button class="gear_action-direction option-sort-direction" mat-stroked-button (click)="handleClickGearSortDirection()">
-		<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedGearSortDirection === -1 ? "north" : "south" }}</mat-icon>
-	</button>
+		<mat-menu #gearSortMenu="matMenu" class="gear_sort-options option-sort-options" xPosition="before">
+			<button
+				*ngFor="let sortOptions of dataService.itemSortOptions"
+				class="gear_sort-option option-sort-option"
+				[value]="sortOptions.id"
+				mat-menu-item
+				(click)="handleClickGearSortOption(sortOptions.id)"
+			>
+				{{ sortOptions?.label }}
+			</button>
+		</mat-menu>
+
+		<button class="gear_action-direction option-sort-direction" mat-stroked-button (click)="handleClickGearSortDirection()">
+			<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedGearSortDirection === -1 ? "north" : "south" }}</mat-icon>
+		</button>
+	</div>
 </div>
 <div
-	class="grid"
+	class="flex flex-wrap justify-center items-stretch my-3 gap-2"
 	[class.hide-surplus]="!dataService.deck.options.showSurplusItems"
 	[class.hide-required]="!dataService.deck.options.showRequiredItems"
 >

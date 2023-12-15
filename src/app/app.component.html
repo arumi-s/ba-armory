@@ -1,9 +1,9 @@
-<mat-toolbar color="primary" class="mat-elevation-z4">
-	<span class="toolbar-title">
+<mat-toolbar color="primary" class="sticky top-0 z-10 shadow-md shadow-neutral-400">
+	<div class="flex my-0 mx-2 gap-2">
 		<img src="/assets/icons/icon-32x32.png" width="32" height="32" />
 		{{ title }}
-	</span>
-	<span class="toolbar-spacer"></span>
+	</div>
+	<div class="ml-auto"></div>
 	<button class="action-export" mat-icon-button [matTooltip]="action_export" (click)="handleClickExport()">
 		<mat-icon>import_export</mat-icon>
 	</button>
@@ -14,22 +14,23 @@
 		<mat-icon>save</mat-icon>
 	</button>
 </mat-toolbar>
-<main>
-	<router-outlet></router-outlet>
+<main class="relative m-4">
+	<router-outlet class="hidden"></router-outlet>
 </main>
-<footer>
-	<ul>
+<footer class="py-6 px-8 text-neutral-500 bg-neutral-200 mt-auto flex gap-4 items-end">
+	<ul class="space-y-1">
 		<li>{{ desc }}</li>
 		<li>
 			{{ footer_1_start }}
-			<a href="https://pcredivewiki.tw/Armory" target="_blank" rel="noopener noreferrer">蘭德索爾圖書館</a>{{ footer_1_end }}
+			<a class="font-bold" href="https://pcredivewiki.tw/Armory" target="_blank" rel="noopener noreferrer">蘭德索爾圖書館</a>{{ footer_1_end }}
 		</li>
 		<li>
-			{{ footer_2_start }}<a href="https://github.com/lonqie/SchaleDB" target="_blank" rel="noopener noreferrer">SchaleDB</a>{{ footer_2_end }}
+			{{ footer_2_start }}<a class="font-bold" href="https://github.com/lonqie/SchaleDB" target="_blank" rel="noopener noreferrer">SchaleDB</a
+			>{{ footer_2_end }}
 		</li>
 		<li>{{ footer_3_start }}{{ footer_3_end }}</li>
 	</ul>
-	<ul>
-		<li><a href="https://github.com/arumi-s/ba-armory" target="_blank" rel="noopener noreferrer">Github</a></li>
-	</ul>
+	<div class="ml-auto">
+		<a class="font-bold" href="https://github.com/arumi-s/ba-armory" target="_blank" rel="noopener noreferrer">Github</a>
+	</div>
 </footer>

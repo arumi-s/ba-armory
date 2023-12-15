@@ -1,5 +1,5 @@
-<div class="base mat-elevation-z1">
-	<div class="figure mat-elevation-z2" mat-ripple [title]="name" [attr.tier]="tier" (click)="handleClickIcon()">
+<div class="base shadow-sm shadow-neutral-400">
+	<div class="figure shadow shadow-neutral-400" mat-ripple [title]="name" [attr.tier]="tier" (click)="handleClickIcon()">
 		<img class="icon" loading="lazy" [src]="iconUrl" />
 		<div *ngIf="tier != null" class="tier">T{{ tier }}</div>
 		<div *ngIf="rate != null" class="rate">{{ rate | percent }}</div>
@@ -9,12 +9,12 @@
 	</div>
 	<div class="amounts">
 		<div class="amount required">
-			<!-- TODO: i18n -->
+			<!-- i18n -->
 			<div class="amount-label">{{ dataService.i18n.item_required }}:</div>
 			<div class="amount-value">{{ dataService.deck.selectedSquad.required[id] }}</div>
 		</div>
 		<div class="amount">
-			<!-- TODO: i18n -->
+			<!-- i18n -->
 			<div class="amount-label">{{ deficit ? dataService.i18n.item_deficit : dataService.i18n.item_surplus }}:</div>
 			<div class="amount-value difference">
 				{{
@@ -27,7 +27,7 @@
 		<div class="amount stock">
 			<div class="amount-value">
 				<input
-					class="stock-input"
+					class="block stock-input"
 					type="number"
 					[attr.name]="'stock-input' + id"
 					[(ngModel)]="dataService.deck.stocks[id]"

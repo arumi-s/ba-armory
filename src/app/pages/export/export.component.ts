@@ -6,7 +6,6 @@ import { PreloadService } from '../../services/preload.service';
 @Component({
 	selector: 'ba-export',
 	templateUrl: './export.component.html',
-	styleUrls: ['./export.component.less'],
 })
 export class ExportComponent implements OnInit {
 	title = '';

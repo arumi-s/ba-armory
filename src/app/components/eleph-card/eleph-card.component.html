@@ -1,33 +1,31 @@
-<mat-card class="mat-elevation-z2">
-	<mat-card-header>
+<div class="shadow rounded-md shadow-neutral-400 flex items-center">
+	<div class="self-stretch border-r border-gray-200">
 		<ba-item-icon [id]="id"></ba-item-icon>
-	</mat-card-header>
-	<mat-card-content>
-		<div class="amount name">
-			<div class="amount-value">
-				<a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a>
-			</div>
+	</div>
+	<div class="p-2 flex flex-col gap-1 overflow-hidden">
+		<div class="flex whitespace-nowrap overflow-hidden border-b border-gray-200 pb-1">
+			<a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a>
 		</div>
-		<div class="amount cost">
-			<!-- TODO: i18n -->
-			<div class="amount-label">{{ dataService.i18n.eleph_cost }}:</div>
-			<div class="amount-value">
-				<bar-rating [(rate)]="model.elephCost" [max]="5">
+		<div class="flex flex-col items-start gap-1 cost">
+			<!-- i18n -->
+			<div class="whitespace-nowrap overflow-hidden">{{ dataService.i18n.eleph_cost }}:</div>
+			<div>
+				<bar-rating class="text-xl/none" [(rate)]="model.elephCost" [max]="5">
 					<ng-template ratingActive>
-						<mat-icon color="ratingActiveEleph">token</mat-icon>
+						<mat-icon class="-rotate-35" color="ratingActiveEleph">token</mat-icon>
 					</ng-template>
 					<ng-template ratingInactive>
-						<mat-icon color="ratingInactive">token</mat-icon>
+						<mat-icon class="-rotate-35" color="ratingInactive">token</mat-icon>
 					</ng-template>
 				</bar-rating>
 			</div>
 		</div>
-		<div class="amount remain">
-			<!-- TODO: i18n -->
-			<div class="amount-label">{{ dataService.i18n.eleph_remain }}:</div>
-			<div class="amount-value">
+		<div class="flex flex-wrap items-center gap-1 remain">
+			<!-- i18n -->
+			<div class="whitespace-nowrap overflow-hidden">{{ dataService.i18n.eleph_remain }}:</div>
+			<div>
 				<input
-					class="remain-input"
+					class="block w-full rounded border border-gray-200 p-1 leading-none"
 					type="number"
 					[attr.name]="'remain-input' + id"
 					[(ngModel)]="model.elephRemain"
@@ -39,10 +37,10 @@
 			</div>
 		</div>
 
-		<div class="amount total">
-			<!-- TODO: i18n -->
-			<div class="amount-label">{{ dataService.i18n.eleph_total }}:</div>
-			<div class="amount-value">{{ model.requiredItems.get(eligmaId) ?? 0 }}</div>
+		<div class="flex flex-wrap items-center gap-1 total">
+			<!-- i18n -->
+			<div class="whitespace-nowrap overflow-hidden">{{ dataService.i18n.eleph_total }}:</div>
+			<div class="font-bold">{{ model.requiredItems.get(eligmaId) ?? 0 }}</div>
 		</div>
-	</mat-card-content>
-</mat-card>
+	</div>
+</div>

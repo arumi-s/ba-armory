@@ -54,20 +54,18 @@
 	}
 }
 
+button {
+	.mat-icon {
+		@apply -mt-1;
+	}
+}
 button[size="small"] {
 	font-size: 12px !important;
 	padding: 0 4px !important;
 	line-height: 24px !important;
 
 	.mat-icon {
-		font-size: 16px !important;
-		height: 16px !important;
-		width: 16px !important;
-		margin-top: -4px;
-	}
-
-	&.mat-standard-chip {
-		min-height: 24px;
+		@apply !w-4 !h-4 !text-base/none;
 	}
 }
 

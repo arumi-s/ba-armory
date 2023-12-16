@@ -67,7 +67,7 @@
 	<div class="actionbar-end">
 		<!-- i18n -->
 		<button
-			class="squad_action-pin"
+			class="!min-w-fit !px-2 squad_action-pin"
 			mat-stroked-button
 			[color]="dataService.deck.selectedSquad.pinned ? 'accent' : 'basic'"
 			(click)="handleClickSquadPin()"
@@ -77,7 +77,7 @@
 
 		<!-- i18n -->
 		<button
-			class="squad_action-bound"
+			class="!min-w-fit !px-2 squad_action-bound"
 			mat-stroked-button
 			[color]="dataService.deck.selectedSquad.bounded ? 'accent' : 'basic'"
 			(click)="handleClickSquadBound()"
@@ -86,19 +86,19 @@
 		</button>
 
 		<!-- i18n -->
-		<button class="squad_action-text" mat-stroked-button color="primary" (click)="handleClickSquadText()">
+		<button class="!min-w-fit !px-2 squad_action-text" mat-stroked-button color="primary" (click)="handleClickSquadText()">
 			<mat-icon>text_snippet</mat-icon>
 		</button>
 
 		<!-- i18n -->
-		<button class="squad_action-terrain terrain-option" mat-stroked-button [matMenuTriggerFor]="squadTerrainMenu">
+		<button class="flex items-center squad_action-terrain" mat-stroked-button [matMenuTriggerFor]="squadTerrainMenu">
 			<mat-icon [svgIcon]="'terrain_' + selectedTerrainOption.id"></mat-icon>&nbsp;{{ selectedTerrainOption.label }}
 		</button>
 
 		<mat-menu #squadTerrainMenu="matMenu" class="squad_terrain-options options-terrain-options" xPosition="before">
 			<button
 				*ngFor="let terrainOption of dataService.terrainOptions"
-				class="terrain-option options-terrain-option"
+				class="flex items-center options-terrain-option"
 				mat-menu-item
 				(click)="handleClickSquadTerrainOption(terrainOption.id)"
 			>

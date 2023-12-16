@@ -11,7 +11,6 @@ import { DataService } from '../../services/data.service';
 @Component({
 	selector: 'ba-eleph-card',
 	templateUrl: './eleph-card.component.html',
-	styleUrls: ['./eleph-card.component.less'],
 })
 export class ElephCardComponent implements OnInit, OnDestroy {
 	@Input()

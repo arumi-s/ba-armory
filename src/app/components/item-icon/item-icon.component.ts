@@ -20,6 +20,12 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 	@Input()
 	rate: number;
 
+	@Input()
+	hideShadow: boolean = false;
+
+	@Input()
+	hideName: boolean = false;
+
 	@HostBinding('class')
 	get className() {
 		return {

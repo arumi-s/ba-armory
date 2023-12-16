@@ -2,7 +2,7 @@ import { hasKeys } from 'prop-change-decorators';
 import { Subscription } from 'rxjs';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { environment } from '../../../environments/environment';
 import { DataService } from '../../services/data.service';
@@ -11,7 +11,6 @@ import { ItemUserComponent } from '../item-user/item-user.component';
 @Component({
 	selector: 'ba-item-icon',
 	templateUrl: './item-icon.component.html',
-	styleUrls: ['./item-icon.component.less'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemIconComponent implements OnInit, OnDestroy {
@@ -20,6 +19,15 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 
 	@Input()
 	rate: number;
+
+	@HostBinding('class')
+	get className() {
+		return {
+			contents: true,
+			[this.deficit ? 'is-deficit' : 'is-surplus']: true,
+			'is-required': this.dataService.deck.selectedSquad.required[this.id] > 0,
+		};
+	}
 
 	@HostBinding('attr.category')
 	category: string;
@@ -31,14 +39,6 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 
 	get deficit() {
 		return this.dataService.deck.selectedSquad.required[this.id] > this.dataService.deck.stocks[this.id];
-	}
-
-	@HostBinding('class')
-	get classes() {
-		return {
-			[this.deficit ? 'is-deficit' : 'is-surplus']: true,
-			'is-required': this.dataService.deck.selectedSquad.required[this.id] > 0,
-		};
 	}
 
 	private changeSubscription: Subscription;

@@ -3,7 +3,7 @@ import { firstValueFrom, Subscription } from 'rxjs';
 import { SortableOptions } from 'sortablejs';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatLegacyTabChangeEvent as MatTabChangeEvent } from '@angular/material/legacy-tabs';
 
 import { Terrain } from '../../entities/enum';
@@ -72,7 +72,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 		const dialogRef = this.dialog.open(IconSelectorComponent, {
 			width: '100%',
 			height: 'auto',
-			maxHeight: 'calc(100% - 2.25rem)',
+			maxHeight: 'calc(100vh - 2.25rem)',
 			autoFocus: false,
 			restoreFocus: false,
 		});
@@ -85,7 +85,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 		const dialogRef = this.dialog.open(SelectorComponent, {
 			width: '100%',
 			height: '100%',
-			maxHeight: 'calc(100% - 2.25rem)',
+			maxHeight: 'calc(100vh - 2.25rem)',
 			autoFocus: false,
 			restoreFocus: false,
 		});
@@ -148,7 +148,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 	async handleClickSquadText() {
 		const dialogRef = this.dialog.open(SquadTextComponent, {
 			height: 'auto',
-			maxHeight: 'calc(100% - 2.25rem)',
+			maxHeight: 'calc(100vh - 2.25rem)',
 			autoFocus: false,
 			restoreFocus: false,
 		});

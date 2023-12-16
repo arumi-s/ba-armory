@@ -1,22 +1,33 @@
-<div class="base shadow-sm shadow-neutral-400">
-	<div class="figure shadow shadow-neutral-400" mat-ripple [title]="name" [attr.tier]="tier" (click)="handleClickIcon()">
-		<img class="icon" loading="lazy" [src]="iconUrl" />
-		<div *ngIf="tier != null" class="tier">T{{ tier }}</div>
-		<div *ngIf="rate != null" class="rate">{{ rate | percent }}</div>
+<div class="base flex flex-col gap-1 items-center w-[108px] h-auto p-3 shadow-sm shadow-neutral-400">
+	<div
+		class="figure w-[84px] shadow shadow-neutral-400 select-none relative"
+		mat-ripple
+		[title]="name"
+		[attr.tier]="tier"
+		(click)="handleClickIcon()"
+	>
+		<img class="w-full object-cover" loading="lazy" [src]="iconUrl" />
+		<div
+			*ngIf="tier != null"
+			class="font-bold text-sm/none px-1 py-px m-0.5 absolute bottom-0 left-0 text-sky-600 bg-white border border-current rounded-md -skew-x-10"
+		>
+			T{{ tier }}
+		</div>
+		<div *ngIf="rate != null" class="absolute right-0 bottom-0 m-0.5 text-xs/none">{{ rate | percent }}</div>
 	</div>
-	<div class="name">
+	<div class="name -mx-2 text-sm text-center grow">
 		<a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a>
 	</div>
-	<div class="amounts">
-		<div class="amount required">
+	<div>
+		<div class="flex items-center justify-center gap-1 required">
 			<!-- i18n -->
-			<div class="amount-label">{{ dataService.i18n.item_required }}:</div>
-			<div class="amount-value">{{ dataService.deck.selectedSquad.required[id] }}</div>
+			<div class="whitespace-nowrap">{{ dataService.i18n.item_required }}:</div>
+			<div>{{ dataService.deck.selectedSquad.required[id] }}</div>
 		</div>
-		<div class="amount">
+		<div class="flex items-center justify-center gap-1">
 			<!-- i18n -->
-			<div class="amount-label">{{ deficit ? dataService.i18n.item_deficit : dataService.i18n.item_surplus }}:</div>
-			<div class="amount-value difference">
+			<div class="whitespace-nowrap">{{ deficit ? dataService.i18n.item_deficit : dataService.i18n.item_surplus }}:</div>
+			<div class="font-bold" [class.text-red-500]="deficit" [class.text-lime-500]="!deficit">
 				{{
 					deficit
 						? dataService.deck.selectedSquad.required[id] - dataService.deck.stocks[id]
@@ -24,12 +35,12 @@
 				}}
 			</div>
 		</div>
-		<div class="amount stock">
-			<div class="amount-value">
+		<div class="flex items-center justify-center gap-1 stock">
+			<div>
 				<input
-					class="block stock-input"
+					class="block w-full p-1 border border-gray-200"
 					type="number"
-					[attr.name]="'stock-input' + id"
+					[attr.name]="'stock-input-' + id"
 					[(ngModel)]="dataService.deck.stocks[id]"
 					[min]="0"
 					[step]="1"

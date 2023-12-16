@@ -1,7 +1,7 @@
 import { hasKeys } from 'prop-change-decorators';
 import { Subscription } from 'rxjs';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { ACTION_POINT_ID, CURRENCY_OFFSET } from '../../entities/deck';
 import { CampaignDifficulty, Reward } from '../../entities/enum';
@@ -10,7 +10,6 @@ import { DataService } from '../../services/data.service';
 @Component({
 	selector: 'ba-campaign-card',
 	templateUrl: './campaign-card.component.html',
-	styleUrls: ['./campaign-card.component.less'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CampaignCardComponent implements OnInit, OnDestroy {
@@ -19,6 +18,9 @@ export class CampaignCardComponent implements OnInit, OnDestroy {
 
 	@Input()
 	amount: number;
+
+	@HostBinding('class')
+	readonly className = 'contents';
 
 	campaign_amount: string = '';
 	campaign_cost: string = '';

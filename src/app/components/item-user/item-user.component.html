@@ -1,9 +1,11 @@
-<div class="item">
-	<ba-item-icon [id]="id"></ba-item-icon>
-</div>
-<div *ngIf="users.length" class="users">
-	<div *ngFor="let user of users" class="user">
-		<ba-student-icon [id]="user[0]"></ba-student-icon>
-		<div class="amount">{{ user[1] }}</div>
+<div class="flex items-stretch">
+	<div class="flex items-center">
+		<ba-item-icon [id]="id"></ba-item-icon>
+	</div>
+	<div *ngIf="users.length" class="flex gap-2 flex-wrap justify-center items-center ml-4 pl-4 border-l border-gray-200">
+		<div *ngFor="let user of users" class="flex flex-col gap-2">
+			<ba-student-icon class="pointer-events-none" [id]="user.id"></ba-student-icon>
+			<div class="text-center text-base">{{ user.amount }}</div>
+		</div>
 	</div>
 </div>

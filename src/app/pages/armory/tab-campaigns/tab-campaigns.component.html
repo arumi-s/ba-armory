@@ -4,6 +4,6 @@
 		{{ dataService.i18n.campaign_show_campaign_hard }}
 	</mat-checkbox>
 </div>
-<div class="space-y-3 p-2">
+<div class="flex flex-col items-stretch gap-3 p-2">
 	<ba-campaign-card *ngFor="let stage of dataService.deck.selectedSquad.stages" [id]="stage.id" [amount]="stage.amount"></ba-campaign-card>
 </div>

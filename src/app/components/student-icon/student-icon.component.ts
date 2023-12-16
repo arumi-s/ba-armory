@@ -8,7 +8,6 @@ import { DataService } from '../../services/data.service';
 @Component({
 	selector: 'ba-student-icon',
 	templateUrl: './student-icon.component.html',
-	styleUrls: ['./student-icon.component.less'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StudentIconComponent implements OnInit {
@@ -19,6 +18,9 @@ export class StudentIconComponent implements OnInit {
 
 	@Input()
 	terrain?: Terrain;
+
+	@HostBinding('class')
+	readonly className = 'contents';
 
 	bulletType: string;
 	armorType: string;

@@ -1,12 +1,15 @@
 <div
 	mat-ripple
-	class="figure shadow shadow-neutral-400"
+	class="w-[50px] h-10 shadow shadow-neutral-400 select-none cursor-pointer relative"
 	[class.is_target-show]="isTarget"
 	[class.is_target-reached]="model.gear === model.gearTarget"
-	[title]="name"
-	[attr.gear]="gear"
 	(hiHoverInputNumber)="gear = $event"
 >
-	<img class="icon" loading="lazy" [src]="iconUrl" />
-	<div class="gear">T{{ gear }}</div>
+	<img class="w-full object-cover" [class.opacity-50]="gear === 0" loading="lazy" [src]="iconUrl" />
+	<div
+		class="font-bold text-sm/none px-1 py-px m-0.5 absolute bottom-0 left-0 text-sky-600 bg-white border border-current rounded-md -skew-x-10"
+		[class.hidden]="gear === 0"
+	>
+		T{{ gear }}
+	</div>
 </div>

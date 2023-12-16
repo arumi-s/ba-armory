@@ -1,7 +1,7 @@
 import { hasKeys } from 'prop-change-decorators';
 import { Subscription } from 'rxjs';
 
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
 import { ELIGMA_ID } from '../../entities/deck';
@@ -16,6 +16,9 @@ import { DataService } from '../../services/data.service';
 export class ElephCardComponent implements OnInit, OnDestroy {
 	@Input()
 	id: number;
+
+	@HostBinding('class')
+	readonly className = 'contents';
 
 	model: DeckStudent;
 

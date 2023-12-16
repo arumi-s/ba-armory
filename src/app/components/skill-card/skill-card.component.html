@@ -1,13 +1,11 @@
 <div
 	mat-ripple
-	class="figure shadow shadow-neutral-400"
+	class="w-[50px] h-[90px] shadow shadow-neutral-400 select-none cursor-pointer"
 	[class.is_target-show]="isTarget"
 	[class.is_target-reached]="model.level === model.levelTarget"
-	[title]="name"
-	[attr.level]="level"
 	(hiHoverInputNumber)="level = $event"
 >
-	<div class="skill_type">{{ skillTypeText }}</div>
-	<img [class]="'icon ' + typeClass" loading="lazy" [src]="iconUrl" />
-	<div class="level">{{ level === model.levelMax ? "MAX" : "Lv." + level }}</div>
+	<div class="text-center italic text-2xs/loose flex-nowrap overflow-hidden">{{ skillTypeText }}</div>
+	<img [class]="'w-full aspect-square object-cover icon ' + typeClass" loading="lazy" [src]="iconUrl" />
+	<div class="text-center font-bold">{{ level === model.levelMax ? "MAX" : "Lv." + level }}</div>
 </div>

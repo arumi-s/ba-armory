@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ title }}</h2>
+<h2 mat-dialog-title class="text-xl/8 flex items-center gap-2"><mat-icon>text_snippet</mat-icon> {{ title }}</h2>
 <div class="actionbar">
 	<mat-checkbox class="text_action-show_star" [(ngModel)]="dataService.deck.options.showSquadTextStar" color="accent">
 		<!-- i18n -->
@@ -30,7 +30,7 @@
 
 <div>
 	<textarea
-		class="w-full border border-gray-200 font-mono rounded my-3 py-2 px-3 resize-none"
+		class="w-full border border-gray-200 font-mono rounded my-3 p-3 resize-none"
 		name="text-input_text"
 		readonly
 		[rows]="rows"

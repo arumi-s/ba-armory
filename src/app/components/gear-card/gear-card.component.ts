@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { DeckStudent } from '../../entities/deck-student';
 import { DataService } from '../../services/data.service';
@@ -8,7 +8,6 @@ import { DataService } from '../../services/data.service';
 @Component({
 	selector: 'ba-gear-card',
 	templateUrl: './gear-card.component.html',
-	styleUrls: ['./gear-card.component.less'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GearCardComponent implements OnInit, OnDestroy {
@@ -17,6 +16,10 @@ export class GearCardComponent implements OnInit, OnDestroy {
 
 	model: DeckStudent;
 
+	@HostBinding('class')
+	readonly className = 'contents';
+
+	@HostBinding('attr.title')
 	name: string;
 
 	@Input()
@@ -24,6 +27,7 @@ export class GearCardComponent implements OnInit, OnDestroy {
 
 	iconUrl: string;
 
+	@HostBinding('attr.gear')
 	get gear() {
 		return this.isTarget ? this.model.gearTarget : this.model.gear;
 	}

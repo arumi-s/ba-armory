@@ -15,16 +15,8 @@
 	}
 
 	body {
-		margin: 0;
-		padding: 0;
+		@apply text-sm text-zinc-800 bg-white;
 		font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-		font-size: 1rem;
-		font-weight: 400;
-		line-height: 1.5;
-		color: #212529;
-		text-align: left;
-		background-color: #fff;
-		height: 100%;
 	}
 
 	img {
@@ -50,8 +42,8 @@
 	}
 }
 
-.mat-dialog-container {
-	height: auto !important;
+.mat-mdc-dialog-surface {
+	@apply p-6;
 }
 
 .mat-button-toggle {
@@ -100,14 +92,6 @@ button[size="small"] {
 		transform: skewX(10deg);
 		display: block;
 		transform-origin: center center;
-	}
-}
-
-[mat-dialog-title] {
-	display: flex;
-	align-items: center;
-	mat-icon {
-		@apply mr-2;
 	}
 }
 

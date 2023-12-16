@@ -5,6 +5,7 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
+	HostBinding,
 	HostListener,
 	Input,
 	OnChanges,
@@ -20,7 +21,6 @@ import { DataService } from '../../services/data.service';
 @Component({
 	selector: 'ba-equipment-card',
 	templateUrl: './equipment-card.component.html',
-	styleUrls: ['./equipment-card.component.less'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EquipmentCardComponent implements OnInit, OnChanges, OnDestroy {
@@ -32,11 +32,16 @@ export class EquipmentCardComponent implements OnInit, OnChanges, OnDestroy {
 
 	id: number;
 
+	@HostBinding('class')
+	readonly className = 'contents';
+
+	@HostBinding('attr.title')
 	name: string;
 	iconUrl: string;
 	category: EquipmentCategory;
 	equipmentMap: Map<number, number>;
 
+	@HostBinding('attr.tier')
 	get tier() {
 		return this.isTarget ? this.model.tierTarget : this.model.tier;
 	}

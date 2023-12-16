@@ -1,10 +1,12 @@
-<button class="base shadow-md shadow-neutral-400">
-	<img class="icon" [src]="student.collectionTextureUrl" loading="lazy" [alt]="student.name" />
-	<button class="bullet_type" mat-mini-fab tabindex="-1" [color]="student.bulletType">
-		<mat-icon svgIcon="bullet_type"></mat-icon>
-	</button>
-	<button class="armor_type" mat-mini-fab tabindex="-1" [color]="student.armorType">
-		<mat-icon svgIcon="armor_type"></mat-icon>
-	</button>
-	<img *ngIf="terrain" class="adaptation_icon" tabindex="-1" [src]="adaptationIcon" width="30" height="30" alt="" />
+<button
+	class="block w-25 h-25 rounded-full shadow-md shadow-neutral-400 relative cursor-pointer select-none active:shadow-none transition-shadow duration-75"
+>
+	<img class="w-full h-full object-cover rounded-full" [src]="student.collectionTextureUrl" loading="lazy" [alt]="student.name" />
+	<div [class]="'p-2 leading-none rounded-full origin-center absolute top-0 left-0 icon mat-' + student.bulletType">
+		<mat-icon class="!block !w-4 !h-4" svgIcon="bullet_type" inline="true"></mat-icon>
+	</div>
+	<div [class]="'p-2 leading-none rounded-full origin-center absolute bottom-0 right-0 icon mat-' + student.armorType">
+		<mat-icon class="!block !w-4 !h-4" svgIcon="armor_type" inline="true"></mat-icon>
+	</div>
+	<img *ngIf="terrain" class="absolute top-0 right-0 w-8 h-8" tabindex="-1" [src]="adaptationIcon" alt="" />
 </button>

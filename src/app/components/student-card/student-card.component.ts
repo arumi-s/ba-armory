@@ -21,6 +21,9 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 	@Input()
 	terrain?: Terrain;
 
+	@HostBinding('class')
+	readonly className = 'block';
+
 	model: DeckStudent;
 
 	action_remove: string;

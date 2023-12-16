@@ -21,7 +21,7 @@
 				(mousedown)="handleMousedownSquadStopPropagation($event)"
 				(click)="handleClickIconSelector()"
 			/>
-			<input class="block squad_action-input_name" type="text" [attr.name]="'squad-name' + squad.id" [(ngModel)]="squad.name" />
+			<input class="block squad_action-input_name" type="text" [attr.name]="'squad-name-' + squad.id" [(ngModel)]="squad.name" />
 			<div class="squad_action-name">{{ squad.name }}</div>
 			<button
 				mat-icon-button

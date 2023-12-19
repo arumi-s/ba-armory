@@ -1,9 +1,9 @@
-<div class="shadow-md rounded-md shadow-neutral-400 space-y-2">
+<div class="w-60 shadow-md rounded-md shadow-neutral-400 space-y-2">
 	<div class="relative flex flex-row p-2 bg-sky-100 gap-2" [class.bg-yellow-100]="isAlt">
-		<img class="h-12 w-12 cursor-grab rounded-full object-cover shrink-0" loading="lazy" [src]="collectionTextureUrl" [alt]="name" />
+		<img class="h-12.5 w-12.5 cursor-grab rounded-full object-cover shrink-0" loading="lazy" [src]="collectionTextureUrl" [alt]="name" />
 		<div class="flex-1 flex flex-col overflow-hidden justify-between">
 			<a
-				class="text-lg/5 font-semibold whitespace-nowrap overflow-hidden"
+				class="text-lg/6 font-semibold whitespace-nowrap overflow-hidden text-ellipsis"
 				[href]="dbUrl"
 				target="_blank"
 				rel="noopener noreferrer"
@@ -20,7 +20,7 @@
 				<div [class]="'rounded py-1 px-2 text-white text-xs/4 bg-' + squadType">
 					{{ squadTypeText }}
 				</div>
-				<img class="ml-auto h-[1.5em]" [src]="adaptationIcon" alt="" />
+				<img class="ml-auto h-6" [src]="adaptationIcon" alt="" />
 			</div>
 		</div>
 		<img class="invert opacity-15 h-full absolute right-0 top-0 pointer-events-none" loading="lazy" [src]="schoolIconUrl" />
@@ -107,28 +107,28 @@
 	</div>
 	<div class="flex gap-2 p-2 [&>button]:shrink-0 [&>button]:min-w-min">
 		<!-- i18n -->
-		<button class="!mr-auto" mat-button color="warn" tabindex="-1" size="small" (click)="handleClickDelete()">
+		<button class="!mr-auto small-button" mat-button color="warn" (click)="handleClickDelete()">
 			<mat-icon>block</mat-icon> {{ action_remove }}
 		</button>
 
 		<ng-container *ngIf="!isAlt; else is_alt">
 			<!-- i18n -->
-			<button mat-button color="basic" tabindex="-1" size="small" [disabled]="isUpgraded" (click)="handleClickUpgrade()">
+			<button class="small-button" mat-button color="basic" [disabled]="isUpgraded" (click)="handleClickUpgrade()">
 				<mat-icon>upgrade</mat-icon> {{ action_upgrade }}
 			</button>
 			<!-- i18n -->
-			<button mat-flat-button [color]="isTarget ? 'accent' : 'basic'" tabindex="-1" size="small" (click)="handleClickTarget()">
+			<button class="small-button" mat-flat-button [color]="isTarget ? 'accent' : 'basic'" (click)="handleClickTarget()">
 				<mat-icon>gps_fixed</mat-icon> {{ action_target }}
 			</button>
 		</ng-container>
 
 		<ng-template #is_alt>
 			<!-- i18n -->
-			<button mat-button color="basic" tabindex="-1" size="small" [disabled]="isUpgraded" (click)="handleClickMaximize()">
+			<button class="small-button" mat-button color="basic" [disabled]="isUpgraded" (click)="handleClickMaximize()">
 				<mat-icon>upgrade</mat-icon> {{ action_maximize }}
 			</button>
 			<!-- i18n -->
-			<button class="pointer-events-none" mat-button color="accent" tabindex="-1" size="small">
+			<button class="small-button pointer-events-none" mat-button color="accent" tabindex="-1">
 				<mat-icon>assistant</mat-icon> {{ action_assist }}
 			</button>
 		</ng-template>

@@ -1,6 +1,6 @@
 <div class="flex items-stretch -mx-3">
 	<div class="flex items-center">
-		<ba-item-icon [id]="id" [hideShadow]="true"></ba-item-icon>
+		<ba-item-icon class="[&_button]:pointer-events-none [&_input]:hidden [&>*]:w-32" [id]="id" [hideShadow]="true"></ba-item-icon>
 	</div>
 	<div *ngIf="users.length" class="flex gap-2 flex-wrap justify-center items-center ml-2 mr-3 pl-4 border-l border-gray-200">
 		<div *ngFor="let user of users" class="flex flex-col gap-2">

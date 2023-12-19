@@ -33,15 +33,22 @@ module.exports = {
 				"2xs": ["0.625rem", "0.75rem"],
 			},
 			width: {
-				25: "6.25rem",
 				7.5: "1.875rem",
+				12.5: "3.125rem",
+				25: "6.25rem",
 			},
 			maxWidth: {
 				bounded: "100rem",
 			},
 			height: {
-				25: "6.25rem",
 				7.5: "1.875rem",
+				12.5: "3.125rem",
+				22.5: "5.625rem",
+				25: "6.25rem",
+			},
+			minHeight: {
+				9: "2.25rem",
+				72: "18rem",
 			},
 			opacity: {
 				12: "12%",

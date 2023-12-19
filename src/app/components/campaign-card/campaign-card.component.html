@@ -1,5 +1,5 @@
 <div class="shadow rounded-md shadow-neutral-400 flex items-center">
-	<div class="flex flex-col basis-48 shrink-0 grow-0 max-w-[30%] p-4 gap-2 self-stretch">
+	<div class="flex flex-col basis-48 shrink-0 grow-0 p-4 gap-2 self-stretch">
 		<img class="rounded w-full" loading="lazy" [src]="iconUrl" />
 		<div class="text-lg/5 font-semibold whitespace-nowrap overflow-hidden">{{ type }} {{ difficulty }}{{ area }}-{{ stage }}</div>
 		<div class="text-sm/4 italic text-neutral-500">{{ name }}</div>
@@ -10,7 +10,7 @@
 			<div class="stat">{{ campaign_cost }}: {{ cost }}</div>
 		</div>
 	</div>
-	<div class="flex-1 overflow-x-auto flex gap-2 [&>*]:!w-32 px-1">
-		<ba-item-icon *ngFor="let reward of rewards" [id]="reward[0]" [rate]="reward[1]"></ba-item-icon>
+	<div class="flex-1 overflow-x-auto flex gap-2 px-1">
+		<ba-item-icon class="[&>*]:w-32" *ngFor="let reward of rewards" [id]="reward[0]" [rate]="reward[1]"></ba-item-icon>
 	</div>
 </div>

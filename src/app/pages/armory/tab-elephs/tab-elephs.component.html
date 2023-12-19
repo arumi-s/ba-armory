@@ -2,8 +2,11 @@
 	<div class="actionbar-end">
 		<!-- i18n -->
 		<button class="eleph_action-sort" mat-stroked-button [matMenuTriggerFor]="elephSortMenu">
-			<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
-			{{ selectedElephSortOption?.label }}
+			<mat-icon>sort</mat-icon>
+			<span>
+				{{ dataService.localization.ui["sortby"] }}
+				{{ selectedElephSortOption?.label }}
+			</span>
 		</button>
 
 		<mat-menu #elephSortMenu="matMenu" class="eleph_sort-options" xPosition="before">

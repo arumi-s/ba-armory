@@ -1,11 +1,12 @@
-<div
+<button
 	mat-ripple
-	class="w-[50px] h-[90px] shadow shadow-neutral-400 select-none cursor-pointer"
+	matRippleColor="rgb(0 0 0 / 0.1)"
+	class="w-12.5 h-22.5 shadow shadow-neutral-400 select-none cursor-pointer"
 	[class.is_target-show]="isTarget"
 	[class.is_target-reached]="model.level === model.levelTarget"
 	(hiHoverInputNumber)="level = $event"
 >
-	<div class="text-center italic text-2xs/loose flex-nowrap overflow-hidden">{{ skillTypeText }}</div>
+	<div class="text-center italic text-2xs/loose whitespace-nowrap overflow-hidden">{{ skillTypeText }}</div>
 	<img [class]="'w-full aspect-square object-contain ' + typeClass" loading="lazy" [src]="iconUrl" />
 	<div class="text-center font-bold">{{ level === model.levelMax ? "MAX" : "Lv." + level }}</div>
-</div>
+</button>

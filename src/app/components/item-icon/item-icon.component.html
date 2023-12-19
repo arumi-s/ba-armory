@@ -1,6 +1,13 @@
-<div class="flex flex-col gap-1 items-center w-[108px] h-auto p-3 shadow-neutral-400" [class.shadow-sm]="!hideShadow">
-	<div class="w-[84px] select-none relative" mat-ripple [matTooltip]="name" [attr.tier]="tier" (click)="handleClickIcon()">
-		<img class="w-full object-cover" loading="lazy" [src]="iconUrl" />
+<div class="flex flex-col gap-1 items-center w-28 h-auto p-2 shadow-neutral-400" [class.shadow-sm]="!hideShadow">
+	<button
+		class="w-24 select-none relative"
+		mat-ripple
+		matRippleColor="rgb(0 0 0 / 0.1)"
+		tabindex="-1"
+		[attr.tier]="tier"
+		(click)="handleClickIcon()"
+	>
+		<img loading="lazy" [src]="iconUrl" />
 		<div
 			*ngIf="tier != null"
 			class="font-bold text-sm/none px-1 py-px m-0.5 absolute bottom-0 left-0 text-sky-600 bg-white border border-current rounded-md -skew-x-10"
@@ -8,12 +15,10 @@
 			T{{ tier }}
 		</div>
 		<div *ngIf="rate != null" class="absolute right-0 bottom-0 m-0.5 text-xs/none">{{ rate | percent }}</div>
+	</button>
+	<div *ngIf="!hideName" class="-mx-1 text-sm text-center grow">
+		<a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a>
 	</div>
-	<ng-template *ngIf="!hideName">
-		<div class="-mx-2 text-sm text-center grow">
-			<a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a>
-		</div>
-	</ng-template>
 	<div>
 		<div class="flex items-center justify-center gap-1 required">
 			<!-- i18n -->

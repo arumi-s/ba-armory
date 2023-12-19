@@ -1,6 +1,7 @@
-<div
+<button
 	mat-ripple
-	class="w-[50px] h-10 shadow shadow-neutral-400 select-none cursor-pointer relative"
+	matRippleColor="rgb(0 0 0 / 0.1)"
+	class="w-12.5 h-10 shadow shadow-neutral-400 select-none cursor-pointer relative"
 	[class.is_target-show]="isTarget"
 	[class.is_target-reached]="model.tier === model.tierTarget"
 	(hiHoverInputNumber)="tier = $event"
@@ -12,4 +13,4 @@
 	>
 		T{{ tier }}
 	</div>
-</div>
+</button>

@@ -13,8 +13,11 @@
 	<div class="actionbar-end">
 		<!-- i18n -->
 		<button class="gear_action-sort" mat-stroked-button [matMenuTriggerFor]="gearSortMenu">
-			<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
-			{{ selectedGearSortOption?.label }}
+			<mat-icon>sort</mat-icon>
+			<span>
+				{{ dataService.localization.ui["sortby"] }}
+				{{ selectedGearSortOption?.label }}
+			</span>
 		</button>
 
 		<mat-menu #gearSortMenu="matMenu" class="gear_sort-options" xPosition="before">

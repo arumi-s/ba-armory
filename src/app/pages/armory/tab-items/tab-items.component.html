@@ -17,8 +17,11 @@
 	<div class="actionbar-end">
 		<!-- i18n -->
 		<button class="item_action-sort" mat-stroked-button [matMenuTriggerFor]="itemSortMenu">
-			<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
-			{{ selectedItemSortOption?.label }}
+			<mat-icon>sort</mat-icon>
+			<span>
+				{{ dataService.localization.ui["sortby"] }}
+				{{ selectedItemSortOption?.label }}
+			</span>
 		</button>
 
 		<mat-menu #itemSortMenu="matMenu" class="item_sort-options" xPosition="before">

@@ -126,8 +126,12 @@
 		<!-- i18n -->
 		<button class="student_action-sort" mat-stroked-button [matMenuTriggerFor]="studentSortMenu">
 			<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
-			<mat-icon *ngIf="selectedStudentSortOption?.label === 'star'; else selectedStudentSortOptionsTextLabel">star</mat-icon>
-			<ng-template #selectedStudentSortOptionsTextLabel>{{ selectedStudentSortOption?.label }}</ng-template>
+			<span>
+				<mat-icon class="align-sub" *ngIf="selectedStudentSortOption?.label === 'star'; else selectedStudentSortOptionsTextLabel" inline="true"
+					>star</mat-icon
+				>
+				<ng-template #selectedStudentSortOptionsTextLabel>{{ selectedStudentSortOption?.label }}</ng-template>
+			</span>
 		</button>
 
 		<mat-menu #studentSortMenu="matMenu" class="student_sort-options" xPosition="before">
@@ -149,7 +153,7 @@
 </div>
 
 <div
-	class="flex flex-wrap justify-center items-stretch my-3 min-h-[302px] gap-4"
+	class="flex flex-wrap justify-center my-3 min-h-72 gap-4"
 	[class.max-w-bounded]="dataService.deck.selectedSquad.bounded"
 	[class.mx-auto]="dataService.deck.selectedSquad.bounded"
 	[sortablejs]="dataService.deck.selectedSquad.students"
@@ -163,7 +167,6 @@
 </div>
 
 <mat-tab-group
-	class="min-h-[302px]"
 	mat-stretch-tabs="false"
 	animationDuration="0"
 	disablePagination="false"

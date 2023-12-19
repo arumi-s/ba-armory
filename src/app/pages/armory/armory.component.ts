@@ -4,7 +4,7 @@ import { SortableOptions } from 'sortablejs';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatLegacyTabChangeEvent as MatTabChangeEvent } from '@angular/material/legacy-tabs';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 import { Terrain } from '../../entities/enum';
 import { StudentSortOption, Tab, TerrainOption } from '../../entities/types';

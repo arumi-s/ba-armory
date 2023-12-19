@@ -1,39 +1,49 @@
 <mat-tab-group
-	class="squad-tabs"
-	[animationDuration]="0"
-	[disablePagination]="false"
+	mat-stretch-tabs="false"
+	animationDuration="0"
+	disablePagination="false"
 	[selectedIndex]="dataService.deck.selectedSquadId"
 	(selectedTabChange)="handleTabChangeSquad($event)"
 >
 	<mat-tab *ngFor="let squad of dataService.deck.squads" [labelClass]="squad.pinned ? 'squad-pinned' : 'squad-unpinned'">
 		<ng-template mat-tab-label>
-			<button
-				mat-icon-button
-				class="squad_action-move_left"
-				(mousedown)="handleMousedownSquadStopPropagation($event)"
-				(click)="handleClickSquadMoveLeft()"
-			>
-				<mat-icon>chevron_left</mat-icon>
-			</button>
-			<img
-				class="squad-icon"
-				[src]="squad.icon === '' ? squad.autoIcon : squad.icon"
-				(mousedown)="handleMousedownSquadStopPropagation($event)"
-				(click)="handleClickIconSelector()"
-			/>
-			<input class="block squad_action-input_name" type="text" [attr.name]="'squad-name-' + squad.id" [(ngModel)]="squad.name" />
-			<div class="squad_action-name">{{ squad.name }}</div>
-			<button
-				mat-icon-button
-				class="squad_action-move_right"
-				(mousedown)="handleMousedownSquadStopPropagation($event)"
-				(click)="handleClickSquadMoveRight()"
-			>
-				<mat-icon>chevron_right</mat-icon>
-			</button>
+			<div class="flex items-center">
+				<button
+					mat-icon-button
+					class="squad_action-move_left"
+					(mousedown)="handleMousedownSquadStopPropagation($event)"
+					(click)="handleClickSquadMoveLeft()"
+				>
+					<mat-icon>chevron_left</mat-icon>
+				</button>
+				<img
+					class="w-8 h-8 rounded-full bg-slate-500 object-cover pointer-events-none squad-icon"
+					[src]="squad.icon === '' ? squad.autoIcon : squad.icon"
+					(mousedown)="handleMousedownSquadStopPropagation($event)"
+					(click)="handleClickIconSelector()"
+				/>
+				<div class="squad_action-name grid items-center justify-items-stretch ml-1">
+					<input
+						class="col-start-1 row-start-1 py-0.5 px-1 min-w-0 text-center rounded-sm ring-1 ring-gray-200 invisible squad_action-input_name"
+						type="text"
+						size="1"
+						[attr.name]="'squad-name-' + squad.id"
+						[(ngModel)]="squad.name"
+					/>
+					<div class="col-start-1 row-start-1 py-0.5 px-1 text-center whitespace-pre squad_action-text_name">{{ squad.name }}</div>
+				</div>
+				<button
+					mat-icon-button
+					class="squad_action-move_right"
+					(mousedown)="handleMousedownSquadStopPropagation($event)"
+					(click)="handleClickSquadMoveRight()"
+				>
+					<mat-icon>chevron_right</mat-icon>
+				</button>
+			</div>
 		</ng-template>
 	</mat-tab>
-	<mat-tab disabled>
+	<mat-tab labelClass="!px-1 !min-w-min !opacity-100" disabled>
 		<ng-template mat-tab-label>
 			<button mat-icon-button color="primary" class="squad_action-add" (click)="handleClickSquadAdd()"><mat-icon>add_circle</mat-icon></button>
 		</ng-template>
@@ -149,8 +159,9 @@
 
 <mat-tab-group
 	class="min-h-[302px]"
-	[animationDuration]="0"
-	[disablePagination]="false"
+	mat-stretch-tabs="false"
+	animationDuration="0"
+	disablePagination="false"
 	[selectedIndex]="selectedTab"
 	(selectedIndexChange)="handleChangeTab($event)"
 >

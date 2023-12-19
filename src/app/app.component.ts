@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, HostBinding, Inject, OnInit } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatIconRegistry } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 
 import { environment } from '../environments/environment';

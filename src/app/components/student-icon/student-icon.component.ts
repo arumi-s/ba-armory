@@ -22,20 +22,10 @@ export class StudentIconComponent implements OnInit {
 	@HostBinding('class')
 	readonly className = 'contents';
 
-	bulletType: string;
-	armorType: string;
-
 	constructor(private readonly dataService: DataService) {}
 
 	ngOnInit(): void {
 		this.student = this.dataService.getStudent(this.id) ?? null;
-
-		if (this.student) {
-			// i18n
-			this.bulletType = this.dataService.localization.BulletType[this.student.bulletType];
-			// i18n
-			this.armorType = this.dataService.localization.ArmorType[this.student.armorType];
-		}
 	}
 
 	get adaptationIcon() {

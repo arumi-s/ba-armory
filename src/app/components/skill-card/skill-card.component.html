@@ -6,6 +6,6 @@
 	(hiHoverInputNumber)="level = $event"
 >
 	<div class="text-center italic text-2xs/loose flex-nowrap overflow-hidden">{{ skillTypeText }}</div>
-	<img [class]="'w-full aspect-square object-cover icon ' + typeClass" loading="lazy" [src]="iconUrl" />
+	<img [class]="'w-full aspect-square object-contain ' + typeClass" loading="lazy" [src]="iconUrl" />
 	<div class="text-center font-bold">{{ level === model.levelMax ? "MAX" : "Lv." + level }}</div>
 </div>

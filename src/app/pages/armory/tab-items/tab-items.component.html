@@ -21,10 +21,10 @@
 			{{ selectedItemSortOption?.label }}
 		</button>
 
-		<mat-menu #itemSortMenu="matMenu" class="item_sort-options option-sort-options" xPosition="before">
+		<mat-menu #itemSortMenu="matMenu" class="item_sort-options" xPosition="before">
 			<button
 				*ngFor="let sortOptions of dataService.itemSortOptions"
-				class="item_sort-option option-sort-option"
+				class="item_sort-option"
 				[value]="sortOptions.id"
 				mat-menu-item
 				(click)="handleClickItemSortOption(sortOptions.id)"
@@ -33,8 +33,8 @@
 			</button>
 		</mat-menu>
 
-		<button class="item_action-direction option-sort-direction" mat-stroked-button (click)="handleClickItemSortDirection()">
-			<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedItemSortDirection === -1 ? "north" : "south" }}</mat-icon>
+		<button class="item_action-direction !px-2" mat-stroked-button (click)="handleClickItemSortDirection()">
+			<mat-icon>{{ this.selectedItemSortDirection === -1 ? "arrow_upward" : "arrow_downward" }}</mat-icon>
 		</button>
 	</div>
 </div>

@@ -17,10 +17,10 @@
 			{{ selectedGearSortOption?.label }}
 		</button>
 
-		<mat-menu #gearSortMenu="matMenu" class="gear_sort-options option-sort-options" xPosition="before">
+		<mat-menu #gearSortMenu="matMenu" class="gear_sort-options" xPosition="before">
 			<button
 				*ngFor="let sortOptions of dataService.itemSortOptions"
-				class="gear_sort-option option-sort-option"
+				class="gear_sort-option"
 				[value]="sortOptions.id"
 				mat-menu-item
 				(click)="handleClickGearSortOption(sortOptions.id)"
@@ -29,8 +29,8 @@
 			</button>
 		</mat-menu>
 
-		<button class="gear_action-direction option-sort-direction" mat-stroked-button (click)="handleClickGearSortDirection()">
-			<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedGearSortDirection === -1 ? "north" : "south" }}</mat-icon>
+		<button class="gear_action-direction !px-2" mat-stroked-button (click)="handleClickGearSortDirection()">
+			<mat-icon>{{ this.selectedGearSortDirection === -1 ? "arrow_upward" : "arrow_downward" }}</mat-icon>
 		</button>
 	</div>
 </div>

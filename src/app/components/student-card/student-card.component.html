@@ -10,16 +10,16 @@
 				tabindex="-1"
 				>{{ name }}</a
 			>
-			<div class="flex items-center gap-1">
-				<button class="!min-w-min !px-2 !py-0" mat-flat-button tabindex="-1" size="small" [color]="bulletType" [title]="bulletTypeText">
-					<mat-icon svgIcon="bullet_type"></mat-icon>
-				</button>
-				<button class="!min-w-min !px-2 !py-0" mat-flat-button tabindex="-1" size="small" [color]="armorType" [title]="armorTypeText">
-					<mat-icon svgIcon="armor_type"></mat-icon>
-				</button>
-				<button class="!min-w-min !px-2 !py-0" mat-flat-button tabindex="-1" size="small" [color]="squadType" [title]="squadTypeText">
+			<div class="flex items-center gap-1 select-none">
+				<div [class]="'rounded p-1 text-white bg-' + bulletType" [matTooltip]="bulletTypeText">
+					<mat-icon class="!block !h-4 !w-4" svgIcon="bullet_type"></mat-icon>
+				</div>
+				<div [class]="'rounded p-1 text-white bg-' + armorType" [matTooltip]="armorTypeText">
+					<mat-icon class="!block !h-4 !w-4" svgIcon="armor_type"></mat-icon>
+				</div>
+				<div [class]="'rounded py-1 px-2 text-white text-xs/4 bg-' + squadType">
 					{{ squadTypeText }}
-				</button>
+				</div>
 				<img class="ml-auto h-[1.5em]" [src]="adaptationIcon" alt="" />
 			</div>
 		</div>
@@ -43,10 +43,10 @@
 			<div>
 				<bar-rating *ngIf="!isTarget; else isTargetStar" [(rate)]="model.star" [max]="5" [attr.value]="model.star">
 					<ng-template ratingActive>
-						<mat-icon color="ratingActive">star</mat-icon>
+						<mat-icon class="text-yellow-500">star</mat-icon>
 					</ng-template>
 					<ng-template ratingInactive>
-						<mat-icon color="ratingInactive">star</mat-icon>
+						<mat-icon class="text-zinc-400">star</mat-icon>
 					</ng-template>
 				</bar-rating>
 				<ng-template #isTargetStar>
@@ -58,10 +58,10 @@
 						[attr.value]="model.starTarget"
 					>
 						<ng-template ratingActive>
-							<mat-icon color="ratingActive">star</mat-icon>
+							<mat-icon class="text-yellow-500">star</mat-icon>
 						</ng-template>
 						<ng-template ratingInactive>
-							<mat-icon color="ratingInactive">star</mat-icon>
+							<mat-icon class="text-zinc-400">star</mat-icon>
 						</ng-template>
 					</bar-rating>
 				</ng-template>
@@ -74,10 +74,10 @@
 					[max]="3"
 				>
 					<ng-template ratingActive>
-						<mat-icon color="ratingActiveAlt">star</mat-icon>
+						<mat-icon class="text-sky-400">star</mat-icon>
 					</ng-template>
 					<ng-template ratingInactive>
-						<mat-icon color="ratingInactive">star</mat-icon>
+						<mat-icon class="text-zinc-400">star</mat-icon>
 					</ng-template>
 				</bar-rating>
 				<ng-template #isTargetWeapon>
@@ -88,10 +88,10 @@
 						[max]="3"
 					>
 						<ng-template ratingActive>
-							<mat-icon color="ratingActiveAlt">star</mat-icon>
+							<mat-icon class="text-sky-400">star</mat-icon>
 						</ng-template>
 						<ng-template ratingInactive>
-							<mat-icon color="ratingInactive">star</mat-icon>
+							<mat-icon class="text-zinc-400">star</mat-icon>
 						</ng-template>
 					</bar-rating>
 				</ng-template>

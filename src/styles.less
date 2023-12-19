@@ -4,29 +4,20 @@
 
 @layer base {
 	html {
-		font-family: sans-serif;
-		line-height: 1.15;
-		-webkit-text-size-adjust: 100%;
-		-ms-text-size-adjust: 100%;
-		-ms-overflow-style: scrollbar;
 		-webkit-tap-highlight-color: transparent;
-		box-sizing: border-box;
-		height: 100%;
 	}
 
 	body {
 		@apply text-sm text-zinc-800 bg-white;
-		font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 	}
 
 	img {
+		@apply select-none;
 		-webkit-user-drag: none;
-		-webkit-tap-highlight-color: transparent;
-		user-select: none;
 	}
 
 	bar-rating {
-		display: block;
+		@apply block;
 		--br-font-size: 1em !important;
 
 		&[disabled] {
@@ -34,10 +25,8 @@
 		}
 
 		.mat-icon {
-			display: block;
+			@apply block ~'w-[1em]' ~'h-[1em]';
 			font-size: var(--br-font-size);
-			width: 1em;
-			height: 1em;
 		}
 	}
 }
@@ -55,347 +44,105 @@
 	}
 }
 
+.mdc-tooltip {
+	@apply text-xs select-none;
+}
+
 .mat-mdc-menu-item {
 	@apply ~'!min-h-[2.25rem]';
 
 	.mat-icon {
-		margin-top: 0;
+		@apply mt-0;
 	}
 }
 
-.mat-button-toggle {
-	.mat-button-toggle-label-content {
-		padding: 0 15px;
-		line-height: 34px;
-		display: block;
-	}
-}
+.mat-button-base {
+	min-width: unset !important;
 
-button {
 	.mat-icon {
 		@apply ~'-mt-0.5';
 	}
-}
-button[size="small"] {
-	font-size: 12px !important;
-	padding: 0 4px !important;
-	line-height: 24px !important;
 
-	.mat-icon {
-		@apply !w-4 !h-4 !text-base/none;
+	&[size="small"] {
+		@apply !text-xs/6 !py-0 !px-1;
+
+		.mat-icon {
+			@apply !w-4 !h-4 !text-base/none;
+		}
 	}
 }
 
 .mat-checkbox:not(.mat-button-disabled) {
-	@apply rounded;
-	border: 1px solid currentColor;
-	border-color: rgba(0, 0, 0, 0.12);
+	@apply rounded border border-black/12 text-center overflow-visible;
 	padding: 0 15px;
 	line-height: 34px;
 	min-width: 64px;
-	text-align: center;
-	overflow: visible;
 }
 
 .mat-stroked-button,
 .mat-checkbox {
-	transform: skewX(-10deg);
-	transform-origin: center center;
+	@apply -skew-x-10 origin-center;
 
 	& > .mat-button-wrapper,
 	& > .mat-checkbox-layout {
-		transform: skewX(10deg);
-		display: block;
-		transform-origin: center center;
+		@apply block skew-x-10 origin-center;
 	}
 }
 
-.mat-color(@color, @text) {
-	.mat-option.mat-selected:not(.mat-option-disabled) {
-		color: @color;
-	}
-	.mat-pseudo-checkbox-checked,
-	.mat-pseudo-checkbox-indeterminate {
-		background: @color;
-	}
-
-	.mat-slider-track-fill,
-	.mat-slider-thumb,
-	.mat-slider-thumb-label {
-		background-color: @color;
-	}
-
-	.mat-slider-thumb-label-text {
-		color: @text;
-	}
-
-	.mat-slider-focus-ring {
-		background-color: fade(@color, 0.2);
-	}
-
-	&.mat-button,
-	&.mat-icon-button {
-		color: @color;
-		&.mat-button-disabled {
-			color: rgba(0, 0, 0, 0.26);
-		}
-		.mat-button-focus-overlay {
-			background-color: @color;
-		}
-	}
-
+.mat-color(@color, @text: theme("colors.white")) {
 	&.mat-stroked-button {
 		border-color: @color;
 		color: @color;
-		&.mat-button-disabled {
-			color: rgba(0, 0, 0, 0.26);
-		}
 		.mat-button-focus-overlay {
 			background-color: @color;
 		}
-		&[active] {
+		&.button-selected {
 			background-color: @color;
 			color: @text;
+			border-left-color: @text;
+			border-right-color: @text;
 		}
-	}
-
-	&.mat-flat-button,
-	&.mat-raised-button,
-	&.mat-fab,
-	&.mat-mini-fab {
-		color: @text;
-		background-color: @color;
-		&.mat-button-disabled {
-			color: rgba(0, 0, 0, 0.26);
-			background-color: rgba(0, 0, 0, 0.12);
-		}
-		.mat-ripple-element {
-			background-color: rgba(255, 255, 255, 0.1);
-		}
-	}
-
-	&.mat-checkbox-indeterminate,
-	&.mat-checkbox-checked {
-		.mat-checkbox-background {
-			background-color: @color;
-		}
-	}
-
-	&.mat-checkbox-checked:not(.mat-checkbox-disabled),
-	&.mat-checkbox:active:not(.mat-checkbox-disabled) {
-		.mat-ripple-element {
-			background: @color;
-		}
-	}
-
-	&.mat-chip.mat-standard-chip.mat-chip-selected {
-		background-color: @color;
-		color: @text;
-		.mat-chip-remove {
-			color: @text;
-			opacity: 0.4;
-		}
-		.mat-ripple-element {
-			background-color: rgba(255, 255, 255, 0.1);
-		}
-	}
-
-	&.mat-icon {
-		color: @color;
-	}
-	&.mat-radio-button {
-		.mat-radio-outer-circle {
-			border-color: @color;
-		}
-
-		.mat-radio-inner-circle,
-		.mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
-		&.mat-radio-checked .mat-radio-persistent-ripple,
-		&:active .mat-radio-persistent-ripple {
-			background-color: @color;
-		}
-	}
-
-	&.mat-form-field.mat-focused .mat-select-arrow {
-		color: @color;
-	}
-
-	&.mat-slide-toggle.mat-checked {
-		.mat-slide-toggle-thumb {
-			background-color: @color;
-		}
-		.mat-slide-toggle-bar {
-			background-color: fade(@color, 0.54);
-		}
-		.mat-ripple-element {
-			background-color: @color;
-		}
-	}
-
-	&.mat-tab-group,
-	&.mat-tab-nav-bar {
-		.mat-tab-label,
-		.mat-tab-link {
-			&.cdk-keyboard-focused,
-			&.cdk-program-focused {
-				&:not(.mat-tab-disabled) {
-					background-color: fade(lighten(@color, 36), 0.3);
-				}
-			}
-		}
-	}
-
-	&.mat-tab-group,
-	&.mat-tab-nav-bar {
-		.mat-ink-bar {
-			background-color: @color;
-		}
-	}
-
-	&.mat-tab-group,
-	&.mat-tab-nav-bar {
-		&.mat-background-primary .mat-ink-bar {
-			background-color: @text;
-		}
-	}
-
-	&.mat-toolbar {
-		background: @color;
-		color: @text;
-	}
-
-	&.mat-chip.mat-standard-chip {
-		color: @text;
-		background-color: @color;
-	}
-
-	&.icon {
-		color: @text;
-		background-color: @color;
 	}
 }
 
 // Bullet Type Colors
 .mat-Explosion {
-	.mat-color(#9b291f, #fff);
-}
-.mat-badge-Explosion .mat-badge-content {
-	background: #9b291f;
-	color: #fff;
+	.mat-color(theme("colors.Explosion"));
 }
 .mat-Pierce {
-	.mat-color(#aa712c, #fff);
-}
-.mat-badge-Pierce .mat-badge-content {
-	background: #aa712c;
-	color: #fff;
+	.mat-color(theme("colors.Pierce"));
 }
 .mat-Mystic {
-	.mat-color(#4a7ca3, #fff);
-}
-.mat-badge-Mystic .mat-badge-content {
-	background: #4a7ca3;
-	color: #fff;
+	.mat-color(theme("colors.Mystic"));
 }
 .mat-Sonic {
-	.mat-color(#9431a5, #fff);
-}
-.mat-badge-Sonic .mat-badge-content {
-	background: #9431a5;
-	color: #fff;
+	.mat-color(theme("colors.Sonic"));
 }
 
 // Armor Type Colors
 .mat-LightArmor {
-	.mat-color(#9b291f, #fff);
-}
-.mat-badge-LightArmor .mat-badge-content {
-	background: #9b291f;
-	color: #fff;
+	.mat-color(theme("colors.LightArmor"));
 }
 .mat-HeavyArmor {
-	.mat-color(#aa712c, #fff);
-}
-.mat-badge-HeavyArmor .mat-badge-content {
-	background: #aa712c;
-	color: #fff;
+	.mat-color(theme("colors.HeavyArmor"));
 }
 .mat-Unarmed {
-	.mat-color(#4a7ca3, #fff);
-}
-.mat-badge-Unarmed .mat-badge-content {
-	background: #4a7ca3;
-	color: #fff;
+	.mat-color(theme("colors.Unarmed"));
 }
 .mat-ElasticArmor {
-	.mat-color(#9431a5, #fff);
-}
-.mat-badge-ElasticArmor .mat-badge-content {
-	background: #9431a5;
-	color: #fff;
+	.mat-color(theme("colors.ElasticArmor"));
 }
 
 // Squad Type Colors
 .mat-Main {
-	.mat-color(#cc1a25, #fff);
-}
-.mat-badge-Main .mat-badge-content {
-	background: #cc1a25;
-	color: #fff;
+	.mat-color(theme("colors.Main"));
 }
 .mat-Support {
-	.mat-color(#006bff, #fff);
-}
-.mat-badge-Support .mat-badge-content {
-	background: #006bff;
-	color: #fff;
-}
-.mat-position {
-	.mat-color(#304561, #fff);
-}
-.mat-badge-position .mat-badge-content {
-	background: #304561;
-	color: #fff;
+	.mat-color(theme("colors.Support"));
 }
 
-.mat-ratingActive {
-	.mat-color(#edb731, #fff);
-}
-.mat-badge-ratingActive .mat-badge-content {
-	background: #edb731;
-	color: #fff;
-}
-
-.mat-ratingActiveAlt {
-	.mat-color(#51c0f2, #fff);
-}
-.mat-badge-ratingActiveAlt .mat-badge-content {
-	background: #51c0f2;
-	color: #fff;
-}
-
-.mat-ratingActiveEleph {
-	.mat-color(#dd6dd5, #fff);
-}
-.mat-badge-ratingActiveEleph .mat-badge-content {
-	background: #dd6dd5;
-	color: #fff;
-}
-
-.mat-ratingInactive {
-	.mat-color(#95949b, #fff);
-}
-.mat-badge-ratingInactive .mat-badge-content {
-	background: #95949b;
-	color: #fff;
-}
-
-.mat-success {
-	.mat-color(#22c55e, #fff);
-}
-.mat-badge-success .mat-badge-content {
-	background: #22c55e;
-	color: #fff;
+.mat-Terrain {
+	.mat-color(theme("colors.Terrain"));
 }
 
 @layer components {
@@ -409,19 +156,5 @@ button[size="small"] {
 
 	.actionbar-end {
 		@apply flex flex-wrap items-center gap-2 ml-auto justify-end;
-	}
-
-	.option-sort-option {
-		line-height: 40px !important;
-		height: 40px !important;
-	}
-	.option-sort-direction {
-		padding: 0;
-		min-width: 36px;
-
-		.mat-icon:first-child {
-			left: 6px;
-			position: relative;
-		}
 	}
 }

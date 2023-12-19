@@ -48,7 +48,7 @@ export class SkillCardComponent implements OnInit, OnDestroy {
 		this.iconUrl = skill.iconUrl;
 		// i18n
 		this.skillTypeText = this.dataService.localization.ui[`student_skill_${skill.skillType.toLowerCase()}`];
-		this.typeClass = 'mat-' + student.bulletType;
+		this.typeClass = 'bg-' + student.bulletType;
 
 		this.changeSubscription = this.model.change$.subscribe(() => {
 			this.changeDetectorRef.markForCheck();

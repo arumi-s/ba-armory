@@ -22,7 +22,7 @@
 					(mousedown)="handleMousedownSquadStopPropagation($event)"
 					(click)="handleClickIconSelector()"
 				/>
-				<div class="squad_action-name grid items-center justify-items-stretch ml-1">
+				<div class="squad_action-name grid items-center justify-items-stretch ml-1 font-medium">
 					<input
 						class="col-start-1 row-start-1 py-0.5 px-1 min-w-0 text-center rounded-sm ring-1 ring-gray-200 invisible squad_action-input_name"
 						type="text"
@@ -77,17 +77,18 @@
 	<div class="actionbar-end">
 		<!-- i18n -->
 		<button
-			class="!min-w-fit !px-2 squad_action-pin"
+			class="!px-2 squad_action-pin"
 			mat-stroked-button
 			[color]="dataService.deck.selectedSquad.pinned ? 'accent' : 'basic'"
 			(click)="handleClickSquadPin()"
+			[matTooltip]="dataService.i18n.squad_action_pin"
 		>
 			<mat-icon>push_pin</mat-icon>
 		</button>
 
 		<!-- i18n -->
 		<button
-			class="!min-w-fit !px-2 squad_action-bound"
+			class="!px-2 squad_action-bound"
 			mat-stroked-button
 			[color]="dataService.deck.selectedSquad.bounded ? 'accent' : 'basic'"
 			(click)="handleClickSquadBound()"
@@ -96,7 +97,13 @@
 		</button>
 
 		<!-- i18n -->
-		<button class="!min-w-fit !px-2 squad_action-text" mat-stroked-button color="primary" (click)="handleClickSquadText()">
+		<button
+			class="!px-2 squad_action-text"
+			mat-stroked-button
+			color="primary"
+			(click)="handleClickSquadText()"
+			[matTooltip]="dataService.i18n.squad_action_text"
+		>
 			<mat-icon>text_snippet</mat-icon>
 		</button>
 
@@ -119,26 +126,24 @@
 		<!-- i18n -->
 		<button class="student_action-sort" mat-stroked-button [matMenuTriggerFor]="studentSortMenu">
 			<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
-			<mat-icon *ngIf="selectedStudentSortOption?.label === 'star'; else selectedStudentSortOptionsTextLabel" color="ratingActive"
-				>star</mat-icon
-			>
+			<mat-icon *ngIf="selectedStudentSortOption?.label === 'star'; else selectedStudentSortOptionsTextLabel">star</mat-icon>
 			<ng-template #selectedStudentSortOptionsTextLabel>{{ selectedStudentSortOption?.label }}</ng-template>
 		</button>
 
-		<mat-menu #studentSortMenu="matMenu" class="student_sort-options option-sort-options" xPosition="before">
+		<mat-menu #studentSortMenu="matMenu" class="student_sort-options" xPosition="before">
 			<button
 				*ngFor="let sortOption of dataService.studentSortOptions"
-				class="student_sort-option option-sort-option"
+				class="student_sort-option"
 				mat-menu-item
 				(click)="handleClickStudentSortOption(sortOption.id)"
 			>
-				<mat-icon *ngIf="sortOption?.label === 'star'; else sortOptionsTextLabel" color="ratingActive">star</mat-icon>
+				<mat-icon *ngIf="sortOption?.label === 'star'; else sortOptionsTextLabel">star</mat-icon>
 				<ng-template #sortOptionsTextLabel>{{ sortOption?.label }}</ng-template>
 			</button>
 		</mat-menu>
 
-		<button class="student_action-direction option-sort-direction" mat-stroked-button (click)="handleClickStudentSortDirection()">
-			<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedStudentSortDirection === -1 ? "north" : "south" }}</mat-icon>
+		<button class="student_action-direction !px-2" mat-stroked-button (click)="handleClickStudentSortDirection()">
+			<mat-icon>{{ this.selectedStudentSortDirection === -1 ? "arrow_upward" : "arrow_downward" }}</mat-icon>
 		</button>
 	</div>
 </div>

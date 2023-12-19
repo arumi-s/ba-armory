@@ -8,6 +8,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { CampaignCardComponent } from './campaign-card/campaign-card.component';
 import { ElephCardComponent } from './eleph-card/eleph-card.component';
@@ -31,7 +32,17 @@ import { StudentIconComponent } from './student-icon/student-icon.component';
 		GearCardComponent,
 		ItemUserComponent,
 	],
-	imports: [CommonModule, FormsModule, BarRatingModule, MatMenuModule, MatIconModule, MatButtonModule, MatRippleModule, NgxHoverInputModule],
+	imports: [
+		CommonModule,
+		FormsModule,
+		BarRatingModule,
+		MatMenuModule,
+		MatTooltipModule,
+		MatIconModule,
+		MatButtonModule,
+		MatRippleModule,
+		NgxHoverInputModule,
+	],
 	exports: [
 		EquipmentCardComponent,
 		StudentCardComponent,

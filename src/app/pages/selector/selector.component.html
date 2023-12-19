@@ -29,8 +29,7 @@
 			class="!rounded-none first:!rounded-l last:!rounded-r"
 			mat-stroked-button
 			[color]="option.id"
-			[title]="option.label"
-			[attr.active]="selectedBulletTypeOptions.has(option.id) || undefined"
+			[class.button-selected]="selectedBulletTypeOptions.has(option.id)"
 			(click)="handleClickFilterBulletTypeOption(option.id)"
 		>
 			{{ option.label }}
@@ -43,8 +42,7 @@
 			class="!rounded-none first:!rounded-l last:!rounded-r"
 			mat-stroked-button
 			[color]="option.id"
-			[title]="option.label"
-			[attr.active]="selectedArmorTypeOptions.has(option.id) || undefined"
+			[class.button-selected]="selectedArmorTypeOptions.has(option.id)"
 			(click)="handleClickFilterArmorTypeOption(option.id)"
 		>
 			{{ option.label }}
@@ -57,8 +55,7 @@
 			class="!rounded-none first:!rounded-l last:!rounded-r"
 			mat-stroked-button
 			[color]="option.id"
-			[title]="option.label"
-			[attr.active]="selectedSquadTypeOptions.has(option.id) || undefined"
+			[class.button-selected]="selectedSquadTypeOptions.has(option.id)"
 			(click)="handleClickFilterSquadTypeOption(option.id)"
 		>
 			{{ option.label }}
@@ -70,9 +67,8 @@
 			*ngFor="let option of dataService.terrainOptions"
 			class="!rounded-none first:!rounded-l last:!rounded-r"
 			mat-stroked-button
-			color="success"
-			[title]="option.label"
-			[attr.active]="selectedTerrainOptions.has(option.id) || undefined"
+			color="Terrain"
+			[class.button-selected]="selectedTerrainOptions.has(option.id)"
 			(click)="handleClickFilterTerrainOption(option.id)"
 		>
 			<mat-icon [svgIcon]="'terrain_' + option.id"></mat-icon>

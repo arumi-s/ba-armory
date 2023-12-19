@@ -6,10 +6,10 @@
 			{{ selectedElephSortOption?.label }}
 		</button>
 
-		<mat-menu #elephSortMenu="matMenu" class="eleph_sort-options option-sort-options" xPosition="before">
+		<mat-menu #elephSortMenu="matMenu" class="eleph_sort-options" xPosition="before">
 			<button
 				*ngFor="let sortOptions of dataService.elephSortOptions"
-				class="eleph_sort-option option-sort-option"
+				class="eleph_sort-option"
 				[value]="sortOptions.id"
 				mat-menu-item
 				(click)="handleClickElephSortOption(sortOptions.id)"
@@ -18,8 +18,8 @@
 			</button>
 		</mat-menu>
 
-		<button class="eleph_action-direction option-sort-direction" mat-stroked-button (click)="handleClickElephSortDirection()">
-			<mat-icon>menu</mat-icon><mat-icon>{{ this.selectedElephSortDirection === -1 ? "north" : "south" }}</mat-icon>
+		<button class="eleph_action-direction !px-2" mat-stroked-button (click)="handleClickElephSortDirection()">
+			<mat-icon>{{ this.selectedElephSortDirection === -1 ? "arrow_upward" : "arrow_downward" }}</mat-icon>
 		</button>
 	</div>
 </div>

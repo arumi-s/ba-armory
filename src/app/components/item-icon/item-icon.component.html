@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-1 items-center w-[108px] h-auto p-3 shadow-neutral-400" [class.shadow-sm]="!hideShadow">
-	<div class="w-[84px] select-none relative" mat-ripple [title]="name" [attr.tier]="tier" (click)="handleClickIcon()">
+	<div class="w-[84px] select-none relative" mat-ripple [matTooltip]="name" [attr.tier]="tier" (click)="handleClickIcon()">
 		<img class="w-full object-cover" loading="lazy" [src]="iconUrl" />
 		<div
 			*ngIf="tier != null"

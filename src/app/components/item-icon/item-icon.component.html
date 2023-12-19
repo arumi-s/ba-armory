@@ -36,18 +36,14 @@
 				}}
 			</div>
 		</div>
-		<div class="flex items-center justify-center gap-1 stock">
-			<div>
-				<input
-					class="block w-full p-1 border border-gray-200"
-					type="number"
-					[attr.name]="'stock-input-' + id"
-					[(ngModel)]="dataService.deck.stocks[id]"
-					[min]="0"
-					[step]="1"
-					(focus)="handleFocusStock($event)"
-				/>
-			</div>
-		</div>
 	</div>
+	<input
+		class="block w-full p-1 border border-gray-200"
+		type="number"
+		[attr.name]="'stock-input-' + id"
+		[(ngModel)]="dataService.deck.stocks[id]"
+		[min]="0"
+		[step]="1"
+		(focus)="handleFocusStock($event)"
+	/>
 </div>

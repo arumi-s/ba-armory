@@ -8,12 +8,14 @@ module.exports = {
 			},
 			width: {
 				25: "6.25rem",
+				7.5: "1.875rem",
 			},
 			maxWidth: {
 				bounded: "100rem",
 			},
 			height: {
 				25: "6.25rem",
+				7.5: "1.875rem",
 			},
 			opacity: {
 				15: "15%",

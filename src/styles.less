@@ -46,21 +46,6 @@
 	@apply p-6;
 }
 
-:root {
-	--mdc-plain-tooltip-supporting-text-size: theme("fontSize.xs");
-	--mdc-plain-tooltip-supporting-text-line-height: theme("lineHeight.4");
-	--mdc-plain-tooltip-supporting-text-color: theme("colors.white");
-	--mdc-plain-tooltip-container-color: theme("colors.neutral.600/90");
-
-	--mdc-snackbar-supporting-text-size: theme("fontSize.sm");
-	--mdc-snackbar-supporting-text-line-height: theme("lineHeight.5");
-	--mdc-snackbar-supporting-text-color: theme("colors.white/90");
-	--mdc-snackbar-container-color: theme("colors.neutral.800/90");
-}
-
-.mat-mdc-tab .mdc-tab-indicator__content--underline {
-	border-color: #4f6395;
-}
 .mat-mdc-tab-header {
 	@apply border-y border-gray-200 select-none;
 }
@@ -69,8 +54,13 @@
 		box-shadow: 0 2px 4px -1px #0003, 0 4px 5px #00000024, 0 1px 10px #0000001f;
 	}
 }
-.mat-mdc-tab-header-pagination-chevron {
-	@apply border-zinc-800;
+
+.mat-mdc-menu-item {
+	@apply ~'!min-h-[2.25rem]';
+
+	.mat-icon {
+		margin-top: 0;
+	}
 }
 
 .mat-button-toggle {
@@ -83,7 +73,7 @@
 
 button {
 	.mat-icon {
-		@apply -mt-1;
+		@apply ~'-mt-0.5';
 	}
 }
 button[size="small"] {

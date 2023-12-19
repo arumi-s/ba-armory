@@ -7,7 +7,7 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 
-@include mat.legacy-core();
+@include mat.core();
 
 $md-ba-primary: (
 	50: #eaecf2,
@@ -99,8 +99,17 @@ $ba-armory-theme: mat.define-light-theme(
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.legacy-button-theme($ba-armory-theme);
-@include mat.legacy-checkbox-theme($ba-armory-theme);
-@include mat.all-component-themes($ba-armory-theme);
+//@include mat.core-theme($ba-armory-theme);
+@include mat.button-theme($ba-armory-theme);
+@include mat.checkbox-theme($ba-armory-theme);
+@include mat.dialog-theme($ba-armory-theme);
+@include mat.divider-theme($ba-armory-theme);
+@include mat.icon-button-theme($ba-armory-theme);
+@include mat.icon-theme($ba-armory-theme);
+@include mat.menu-theme($ba-armory-theme);
+@include mat.snack-bar-theme($ba-armory-theme);
+@include mat.tabs-theme($ba-armory-theme);
+@include mat.toolbar-theme($ba-armory-theme);
+@include mat.tooltip-theme($ba-armory-theme);
 
 @import "../node_modules/ngx-bar-rating/themes/br-default-theme.scss";

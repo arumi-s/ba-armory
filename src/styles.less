@@ -5,6 +5,7 @@
 @layer base {
 	html {
 		-webkit-tap-highlight-color: transparent;
+		--mdc-checkbox-state-layer-size: 34px;
 	}
 
 	body {
@@ -56,12 +57,8 @@
 	}
 }
 
-.mat-button-base {
+.mdc-button {
 	min-width: unset !important;
-
-	.mat-icon {
-		@apply ~'-mt-0.5';
-	}
 
 	&[size="small"] {
 		@apply !text-xs/6 !py-0 !px-1;
@@ -72,20 +69,34 @@
 	}
 }
 
-.mat-checkbox:not(.mat-button-disabled) {
-	@apply rounded border border-black/12 text-center overflow-visible;
-	padding: 0 15px;
-	line-height: 34px;
-	min-width: 64px;
+.mat-mdc-checkbox {
+	@apply rounded border border-black/12 overflow-visible select-none pl-2 pr-4;
 }
 
-.mat-stroked-button,
-.mat-checkbox {
+.mat-mdc-outlined-button,
+.mat-mdc-checkbox {
 	@apply -skew-x-10 origin-center;
 
-	& > .mat-button-wrapper,
-	& > .mat-checkbox-layout {
-		@apply block skew-x-10 origin-center;
+	&.mat-mdc-button-base {
+		@apply px-4;
+
+		& > .mat-icon {
+			@apply text-2xl/none h-6 w-6;
+		}
+	}
+
+	&.icon-button {
+		@apply p-2;
+
+		& > .mat-icon {
+			@apply m-0;
+		}
+	}
+
+	& > .mat-icon,
+	& > .mdc-button__label,
+	& > .mdc-form-field {
+		@apply skew-x-10 origin-center;
 	}
 }
 

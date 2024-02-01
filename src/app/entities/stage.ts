@@ -58,6 +58,28 @@ export class Rewards {
 	threeStar: Reward[];
 }
 
+export class CampaignRewards {
+	@Expose({ name: 'Jp' })
+	@Type(() => Rewards)
+	jp: Rewards;
+	@Expose({ name: 'Cn' })
+	@Type(() => Rewards)
+	cn?: Rewards;
+	@Expose({ name: 'Global' })
+	@Type(() => Rewards)
+	global?: Rewards;
+
+	forRegion(region: number): Rewards {
+		if (region === 2) {
+			return this.cn ?? this.jp;
+		}
+		if (region === 1) {
+			return this.global ?? this.jp;
+		}
+		return this.jp;
+	}
+}
+
 export class Campaign {
 	@Expose({ name: 'Id' })
 	id: number;
@@ -89,8 +111,8 @@ export class Campaign {
 	@Expose({ name: 'Level' })
 	level: number;
 	@Expose({ name: 'Rewards' })
-	@Type(() => Rewards)
-	rewards: Rewards;
+	@Type(() => CampaignRewards)
+	rewards: CampaignRewards;
 
 	get iconUrl() {
 		return `${environment.CDN_BASE}/images/campaign/Campaign_Image_${this.area.toString().padStart(2, '0')}_${
@@ -126,8 +148,8 @@ export class Conquest {
 	@Type(() => Array)
 	entryCost: EntryCost[];
 	@Expose({ name: 'Rewards' })
-	@Type(() => Rewards)
-	rewards: Rewards;
+	@Type(() => CampaignRewards)
+	rewards: CampaignRewards;
 }
 
 export class SchoolDungeon {
@@ -146,8 +168,8 @@ export class SchoolDungeon {
 	@Expose({ name: 'Level' })
 	level: number;
 	@Expose({ name: 'Rewards' })
-	@Type(() => Rewards)
-	rewards: Rewards;
+	@Type(() => CampaignRewards)
+	rewards: CampaignRewards;
 }
 
 export class WeekDungeon {
@@ -167,9 +189,6 @@ export class WeekDungeon {
 	@Expose({ name: 'Level' })
 	level: number;
 	@Expose({ name: 'Rewards' })
-	@Type(() => Rewards)
-	rewards: Rewards;
-	@Expose({ name: 'RewardsGlobal' })
-	@Type(() => Rewards)
-	rewardsGlobal?: Rewards;
+	@Type(() => CampaignRewards)
+	rewards: CampaignRewards;
 }

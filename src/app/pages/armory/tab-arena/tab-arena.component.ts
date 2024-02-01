@@ -31,7 +31,7 @@ export class TabArenaComponent implements OnInit, OnDestroy {
 	constructor(public readonly dataService: DataService, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
-		this.rewardImage = `${environment.CDN_BASE}/images/items/icon/currency_icon_gem.webp`;
+		this.rewardImage = `${environment.CDN_BASE}/images/item/icon/currency_icon_gem.webp`;
 
 		this.updateRanks();
 		this.dataService.deck.options.change$.subscribe((changes) => {

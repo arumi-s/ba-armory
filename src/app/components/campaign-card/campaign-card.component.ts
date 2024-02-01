@@ -51,7 +51,7 @@ export class CampaignCardComponent implements OnInit, OnDestroy {
 		this.stage = campaign.stage;
 		this.name = campaign.name;
 		this.iconUrl = campaign.iconUrl;
-		this.rewards = campaign.rewards?.default.filter((reward) => reward[0] < CURRENCY_OFFSET) ?? [];
+		this.rewards = campaign.rewards.forRegion(this.dataService.region).default.filter((reward) => reward[0] < CURRENCY_OFFSET) ?? [];
 		this.cost = campaign.entryCost.find(([itemId]) => itemId === ACTION_POINT_ID)?.[1] ?? 0;
 
 		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {

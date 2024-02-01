@@ -32,7 +32,7 @@ export class PreloadService {
 		const itemsSource = `${environment.CDN_BASE}/data/${language}/items.min.json`;
 		const equipmentsSource = `${environment.CDN_BASE}/data/${language}/equipment.min.json`;
 		const studentsSource = `${environment.CDN_BASE}/data/${language}/students.min.json`;
-		const stagesSource = `${environment.CDN_BASE}/data/stages.min.json`;
+		const stagesSource = `${environment.CDN_BASE}/data/${language}/stages.min.json`;
 		const localizationSource = `${environment.CDN_BASE}/data/${language}/localization.min.json`;
 		const i18nSource = `/assets/i18n/${language}.json`;
 

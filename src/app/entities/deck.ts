@@ -108,7 +108,7 @@ export class Deck {
 		deckSquad.hydrate(dataService);
 	}
 
-	removeSquad(dataService: DataService) {
+	removeSquad(_dataService: DataService) {
 		if (this.squads.length === 1) return;
 
 		const selectedSquad = this.selectedSquad;
@@ -122,7 +122,7 @@ export class Deck {
 		this.selectedSquadId = selectedSquadId;
 	}
 
-	moveSquad(dataService: DataService, dir: -1 | 1) {
+	moveSquad(_dataService: DataService, dir: -1 | 1) {
 		const selectedSquad = this.selectedSquad;
 		const selectedSquadId = selectedSquad.id;
 		const newSquadId = Math.max(Math.min(selectedSquadId + dir, this.squads.length - 1), 0);

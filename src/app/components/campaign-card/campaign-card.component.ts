@@ -3,8 +3,9 @@ import { Subscription } from 'rxjs';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { ACTION_POINT_ID, CURRENCY_OFFSET } from '../../entities/deck';
-import { CampaignDifficulty, Reward } from '../../entities/enum';
+import { ACTION_POINT_ID } from '../../entities/deck';
+import { CampaignDifficulty, RewardType } from '../../entities/enum';
+import { Reward } from '../../entities/stage';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -51,7 +52,11 @@ export class CampaignCardComponent implements OnInit, OnDestroy {
 		this.stage = campaign.stage;
 		this.name = campaign.name;
 		this.iconUrl = campaign.iconUrl;
-		this.rewards = campaign.rewards.forRegion(this.dataService.region).default.filter((reward) => reward[0] < CURRENCY_OFFSET) ?? [];
+		this.rewards =
+			campaign.rewards
+				.forRegion(this.dataService.region)
+				.filter((reward) => reward.rewardType === RewardType.Default)
+				.filter((reward) => reward.type !== 'Currency') ?? [];
 		this.cost = campaign.entryCost.find(([itemId]) => itemId === ACTION_POINT_ID)?.[1] ?? 0;
 
 		this.changeSubscription = this.dataService.deck.change$.subscribe((changes) => {

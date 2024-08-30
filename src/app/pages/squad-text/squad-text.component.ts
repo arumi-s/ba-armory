@@ -33,10 +33,10 @@ export class SquadTextComponent implements OnInit {
 		this.assistText = this.dataService.i18n.student_action_assist;
 		this.starText = '★';
 		this.levelText = 'Lv.';
-		this.skillsText = this.dataService.localization.ui['skills'];
-		this.equipmentsText = this.dataService.localization.ui['student_gear_short'];
-		this.weaponText = this.dataService.localization.ui['ex_weapon'];
-		this.gearText = this.dataService.localization.ui['ex_gear'];
+		this.skillsText = this.dataService.localization.UI['skills'];
+		this.equipmentsText = this.dataService.localization.UI['student_gear_short'];
+		this.weaponText = this.dataService.localization.UI['ex_weapon'];
+		this.gearText = this.dataService.localization.UI['ex_gear'];
 
 		this.updateText();
 

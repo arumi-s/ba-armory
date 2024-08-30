@@ -22,6 +22,7 @@ for (const raid of raids) {
 }
 
 const extras = [
+	'images/raid/icon/Icon_EN0008.png',
 	'images/item/icon/currency_icon_ap.webp',
 	'images/item/icon/currency_icon_gem.webp',
 	'images/item/icon/currency_icon_gold.webp',
@@ -33,6 +34,9 @@ const extras = [
 	'images/item/icon/item_icon_expitem_1.webp',
 	'images/item/icon/item_icon_expitem_2.webp',
 	'images/item/icon/item_icon_expitem_3.webp',
+	'images/item/icon/item_icon_workbook_potentialmaxhp.webp',
+	'images/item/icon/item_icon_workbook_potentialattack.webp',
+	'images/item/icon/item_icon_workbook_potentialhealpower.webp',
 	'images/item/icon/item_icon_secretstone.webp',
 	'images/item/icon/item_icon_timeattackcoin.webp',
 	'images/item/icon/item_icon_chasercoin.webp',
@@ -60,6 +64,7 @@ const extras = [
 	'images/item/icon/item_icon_furniture_random.webp',
 	'images/item/icon/item_icon_favor_selection.webp',
 	'images/item/icon/item_icon_favor_random_lv2.webp',
+	'images/item/icon/item_icon_event_token_3_s12.webp',
 ];
 
 for (const extra of extras) {

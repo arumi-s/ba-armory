@@ -2,11 +2,10 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { Change, ChangeDispatcher, dispatchChanges, Dispatcher } from 'prop-change-decorators';
 import { debounceTime, filter, Subject, Subscription } from 'rxjs';
 
-import { environment } from '../../environments/environment';
 import { ACTION_POINT_ID, ALT_OFFSET } from './deck';
 import { DeckStocks, DeckStocksClear, wrapStocks } from './deck-stocks';
 import { DeckStudent } from './deck-student';
-import { CampaignDifficulty, StuffCategory, Terrain } from './enum';
+import { CampaignDifficulty, RewardType, StuffCategory, Terrain } from './enum';
 import { ElephSortOption, ItemSortOption, SortOption, StudentSortOption, Tab } from './types';
 
 import type { DataService } from '../services/data.service';
@@ -76,8 +75,6 @@ export class DeckSquad {
 
 		if (this.icon == null || this.icon === '') {
 			this.icon = '';
-		} else {
-			this.icon = this.icon.replace(`${environment.CDN_BASE}/images/items/icon/`, `${environment.CDN_BASE}/images/item/icon/`);
 		}
 		this.updateAutoIcon(dataService);
 
@@ -221,7 +218,9 @@ export class DeckSquad {
 				let weight = 0;
 				const cost = campaign.entryCost.find(([itemId]) => itemId === ACTION_POINT_ID)?.[1] ?? 0;
 				if (cost > 0) {
-					for (let [rewardId, rate] of campaign.rewards.forRegion(dataService.region).default) {
+					for (let { id: rewardId, chance } of campaign.rewards
+						.forRegion(dataService.region)
+						.filter((reward) => reward.rewardType === RewardType.Default)) {
 						const required = this.required[rewardId];
 						if (required > 0) {
 							let scale = 1;
@@ -233,7 +232,7 @@ export class DeckSquad {
 									scale = 0.5;
 								}
 							}
-							weight += Math.max(0, required - dataService.deck.stocks[rewardId]) * rate * scale;
+							weight += Math.max(0, required - dataService.deck.stocks[rewardId]) * chance * scale;
 						}
 					}
 				}
@@ -248,9 +247,11 @@ export class DeckSquad {
 			.slice(0, 20)
 			.map(({ campaign }) => {
 				let amount = 0;
-				for (let [rewardId, rate] of campaign.rewards.forRegion(dataService.region).default) {
+				for (let { id: rewardId, chance } of campaign.rewards
+					.forRegion(dataService.region)
+					.filter((reward) => reward.rewardType === RewardType.Default)) {
 					const required = this.required[rewardId];
-					if (required > 0) amount = Math.max(amount, Math.max(0, required - dataService.deck.stocks[rewardId]) / rate);
+					if (required > 0) amount = Math.max(amount, Math.max(0, required - dataService.deck.stocks[rewardId]) / chance);
 				}
 
 				return { id: campaign.id, amount: Math.ceil(amount) };

@@ -70,7 +70,7 @@
 
 		<!-- i18n -->
 		<button class="student_action-add" mat-stroked-button color="primary" (click)="handleClickSelector()">
-			<mat-icon>person_add</mat-icon> {{ dataService.localization.ui["student"] }}
+			<mat-icon>person_add</mat-icon> {{ dataService.localization.UI["student"] }}
 		</button>
 	</div>
 
@@ -125,7 +125,7 @@
 
 		<!-- i18n -->
 		<button class="student_action-sort" mat-stroked-button [matMenuTriggerFor]="studentSortMenu">
-			<mat-icon>sort</mat-icon> {{ dataService.localization.ui["sortby"] }}
+			<mat-icon>sort</mat-icon> {{ dataService.localization.UI["sortby"] }}
 			<span>
 				<mat-icon class="align-sub" *ngIf="selectedStudentSortOption?.label === 'star'; else selectedStudentSortOptionsTextLabel" inline="true"
 					>star</mat-icon
@@ -175,28 +175,28 @@
 >
 	<mat-tab>
 		<!-- i18n -->
-		<ng-template mat-tab-label>{{ dataService.localization.ui["navbar_items"] }}</ng-template>
+		<ng-template mat-tab-label>{{ dataService.localization.UI["item"] }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-items></ba-tab-items>
 		</ng-template>
 	</mat-tab>
 	<mat-tab>
 		<!-- i18n -->
-		<ng-template mat-tab-label>{{ dataService.localization.ui["stages"] }}</ng-template>
+		<ng-template mat-tab-label>{{ dataService.localization.UI["stages"] }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-campaigns></ba-tab-campaigns>
 		</ng-template>
 	</mat-tab>
 	<mat-tab>
 		<!-- i18n -->
-		<ng-template mat-tab-label>{{ dataService.localization.ui["item_tab_eleph"] }}</ng-template>
+		<ng-template mat-tab-label>{{ dataService.localization.ItemCategory.SecretStone }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-elephs></ba-tab-elephs>
 		</ng-template>
 	</mat-tab>
 	<mat-tab>
 		<!-- i18n -->
-		<ng-template mat-tab-label>{{ dataService.localization.ui["ex_gear"] }}</ng-template>
+		<ng-template mat-tab-label>{{ dataService.localization.UI["ex_gear"] }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-gears></ba-tab-gears>
 		</ng-template>

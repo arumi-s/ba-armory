@@ -1,6 +1,6 @@
 import { Exclude, Expose, plainToInstance, Type } from 'class-transformer';
 import { Change, ChangeDispatcher, Clamp, ClampTarget, dispatchChanges, Dispatcher, hasKeys, WatchBoolean } from 'prop-change-decorators';
-import { debounceTime, filter, merge, of, Subject, tap } from 'rxjs';
+import { debounceTime, filter, merge, of, Subject } from 'rxjs';
 
 import { ALT_OFFSET, ELIGMA_ID } from './deck';
 import { DeckEquipment } from './deck-equipment';

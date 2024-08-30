@@ -11,6 +11,6 @@
 		</div>
 	</div>
 	<div class="flex-1 overflow-x-auto flex gap-2 px-1">
-		<ba-item-icon class="[&>*]:w-32" *ngFor="let reward of rewards" [id]="reward[0]" [rate]="reward[1]"></ba-item-icon>
+		<ba-item-icon class="[&>*]:w-32" *ngFor="let reward of rewards" [id]="reward.id" [rate]="reward.chance"></ba-item-icon>
 	</div>
 </div>

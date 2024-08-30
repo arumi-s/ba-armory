@@ -5,7 +5,6 @@ export type EquipmentStatValue = [base: number, grow: number];
 export type EquipmentRecipe = [id: number, amount: number];
 
 export type EntryCost = [id: number, amount: number];
-export type Reward = [id: number, amount: number];
 
 export enum EquipmentRarity {
 	N = 'N',
@@ -120,12 +119,12 @@ export enum Position {
 }
 
 export enum SkillType {
-	Ex = 'ex',
-	Gearnormal = 'gearnormal',
-	Normal = 'normal',
-	Passive = 'passive',
-	Sub = 'sub',
-	Weaponpassive = 'weaponpassive',
+	Ex = 'Ex',
+	Gearnormal = 'GearPublic',
+	Normal = 'Public',
+	Passive = 'Passive',
+	Sub = 'ExtraPassive',
+	Weaponpassive = 'WeaponPassive',
 }
 
 export enum SquadType {
@@ -177,15 +176,8 @@ export enum Terrain {
 	Street = 'Street',
 }
 
-export enum SchoolDungeonType {
-	SchoolA = 'SchoolA',
-	SchoolB = 'SchoolB',
-	SchoolC = 'SchoolC',
-}
-export enum WeekDungeonType {
-	Blood = 'Blood',
-	ChaserA = 'ChaserA',
-	ChaserB = 'ChaserB',
-	ChaserC = 'ChaserC',
-	FindGift = 'FindGift',
+export enum RewardType {
+	Default = 'Default',
+	FirstClear = 'FirstClear',
+	ThreeStar = 'ThreeStar',
 }

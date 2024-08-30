@@ -5,8 +5,8 @@
 export const environment = {
 	production: false,
 	SAVE_API: 'http://localhost:3000/api/save',
-	CDN_BASE: 'https://schale.gg',
-	SCHALEDB_BASE: 'https://schale.gg',
+	CDN_BASE: 'https://schaledb.com',
+	SCHALEDB_BASE: 'https://schaledb.com',
 };
 
 /*

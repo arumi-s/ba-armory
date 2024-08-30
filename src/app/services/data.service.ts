@@ -96,10 +96,17 @@ export class DataService {
 
 	setStudents(json: any[]) {
 		this.students = new Map(
-			plainToInstance(Student, json, {
-				excludeExtraneousValues: true,
-				exposeDefaultValues: true,
-			}).map((student) => {
+			plainToInstance(
+				Student,
+				Object.values(json).map((student) => {
+					student.Skills = Object.entries(student.Skills).map(([k, v]) => ({ ...(v as object), SkillType: k }));
+					return student;
+				}),
+				{
+					excludeExtraneousValues: true,
+					exposeDefaultValues: true,
+				}
+			).map((student) => {
 				student.skills = student.skills.filter(
 					(skill) =>
 						skill.skillType === SkillType.Ex ||
@@ -114,7 +121,7 @@ export class DataService {
 
 	setEquipments(json: any[]) {
 		this.equipments = new Map(
-			plainToInstance(Equipment, json, {
+			plainToInstance(Equipment, Object.values(json), {
 				excludeExtraneousValues: true,
 				exposeDefaultValues: true,
 			}).map((equipment) => {
@@ -153,13 +160,13 @@ export class DataService {
 
 	setItems(json: any[]) {
 		this.items = new Map(
-			plainToInstance(Equipment, json, {
+			plainToInstance(Equipment, Object.values(json), {
 				excludeExtraneousValues: true,
 				exposeDefaultValues: true,
 			}).map((item) => [item.id, item])
 		);
 
-		for (const [_, item] of this.items) {
+		for (const [, item] of this.items) {
 			if (
 				(item.category === StuffCategory.Material &&
 					item.id < 200000 &&
@@ -173,10 +180,18 @@ export class DataService {
 	}
 
 	setStage(json: any[]) {
-		plainToClassFromExist(this.stages, json, {
-			excludeExtraneousValues: true,
-			exposeDefaultValues: true,
-		});
+		plainToClassFromExist(
+			this.stages,
+			Object.values(json).reduce((map, curr) => {
+				if (map[curr.Category] == null) map[curr.Category] = [];
+				map[curr.Category].push(curr);
+				return map;
+			}, {}),
+			{
+				excludeExtraneousValues: true,
+				exposeDefaultValues: true,
+			}
+		);
 		this.stages.hydrate(this);
 	}
 
@@ -252,7 +267,7 @@ export class DataService {
 			{
 				id: 'bulletType',
 				// i18n
-				label: this.localization.ui['attacktype'],
+				label: this.localization.UI['attacktype'],
 				key: [
 					(deckStudent) => -Object.keys(BulletType).indexOf(this.students.get(deckStudent.id).bulletType),
 					(deckStudent) => -deckStudent.star,
@@ -263,7 +278,7 @@ export class DataService {
 			{
 				id: 'armorType',
 				// i18n
-				label: this.localization.ui['defensetype'],
+				label: this.localization.UI['defensetype'],
 				key: [
 					(deckStudent) => -Object.keys(ArmorType).indexOf(this.students.get(deckStudent.id).armorType),
 					(deckStudent) => -deckStudent.star,

@@ -232,7 +232,9 @@ export class Student {
 	}
 
 	get schoolIconUrl() {
-		return `${environment.CDN_BASE}/images/schoolicon/School_Icon_${this.school.toUpperCase()}_W.png`;
+		return this.school === 'Sakugawa'
+			? `${environment.CDN_BASE}/images/schoolicon/ETC.png`
+			: `${environment.CDN_BASE}/images/schoolicon/${this.school}.png`;
 	}
 
 	get gearIconUrl() {

@@ -75,7 +75,7 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 		if (this.terrain == null) return null;
 
 		const adaptations = this.model.getAdaptations(this.dataService);
-		return `${environment.CDN_BASE}/images/ui/Ingame_Emo_Adaptresult${this.dataService.adaptaionAmount[adaptations[this.terrain]]}.png`;
+		return `${environment.CDN_BASE}/images/ui/Adaptresult${adaptations[this.terrain]}.png`;
 	}
 
 	private changeSubscription: Subscription;
@@ -93,7 +93,7 @@ export class StudentCardComponent implements OnInit, OnDestroy {
 		this.action_assist = this.dataService.i18n.student_action_assist;
 
 		this.name = student.name;
-		this.dbUrl = `${environment.SCHALEDB_BASE}/?chara=${encodeURIComponent(student.pathName)}`;
+		this.dbUrl = `${environment.SCHALEDB_BASE}/student/${encodeURIComponent(student.pathName)}`;
 		// i18n
 		this.school = this.dataService.localization.School[student.school];
 		this.bulletType = student.bulletType;

@@ -28,7 +28,7 @@ export class SelectorComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		// i18n
-		this.title = this.dataService.localization.ui['navbar_students'];
+		this.title = this.dataService.localization.UI['students'];
 
 		this.selectedBulletTypeOptions = new Set<BulletType>(this.dataService.deck.options.filterBulletType);
 		this.selectedArmorTypeOptions = new Set<ArmorType>(this.dataService.deck.options.filterArmorType);

@@ -23,9 +23,9 @@ export class SettingComponent implements OnInit {
 		// i18n
 		this.title = this.dataService.i18n.action_setting;
 		// i18n
-		this.languageLabel = this.dataService.localization.ui['navbar_settings_language'];
+		this.languageLabel = this.dataService.localization.UI['settings_language'];
 		// i18n
-		this.regionLabel = this.dataService.localization.ui['navbar_settings_server'];
+		this.regionLabel = this.dataService.localization.UI['settings_server'];
 
 		this.selectedLanguageOption = this.dataService.languageOptions.find((option) => option.id === this.dataService.language);
 		this.selectedRegionOption = this.dataService.regionOptions.find((option) => option.id === this.dataService.region);

@@ -88,10 +88,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ba-armory:build:production"
+              "buildTarget": "ba-armory:build:production"
             },
             "development": {
-              "browserTarget": "ba-armory:build:development"
+              "buildTarget": "ba-armory:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,7 +99,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ba-armory:build"
+            "buildTarget": "ba-armory:build"
           }
         },
         "test": {

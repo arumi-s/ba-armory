@@ -78,7 +78,7 @@ export class DeckOptions {
 	filterTerrain: Terrain[] = [];
 
 	@Expose({ name: 'currentRank' })
-	@Clamp({ name: 'currentRank', target: '' })
+	@Clamp<'currentRank', 'currentRankMin', 'currentRankMax', ''>({ name: 'currentRank', target: '' })
 	private __currentRank__: number = 15000;
 	currentRank: number;
 	readonly currentRankMin: number = 1;

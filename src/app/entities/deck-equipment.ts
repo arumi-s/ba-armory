@@ -12,11 +12,11 @@ export class DeckEquipment {
 	readonly index: number = 0;
 
 	@Expose({ name: 'tier' })
-	@Clamp({ name: 'tier' })
+	@Clamp<'tier'>({ name: 'tier' })
 	private __tier__: number = 0;
 	public tier: number;
 	@Expose({ name: 'tierTarget' })
-	@ClampTarget({ name: 'tier' })
+	@ClampTarget<'tier'>({ name: 'tier' })
 	private __tierTarget__: number = 0;
 	tierTarget: number;
 	readonly tierMin: number = 0;

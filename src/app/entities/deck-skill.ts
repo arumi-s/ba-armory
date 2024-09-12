@@ -14,11 +14,11 @@ export class DeckSkill {
 	readonly index: number = 0;
 
 	@Expose({ name: 'level' })
-	@Clamp({ name: 'level' })
+	@Clamp<'level'>({ name: 'level' })
 	private __level__: number = 1;
 	public level: number;
 	@Expose({ name: 'levelTarget' })
-	@ClampTarget({ name: 'level' })
+	@ClampTarget<'level'>({ name: 'level' })
 	private __levelTarget__: number = 0;
 	levelTarget: number;
 	readonly levelMin: number = 1;

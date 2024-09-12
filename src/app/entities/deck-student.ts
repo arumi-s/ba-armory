@@ -16,58 +16,58 @@ export class DeckStudent {
 	readonly id: number = 0;
 
 	@Expose({ name: 'level' })
-	@Clamp({ name: 'level' })
+	@Clamp<'level'>({ name: 'level' })
 	private __level__: number = 1;
 	public level: number;
 	@Expose({ name: 'levelTarget' })
-	@ClampTarget({ name: 'level' })
+	@ClampTarget<'level'>({ name: 'level' })
 	private __levelTarget__: number = 0;
 	levelTarget: number;
 	readonly levelMin: number = 1;
 	readonly levelMax: number = 0;
 
 	@Expose({ name: 'star' })
-	@Clamp({ name: 'star' })
+	@Clamp<'star'>({ name: 'star' })
 	private __star__: number = 1;
 	public star: number;
 	@Expose({ name: 'starTarget' })
-	@ClampTarget({ name: 'star' })
+	@ClampTarget<'star'>({ name: 'star' })
 	private __starTarget__: number = 0;
 	starTarget: number;
 	readonly starMin: number = 0;
 	readonly starMax: number = 5;
 
 	@Expose({ name: 'weapon' })
-	@Clamp({ name: 'weapon' })
+	@Clamp<'weapon'>({ name: 'weapon' })
 	private __weapon__: number = 1;
 	weapon: number;
 	@Expose({ name: 'weaponTarget' })
-	@ClampTarget({ name: 'weapon' })
+	@ClampTarget<'weapon'>({ name: 'weapon' })
 	private __weaponTarget__: number = 0;
 	weaponTarget: number;
 	readonly weaponMin: number = 0;
 	readonly weaponMax: number = 3;
 
 	@Expose({ name: 'gear' })
-	@Clamp({ name: 'gear' })
+	@Clamp<'gear'>({ name: 'gear' })
 	private __gear__: number = 0;
 	gear: number;
 	@Expose({ name: 'gearTarget' })
-	@ClampTarget({ name: 'gear' })
+	@ClampTarget<'gear'>({ name: 'gear' })
 	private __gearTarget__: number = 0;
 	gearTarget: number;
 	readonly gearMin: number = 0;
 	readonly gearMax: number = 2;
 
 	@Expose({ name: 'elephCost' })
-	@Clamp({ name: 'elephCost', target: '' })
+	@Clamp<'elephCost', 'elephCostMin', 'elephCostMax', ''>({ name: 'elephCost', target: '' })
 	private __elephCost__: number = 1;
 	elephCost: number;
 	readonly elephCostMin: number = 1;
 	readonly elephCostMax: number = 5;
 
 	@Expose({ name: 'elephRemain' })
-	@Clamp({ name: 'elephRemain', target: '' })
+	@Clamp<'elephRemain', 'elephRemainMin', 'elephRemainMax', ''>({ name: 'elephRemain', target: '' })
 	private __elephRemain__: number = 20;
 	elephRemain: number;
 	readonly elephRemainMin: number = 0;

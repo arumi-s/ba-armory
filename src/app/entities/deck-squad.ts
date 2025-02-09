@@ -218,7 +218,7 @@ export class DeckSquad {
 				let weight = 0;
 				const cost = campaign.entryCost.find(([itemId]) => itemId === ACTION_POINT_ID)?.[1] ?? 0;
 				if (cost > 0) {
-					for (let { id: rewardId, chance } of campaign.rewards
+					for (let { id: rewardId, chance } of campaign
 						.forRegion(dataService.region)
 						.filter((reward) => reward.rewardType === RewardType.Default)) {
 						const required = this.required[rewardId];
@@ -247,7 +247,7 @@ export class DeckSquad {
 			.slice(0, 20)
 			.map(({ campaign }) => {
 				let amount = 0;
-				for (let { id: rewardId, chance } of campaign.rewards
+				for (let { id: rewardId, chance } of campaign
 					.forRegion(dataService.region)
 					.filter((reward) => reward.rewardType === RewardType.Default)) {
 					const required = this.required[rewardId];

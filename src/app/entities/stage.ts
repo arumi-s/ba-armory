@@ -13,7 +13,7 @@ export class Stage {
 
 	hydrate(_dataService: DataService) {
 		for (const campaign of this.campaign) {
-			campaign.rewards.hydrate();
+			campaign.hydrate();
 		}
 	}
 }
@@ -87,8 +87,25 @@ export class Campaign {
 	@Expose({ name: 'Level' })
 	level: number;
 	@Expose({ name: 'Rewards' })
-	@Type(() => CampaignRewards)
-	rewards: CampaignRewards;
+	@Type(() => Reward)
+	rewards: Reward[];
+
+	private fixReward(rewards: Reward[]) {
+		return rewards
+			.filter((reward) => reward.type === 'Item' || reward.type === 'Equipment' || reward.type === 'Currency')
+			.map((reward) => {
+				reward.id = reward.type === 'Currency' ? CURRENCY_OFFSET : reward.type === 'Equipment' ? reward.id + EQUIPMENT_OFFSET : reward.id;
+				return reward;
+			});
+	}
+
+	hydrate() {
+		this.rewards = this.fixReward(this.rewards);
+	}
+
+	forRegion(_region: number): Reward[] {
+		return this.rewards;
+	}
 
 	get iconUrl() {
 		return `${environment.CDN_BASE}/images/campaign/Campaign_Image_${this.area.toString().padStart(2, '0')}_${

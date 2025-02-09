@@ -15,6 +15,7 @@ const raids = [
 	'EN0005',
 	'RaidHoverCraft',
 	'EN0006',
+	'EN0010',
 ];
 for (const raid of raids) {
 	RAID_ICONS.push(`${environment.CDN_BASE}/images/raid/icon/Icon_${raid}.png`);
@@ -23,6 +24,7 @@ for (const raid of raids) {
 
 const extras = [
 	'images/raid/icon/Icon_EN0008.png',
+	'images/raid/icon/Icon_EN0009.png',
 	'images/item/icon/currency_icon_ap.webp',
 	'images/item/icon/currency_icon_gem.webp',
 	'images/item/icon/currency_icon_gold.webp',

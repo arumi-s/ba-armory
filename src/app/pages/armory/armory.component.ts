@@ -70,7 +70,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 
 	async handleClickIconSelector() {
 		const dialogRef = this.dialog.open(IconSelectorComponent, {
-			width: '100%',
+			width: 'calc(100% - 1rem)',
 			height: 'auto',
 			maxHeight: 'calc(100vh - 2.25rem)',
 			autoFocus: false,
@@ -83,7 +83,7 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 
 	async handleClickSelector() {
 		const dialogRef = this.dialog.open(SelectorComponent, {
-			width: '100%',
+			width: 'calc(100% - 1rem)',
 			height: '100%',
 			maxHeight: 'calc(100vh - 2.25rem)',
 			autoFocus: false,

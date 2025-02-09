@@ -53,7 +53,7 @@ export class CampaignCardComponent implements OnInit, OnDestroy {
 		this.name = campaign.name;
 		this.iconUrl = campaign.iconUrl;
 		this.rewards =
-			campaign.rewards
+			campaign
 				.forRegion(this.dataService.region)
 				.filter((reward) => reward.rewardType === RewardType.Default)
 				.filter((reward) => reward.type !== 'Currency') ?? [];

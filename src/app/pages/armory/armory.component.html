@@ -45,7 +45,9 @@
 	</mat-tab>
 	<mat-tab labelClass="!px-1 !min-w-min !opacity-100" disabled>
 		<ng-template mat-tab-label>
-			<button mat-icon-button color="primary" class="squad_action-add" (click)="handleClickSquadAdd()"><mat-icon>add_circle</mat-icon></button>
+			<button mat-icon-button color="primary" class="squad_action-add pointer-events-auto" (click)="handleClickSquadAdd()">
+				<mat-icon>add_circle</mat-icon>
+			</button>
 		</ng-template>
 	</mat-tab>
 </mat-tab-group>

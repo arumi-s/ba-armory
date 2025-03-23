@@ -44,6 +44,7 @@ export class DeckSquad {
 
 	@Dispatcher()
 	readonly change$: ChangeDispatcher<DeckSquad>;
+	readonly orderUpdated$ = new Subject<void>();
 	readonly requiredStaled$ = new Subject<void>();
 	readonly requiredUpdated$ = new Subject<void>();
 	readonly stagesStaled$ = new Subject<void>();
@@ -273,10 +274,12 @@ export class DeckSquad {
 	sortStudents(dataService: DataService, option: StudentSortOption, direction: -1 | 1) {
 		if (option == null) {
 			this.students.reverse();
+			this.orderUpdated$.next();
 			return;
 		}
 
 		this.students.sort((aId, bId) => sortObject(dataService.deck.students.get(aId), dataService.deck.students.get(bId), option, direction));
+		this.orderUpdated$.next();
 	}
 
 	sortItems(dataService: DataService, option: ItemSortOption, direction: -1 | 1) {

@@ -1,10 +1,10 @@
 import { hasKeys } from 'prop-change-decorators';
-import { Subscription } from 'rxjs';
+import { filter, merge, Subscription } from 'rxjs';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { environment } from '../../../../environments/environment';
-import { StuffCategory } from '../../../entities/enum';
+import { EquipmentRarity, StuffCategory } from '../../../entities/enum';
 import { Equipment } from '../../../entities/equipment';
 import { DataService } from '../../../services/data.service';
 
@@ -24,9 +24,11 @@ export class TabFavorComponent implements OnInit, OnDestroy {
 	items: {
 		id: number;
 		favors: Favor[];
+		unused: boolean;
 	}[] = [];
 
 	private changeSubscription: Subscription;
+	private studentUpdatedSubscription: Subscription;
 
 	constructor(public readonly dataService: DataService, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
@@ -40,19 +42,37 @@ export class TabFavorComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
+		this.studentUpdatedSubscription?.unsubscribe();
 		this.changeSubscription?.unsubscribe();
 	}
 
 	handleChangeSquad() {
+		this.studentUpdatedSubscription?.unsubscribe();
+		this.studentUpdatedSubscription = merge(
+			this.dataService.deck.selectedSquad.change$.pipe(filter((changes) => Array.isArray(changes.students))),
+			this.dataService.deck.selectedSquad.orderUpdated$
+		).subscribe(() => {
+			this.updateFavors();
+		});
+
+		this.updateFavors();
+	}
+
+	private updateFavors() {
+		const rarities = Object.values(EquipmentRarity);
 		this.items = this.dataService.stockables
 			.filter((id) => this.dataService.items.get(id)?.category === StuffCategory.Favor)
 			.map((id) => {
 				const item = this.dataService.items.get(id);
+				const { favors, isGeneric } = this.getFavoredStudents(this.dataService.deck.selectedSquad.students, item);
 				return {
 					id,
-					favors: this.getFavoredStudents(this.dataService.deck.selectedSquad.students, item),
+					favors: favors,
+					unused: favors.every(({ studentIds }) => studentIds.length === 0),
+					order: (isGeneric ? 0 : rarities.indexOf(item.rarity) * -100000) + item.id,
 				};
-			});
+			})
+			.sort((a, b) => a.order - b.order);
 
 		this.changeDetectorRef.markForCheck();
 	}
@@ -61,6 +81,7 @@ export class TabFavorComponent implements OnInit, OnDestroy {
 		const favorStudentIds: [number[], number[], number[]] = [[], [], []];
 		const genericTags = this.dataService.config.CommonFavorItemTags;
 		const genericTagCount = item.tags.filter((x) => genericTags.includes(x)).length;
+		const isGeneric = item.tags.length === genericTagCount;
 
 		for (const id of studentIds) {
 			const student = this.dataService.students.get(id);
@@ -87,6 +108,12 @@ export class TabFavorComponent implements OnInit, OnDestroy {
 			}
 		}
 
-		return favors;
+		favors.push({
+			amount: (item.expValue ?? 0) * (genericTagCount + 1),
+			icon: `${environment.CDN_BASE}/images/ui/Cafe_Interaction_Gift_0${genericTagCount + 1}.png`,
+			studentIds: [],
+		});
+
+		return { favors, isGeneric };
 	}
 }

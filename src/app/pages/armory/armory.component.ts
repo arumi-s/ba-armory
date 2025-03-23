@@ -24,6 +24,9 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 		handle: 'img.cursor-grab',
 		animation: 0,
 		swapThreshold: 1,
+		onUpdate: () => {
+			this.dataService.deck.selectedSquad.orderUpdated$.next();
+		},
 	};
 
 	isTarget: boolean = false;

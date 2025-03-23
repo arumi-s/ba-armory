@@ -8,6 +8,10 @@
 	</div>
 
 	<div class="actionbar-end">
+		<mat-checkbox class="selector_action-show_duplicated_students" [(ngModel)]="dataService.deck.options.showStudentName" color="accent">
+			<!-- i18n -->
+			{{ dataService.i18n.selector_show_student_name }}
+		</mat-checkbox>
 		<mat-checkbox
 			class="selector_action-show_duplicated_students"
 			[(ngModel)]="dataService.deck.options.showDuplicatedStudents"
@@ -85,5 +89,6 @@
 		[id]="id"
 		[terrain]="dataService.deck.selectedSquad.terrain"
 		(click)="handleClickStudent(id)"
+		[hideName]="!dataService.deck.options.showStudentName"
 	></ba-student-icon>
 </div>

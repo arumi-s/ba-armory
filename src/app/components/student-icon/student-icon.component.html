@@ -1,12 +1,23 @@
 <button
-	class="block w-25 h-25 rounded-full shadow shadow-neutral-400 relative cursor-pointer select-none active:shadow-none transition-shadow duration-75"
+	class="block {{
+		small ? 'w-18 h-18' : 'w-25 h-25'
+	}} rounded-full shadow shadow-neutral-400 relative cursor-pointer select-none active:shadow-none transition-shadow duration-75"
+	title="{{ student.name }}"
 >
 	<img class="w-full h-full object-cover rounded-full" [src]="student.collectionTextureUrl" loading="lazy" [alt]="student.name" />
-	<div [class]="'p-1.5 leading-none rounded-full origin-center absolute -top-0.5 -left-0.5 text-white bg-' + student.bulletType">
-		<mat-icon class="!block !w-4 !h-4" svgIcon="bullet_type" inline="true"></mat-icon>
-	</div>
-	<div [class]="'p-1.5 leading-none rounded-full origin-center absolute -bottom-0.5 -right-0.5 text-white bg-' + student.armorType">
-		<mat-icon class="!block !w-4 !h-4" svgIcon="armor_type" inline="true"></mat-icon>
-	</div>
+	<ng-container *ngIf="!hideType">
+		<div [class]="'p-1.5 leading-none rounded-full origin-center absolute -top-0.5 -left-0.5 text-white bg-' + student.bulletType">
+			<mat-icon class="!block !w-4 !h-4" svgIcon="bullet_type" inline="true"></mat-icon>
+		</div>
+		<div [class]="'p-1.5 leading-none rounded-full origin-center absolute -bottom-0.5 -right-0.5 text-white bg-' + student.armorType">
+			<mat-icon class="!block !w-4 !h-4" svgIcon="armor_type" inline="true"></mat-icon>
+		</div>
+	</ng-container>
 	<img *ngIf="terrain" class="absolute -top-0.5 -right-0.5 w-7.5 h-7.5" tabindex="-1" [src]="adaptationIcon" alt="" />
 </button>
+<div
+	*ngIf="!hideName"
+	class="text-center {{ small ? 'text-xs/none w-18' : 'text-sm/none w-25' }} text-neutral-500 overflow-hidden whitespace-nowrap"
+>
+	{{ student.name }}
+</div>

@@ -8,6 +8,9 @@ export type EntryCost = [id: number, amount: number];
 
 export enum EquipmentRarity {
 	N = 'N',
+	R = 'R',
+	SR = 'SR',
+	SSR = 'SSR',
 }
 
 export enum EquipmentStatType {

@@ -19,8 +19,17 @@ export class StudentIconComponent implements OnInit {
 	@Input()
 	terrain?: Terrain;
 
+	@Input()
+	small: boolean = false;
+
+	@Input()
+	hideType: boolean = false;
+
+	@Input()
+	hideName: boolean = true;
+
 	@HostBinding('class')
-	readonly className = 'contents';
+	readonly className = 'flex flex-col items-center gap-2';
 
 	constructor(private readonly dataService: DataService) {}
 

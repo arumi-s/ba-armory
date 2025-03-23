@@ -32,6 +32,8 @@ export class Equipment {
 	recipe?: EquipmentRecipe[];
 	@Expose({ name: 'RecipeCost' })
 	recipeCost?: number;
+	@Expose({ name: 'ExpValue' })
+	expValue?: number;
 
 	@Expose({ name: 'Tags' })
 	@Type(() => String)

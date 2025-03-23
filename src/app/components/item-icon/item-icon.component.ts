@@ -26,6 +26,9 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 	@Input()
 	hideName: boolean = false;
 
+	@Input()
+	hideAmount: boolean = false;
+
 	@HostBinding('class')
 	get className() {
 		return {
@@ -39,6 +42,7 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 	category: string;
 
 	name: string;
+	rarity: string;
 	tier: number;
 	dbUrl: string;
 	iconUrl: string;
@@ -60,6 +64,7 @@ export class ItemIconComponent implements OnInit, OnDestroy {
 		const item = this.dataService.getStuff(this.id);
 
 		this.name = item.name.replace(/&#x([0-9a-f]{1,4});/gi, (_, hex: string) => String.fromCharCode(parseInt(hex, 16)));
+		this.rarity = item.rarity.toLowerCase();
 		this.category = item.category.toLowerCase();
 		this.tier = item.tier;
 		this.dbUrl = `${environment.SCHALEDB_BASE}/?item=${encodeURIComponent(this.id)}`;

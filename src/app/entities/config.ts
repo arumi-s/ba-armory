@@ -7,6 +7,7 @@ export interface Config {
 	Changelog: Changelog[];
 	TypeEffectiveness: BulletTypeEffectivenessMap;
 	GachaGroups: GachaGroup[];
+	CommonFavorItemTags: string[];
 }
 
 export interface Changelog {

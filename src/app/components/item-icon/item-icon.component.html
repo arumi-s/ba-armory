@@ -7,7 +7,7 @@
 		[attr.tier]="tier"
 		(click)="handleClickIcon()"
 	>
-		<img loading="lazy" [src]="iconUrl" />
+		<img loading="lazy" [src]="iconUrl" class="bg-item-{{ rarity }} rounded-lg" />
 		<div
 			*ngIf="tier != null"
 			class="font-bold text-sm/none px-1 py-px m-0.5 absolute bottom-0 left-0 text-sky-600 bg-white border border-current rounded-md -skew-x-10"
@@ -19,7 +19,7 @@
 	<div *ngIf="!hideName" class="-mx-1 text-sm text-center grow">
 		<a [href]="dbUrl" target="_blank" rel="noopener noreferrer" tabindex="-1">{{ name }}</a>
 	</div>
-	<div>
+	<div *ngIf="!hideAmount">
 		<div class="flex items-center justify-center gap-1 required">
 			<!-- i18n -->
 			<div class="whitespace-nowrap">{{ dataService.i18n.item_required }}:</div>
@@ -38,6 +38,7 @@
 		</div>
 	</div>
 	<input
+		*ngIf="!hideAmount"
 		class="block w-full p-1 border border-gray-200"
 		type="number"
 		[attr.name]="'stock-input-' + id"

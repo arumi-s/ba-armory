@@ -25,6 +25,11 @@ export class DeckOptions {
 	private __showCampaignHard__: boolean = false;
 	showCampaignHard: boolean;
 
+	@Expose({ name: 'showStudentName' })
+	@WatchBoolean({ name: 'showStudentName' })
+	private __showStudentName__: boolean = false;
+	showStudentName: boolean;
+
 	@Expose({ name: 'showDuplicatedStudents' })
 	@WatchBoolean({ name: 'showDuplicatedStudents' })
 	private __showDuplicatedStudents__: boolean = false;
@@ -34,6 +39,11 @@ export class DeckOptions {
 	@WatchBoolean({ name: 'showFutureStudents' })
 	private __showFutureStudents__: boolean = false;
 	showFutureStudents: boolean;
+
+	@Expose({ name: 'showUnusedFavor' })
+	@WatchBoolean({ name: 'showUnusedFavor' })
+	private __showUnusedFavor__: boolean = false;
+	showUnusedFavor: boolean;
 
 	@Expose({ name: 'isAssistStudents' })
 	@WatchBoolean({ name: 'isAssistStudents' })

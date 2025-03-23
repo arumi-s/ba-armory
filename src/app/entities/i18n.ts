@@ -26,6 +26,7 @@ export interface I18N {
 	student_action_target: string;
 	student_action_maximize: string;
 	student_action_assist: string;
+	selector_show_student_name: string;
 	selector_show_duplicated_students: string;
 	selector_show_future_students: string;
 	selector_is_assist_students: string;
@@ -37,6 +38,7 @@ export interface I18N {
 	item_show_required_items: string;
 	item_show_elephs: string;
 	campaign_show_campaign_hard: string;
+	favor_show_unused_favor: string;
 	setting_save: string;
 	setting_save_notice: string;
 	import_error: string;

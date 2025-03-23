@@ -196,6 +196,13 @@
 	</mat-tab>
 	<mat-tab>
 		<!-- i18n -->
+		<ng-template mat-tab-label>{{ dataService.localization.ItemCategory.Favor }}</ng-template>
+		<ng-template matTabContent>
+			<ba-tab-favor></ba-tab-favor>
+		</ng-template>
+	</mat-tab>
+	<mat-tab>
+		<!-- i18n -->
 		<ng-template mat-tab-label>{{ dataService.localization.UI["ex_gear"] }}</ng-template>
 		<ng-template matTabContent>
 			<ba-tab-gears></ba-tab-gears>

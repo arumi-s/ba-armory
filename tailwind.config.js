@@ -16,6 +16,10 @@ module.exports = {
 				Support: "#006bff",
 				Eleph: "#dd6dd5",
 				Terrain: "#22c55e",
+				"item-n": "rgb(189, 197, 208)",
+				"item-r": "rgb(144, 186, 236)",
+				"item-sr": "rgb(214, 173, 129)",
+				"item-ssr": "rgb(168, 138, 236)",
 			},
 			fontFamily: {
 				sans: [
@@ -35,6 +39,7 @@ module.exports = {
 			width: {
 				7.5: "1.875rem",
 				12.5: "3.125rem",
+				18: "4.5rem",
 				25: "6.25rem",
 			},
 			maxWidth: {
@@ -43,6 +48,7 @@ module.exports = {
 			height: {
 				7.5: "1.875rem",
 				12.5: "3.125rem",
+				18: "4.5rem",
 				22.5: "5.625rem",
 				25: "6.25rem",
 			},
@@ -73,6 +79,10 @@ module.exports = {
 		"bg-ElasticArmor",
 		"bg-Main",
 		"bg-Support",
+		"bg-item-n",
+		"bg-item-r",
+		"bg-item-sr",
+		"bg-item-ssr",
 	],
 	plugins: [],
 };

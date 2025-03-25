@@ -26,6 +26,7 @@ export class TabFavorComponent implements OnInit, OnDestroy {
 		favors: Favor[];
 		unused: boolean;
 	}[] = [];
+	selectedStudentIds: number[] = [];
 
 	private changeSubscription: Subscription;
 	private studentUpdatedSubscription: Subscription;
@@ -52,10 +53,26 @@ export class TabFavorComponent implements OnInit, OnDestroy {
 			this.dataService.deck.selectedSquad.change$.pipe(filter((changes) => Array.isArray(changes.students))),
 			this.dataService.deck.selectedSquad.orderUpdated$
 		).subscribe(() => {
+			this.selectedStudentIds = this.selectedStudentIds.filter((studentId) =>
+				this.dataService.deck.selectedSquad.students.includes(studentId)
+			);
 			this.updateFavors();
 		});
 
+		this.selectedStudentIds = [];
 		this.updateFavors();
+	}
+
+	handleClickStudent(studentId: number) {
+		if (this.selectedStudentIds.includes(studentId)) {
+			this.selectedStudentIds = this.selectedStudentIds.filter((id) => id !== studentId);
+		} else {
+			this.selectedStudentIds = [...this.selectedStudentIds, studentId];
+		}
+	}
+
+	handleClickClearStudent() {
+		this.selectedStudentIds = [];
 	}
 
 	private updateFavors() {

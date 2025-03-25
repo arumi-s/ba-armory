@@ -1,5 +1,17 @@
 .hide-unused {
-	.unused {
+	.favor.unused {
 		display: none;
+	}
+}
+
+.hide-unselected {
+	.favor:not(:has(.selected)) {
+		display: none;
+	}
+}
+
+.selected {
+	::ng-deep button {
+		@apply ring-4 ring-yellow-500;
 	}
 }

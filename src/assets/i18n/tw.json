@@ -33,6 +33,8 @@
 	"squad_name": "隊伍",
 	"squad_action_remove": "移除隊伍",
 	"squad_action_pin": "固定隊伍",
+	"squad_action_bound": "6列",
+	"squad_action_fold": "折疊",
 	"squad_action_text": "文字",
 	"item_show_surplus_items": "顯示溢出",
 	"item_show_required_items": "顯示需要",

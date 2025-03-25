@@ -47,3 +47,15 @@
 		}
 	}
 }
+
+.squad-students.folded ba-student-card {
+	::ng-deep .folded-hidden {
+		display: none !important;
+	}
+}
+
+.squad-students:not(.folded) ba-student-card {
+	::ng-deep .folded-show {
+		display: none !important;
+	}
+}

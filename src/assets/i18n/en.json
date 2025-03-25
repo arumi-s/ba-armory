@@ -33,6 +33,8 @@
 	"squad_name": "Squad",
 	"squad_action_remove": "Remove Squad",
 	"squad_action_pin": "Pin Squad",
+	"squad_action_bound": "6 Column",
+	"squad_action_fold": "Fold",
 	"squad_action_text": "Text",
 	"item_show_surplus_items": "Show Surplus",
 	"item_show_required_items": "Show Required",

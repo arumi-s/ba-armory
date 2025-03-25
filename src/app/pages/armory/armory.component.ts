@@ -148,6 +148,10 @@ export class ArmoryComponent implements OnInit, OnDestroy {
 		this.dataService.deck.selectedSquad.bounded = !this.dataService.deck.selectedSquad.bounded;
 	}
 
+	handleClickSquadFold() {
+		this.dataService.deck.selectedSquad.folded = !this.dataService.deck.selectedSquad.folded;
+	}
+
 	async handleClickSquadText() {
 		const dialogRef = this.dialog.open(SquadTextComponent, {
 			height: 'auto',

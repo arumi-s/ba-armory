@@ -32,6 +32,9 @@ export class DeckSquad {
 	@Expose({ name: 'bounded' })
 	bounded: boolean = false;
 
+	@Expose({ name: 'folded' })
+	folded: boolean = false;
+
 	@Expose({ name: 'tab' })
 	tab: Tab = Tab.items;
 

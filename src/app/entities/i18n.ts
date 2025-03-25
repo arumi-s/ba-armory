@@ -33,6 +33,8 @@ export interface I18N {
 	squad_name: string;
 	squad_action_remove: string;
 	squad_action_pin: string;
+	squad_action_bound: string;
+	squad_action_fold: string;
 	squad_action_text: string;
 	item_show_surplus_items: string;
 	item_show_required_items: string;

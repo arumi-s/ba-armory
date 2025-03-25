@@ -94,8 +94,20 @@
 			mat-stroked-button
 			[color]="dataService.deck.selectedSquad.bounded ? 'accent' : 'basic'"
 			(click)="handleClickSquadBound()"
+			[matTooltip]="dataService.i18n.squad_action_bound"
 		>
 			<mat-icon>looks_6</mat-icon>
+		</button>
+
+		<!-- i18n -->
+		<button
+			class="icon-button squad_action-fold"
+			mat-stroked-button
+			color="basic"
+			(click)="handleClickSquadFold()"
+			[matTooltip]="dataService.i18n.squad_action_fold"
+		>
+			<mat-icon>{{ dataService.deck.selectedSquad.folded ? "unfold_less" : "unfold_more" }}</mat-icon>
 		</button>
 
 		<!-- i18n -->
@@ -155,9 +167,11 @@
 </div>
 
 <div
-	class="flex flex-wrap justify-center my-3 min-h-72 gap-4"
+	class="flex flex-wrap justify-center my-3 gap-4 squad-students"
+	[class.min-h-72]="dataService.deck.selectedSquad.students.length === 0"
 	[class.max-w-bounded]="dataService.deck.selectedSquad.bounded"
 	[class.mx-auto]="dataService.deck.selectedSquad.bounded"
+	[class.folded]="dataService.deck.selectedSquad.folded"
 	[sortablejs]="dataService.deck.selectedSquad.students"
 	[sortablejsOptions]="sortableOptions"
 >

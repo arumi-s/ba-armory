@@ -1,15 +1,22 @@
-<div class="w-60 shadow rounded-md shadow-neutral-400 space-y-2">
+<div class="w-60 shadow rounded-md shadow-neutral-400">
 	<div class="relative flex flex-row p-2 bg-sky-100 gap-2" [class.bg-yellow-100]="isAlt">
 		<img class="h-12.5 w-12.5 cursor-grab rounded-full object-cover shrink-0" loading="lazy" [src]="collectionTextureUrl" [alt]="name" />
 		<div class="flex-1 flex flex-col overflow-hidden justify-between z-10">
-			<a
-				class="text-lg/6 font-semibold whitespace-nowrap overflow-hidden text-ellipsis"
-				[href]="dbUrl"
-				target="_blank"
-				rel="noopener noreferrer"
-				tabindex="-1"
-				>{{ name }}</a
-			>
+			<div class="flex items-center gap-1">
+				<a
+					class="text-lg/6 font-semibold whitespace-nowrap overflow-hidden text-ellipsis block"
+					[href]="dbUrl"
+					target="_blank"
+					rel="noopener noreferrer"
+					tabindex="-1"
+					>{{ name }}</a
+				>
+
+				<!-- i18n -->
+				<button class="ml-auto small-button folded-show" mat-button color="warn" (click)="handleClickDelete()" [matTooltip]="action_remove">
+					<mat-icon class="!mr-0">block</mat-icon>
+				</button>
+			</div>
 			<div class="flex items-center gap-1 select-none">
 				<div [class]="'rounded p-1 text-white bg-' + bulletType" [matTooltip]="bulletTypeText">
 					<mat-icon class="!block !h-4 !w-4" svgIcon="bullet_type"></mat-icon>
@@ -25,7 +32,7 @@
 		</div>
 		<img class="invert opacity-15 h-full absolute right-0 top-0 pointer-events-none" loading="lazy" [src]="schoolIconUrl" />
 	</div>
-	<div class="px-2 space-y-2">
+	<div class="px-2 space-y-2 my-2 folded-hidden">
 		<div class="flex justify-between items-center text-lg/none">
 			<div class="flex text-lg/5 items-center">
 				<div>Lv.</div>
@@ -105,7 +112,7 @@
 			<ba-gear-card [id]="id" [isTarget]="isTarget"></ba-gear-card>
 		</div>
 	</div>
-	<div class="flex gap-2 p-2 [&>button]:shrink-0 [&>button]:min-w-min">
+	<div class="flex gap-2 p-2 [&>button]:shrink-0 [&>button]:min-w-min folded-hidden">
 		<!-- i18n -->
 		<button class="!mr-auto small-button" mat-button color="warn" (click)="handleClickDelete()">
 			<mat-icon>block</mat-icon> {{ action_remove }}

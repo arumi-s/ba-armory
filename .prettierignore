@@ -5,5 +5,9 @@ yarn.lock
 bun.lock
 bun.lockb
 
+# Paraglide-js artifacts
+.project.inlang
+!.project.inlang/settings.json
+
 # Miscellaneous
 /static/

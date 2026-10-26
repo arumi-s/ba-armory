@@ -95,7 +95,9 @@ export class StudentCardState {
 				return d ? (d.isTarget ? d.weaponTarget : d.weapon) : 0;
 			}),
 			max: boxWith(() => WEAPON_MAX),
-			disabled: boxWith(() => (this.d ? this.d.star !== STAR_MAX : false)),
+			disabled: boxWith(() =>
+				this.d ? (this.d.isTarget ? this.d.starTarget : this.d.star) !== STAR_MAX : false
+			),
 			onValueChange: (v) => {
 				const d = this.d;
 				if (!d) return;

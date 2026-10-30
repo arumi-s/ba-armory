@@ -12,6 +12,7 @@ import {
 	StudentsSchema
 } from './schemas';
 import { CDN_BASE } from '#lib/config.ts';
+import { EquipmentCategory } from './enums';
 
 // Real schaledb documents (en), cached under <repo>/.fixtures/schaledb. Files
 // are downloaded on first run. These tests are always skipped on CI (the `CI`
@@ -148,5 +149,33 @@ describe('real schaledb data', () => {
 	maybe('icons list is large (raids + extras + students + schools)', () => {
 		const game = loadRealGameData();
 		expect(game.icons.length).toBeGreaterThan(26 + 44 + game.students.size);
+	});
+
+	maybe('universal blueprints: exactly 9, one per equipment category, JP released / CN not', () => {
+		const game = loadRealGameData();
+		expect(game.universalBlueprintByCategory.size).toBe(9);
+		expect(new Set(game.universalBlueprintByCategory.keys())).toEqual(
+			new Set(Object.keys(EquipmentCategory))
+		);
+		for (const [category, id] of game.universalBlueprintByCategory) {
+			const equipment = game.equipments.get(id)!;
+			expect(equipment.tier, category).toBe(0);
+			expect(equipment.recipe ?? null, category).toBeNull();
+			expect(equipment.icon, category).toContain('useall');
+			expect(equipment.isReleased[0], category).toBe(true);
+			expect(equipment.isReleased[2], category).toBe(false);
+		}
+		// CN region: universals are release-filtered out entirely.
+		const cn = loadRealGameData(2);
+		expect(cn.universalBlueprintByCategory.size).toBe(0);
+		// Every category has a non-empty blueprint list in DESC tier order.
+		for (const [category, list] of game.blueprintsByCategory) {
+			expect(list.length, category).toBeGreaterThan(0);
+			for (let i = 1; i < list.length; i++) {
+				const prev = game.equipments.get(list[i - 1]!)!;
+				const curr = game.equipments.get(list[i]!)!;
+				expect(prev.tier, category).toBeGreaterThanOrEqual(curr.tier);
+			}
+		}
 	});
 });

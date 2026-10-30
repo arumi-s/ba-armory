@@ -28,6 +28,13 @@
 			label={m.item_show_elephs()}
 			bind:checked={app.deck!.options.showElephs}
 		/>
+		{#if app.game!.universalBlueprintByCategory.size > 0}
+			<CheckboxField
+				id="item-use-universal-blueprints"
+				label={m.item_use_universal_blueprints()}
+				bind:checked={app.deck!.options.useUniversalBlueprints}
+			/>
+		{/if}
 	</div>
 
 	<SortMenu sort={itemsTab.sort} class="ml-auto justify-end" />

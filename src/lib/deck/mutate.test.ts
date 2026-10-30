@@ -284,6 +284,7 @@ describe('normalize + serialize round-trip', () => {
 		// options catch + clamp
 		expect(deck.options.showSurplusItems).toBe(true);
 		expect(deck.options.showRequiredItems).toBe(false);
+		expect(deck.options.useUniversalBlueprints).toBe(false);
 		expect(deck.options.currentRank).toBe(15000);
 		// students merged onto defaults for every game student + alt kept
 		expect(Object.keys(deck.students).length).toBe(3);
@@ -313,6 +314,7 @@ describe('normalize + serialize round-trip', () => {
 
 		const roundTripped = JSON.parse(JSON.stringify(serializeDeck(deck)));
 		expect(roundTripped.options.currentRank).toBe(15000);
+		expect(roundTripped.options.useUniversalBlueprints).toBe(false);
 		expect(roundTripped.students.find((s: { id: number }) => s.id === 10000)).toMatchObject({
 			level: 40,
 			star: 4,
@@ -325,6 +327,16 @@ describe('normalize + serialize round-trip', () => {
 		// normalize(serialize(x)) is stable
 		const again = normalizeDeck(roundTripped, game, 'Squad');
 		expect(serializeDeck(again)).toEqual(JSON.parse(JSON.stringify(roundTripped)));
+	});
+
+	it('useUniversalBlueprints defaults false and survives the serialize round-trip', () => {
+		const deck = normalizeDeck({}, game, 'Squad');
+		expect(deck.options.useUniversalBlueprints).toBe(false); // legacy saves without the key
+		deck.options.useUniversalBlueprints = true;
+		const roundTripped = JSON.parse(JSON.stringify(serializeDeck(deck)));
+		expect(roundTripped.options.useUniversalBlueprints).toBe(true);
+		const again = normalizeDeck(roundTripped, game, 'Squad');
+		expect(again.options.useUniversalBlueprints).toBe(true);
 	});
 
 	it('empty deck gets one default squad', () => {

@@ -395,3 +395,51 @@ export function squadText(
 		)
 		.join('\n');
 }
+
+/* ------------------------------------------------------------------ */
+/* ⑦ Universal blueprint substitution                                  */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Substitute universal blueprints (tier-0 recipe-less equipment, ids
+ * 501000-509000) into per-item deficits: per equipment category, the
+ * universal stock greedily covers specific-blueprint deficits from the
+ * HIGHEST tier down (T10 → T1 — universals are reserved for high tiers),
+ * and the universal row's requirement becomes the category's total deficit
+ * so that stages dropping universals keep recommendation weight.
+ * Pure: returns a new map, does not modify the input.
+ */
+export function applyUniversalBlueprints(
+	required: Map<number, number>,
+	stocks: Record<number, number>,
+	game: GameDataType
+): Map<number, number> {
+	const result = new Map(required);
+	for (const [category, universalId] of game.universalBlueprintByCategory) {
+		const blueprints = game.blueprintsByCategory.get(category);
+		if (!blueprints || blueprints.length === 0) continue;
+
+		// Total specific deficit of the category (before substitution).
+		let deficit = 0;
+		for (const id of blueprints) {
+			deficit += Math.max(0, (required.get(id) ?? 0) - (stocks[id] ?? 0));
+		}
+		if (deficit <= 0) continue;
+
+		// Universal row = category total deficit: keeps universal-dropping
+		// stages weighted by the residual gap D − U.
+		result.set(universalId, (result.get(universalId) ?? 0) + deficit);
+
+		// Greedy coverage, highest tier first.
+		let pool = stocks[universalId] ?? 0;
+		for (const id of blueprints) {
+			if (pool <= 0) break;
+			const need = (required.get(id) ?? 0) - (stocks[id] ?? 0);
+			if (need <= 0) continue;
+			const covered = Math.min(need, pool);
+			pool -= covered;
+			result.set(id, (required.get(id) ?? 0) - covered);
+		}
+	}
+	return result;
+}

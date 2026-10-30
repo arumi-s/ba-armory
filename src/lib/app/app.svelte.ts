@@ -5,7 +5,11 @@ import { LANGUAGE_CODES, SAVE_API, type LangId, type RegionId } from '#lib/confi
 import { DataLoadError, fetchRawGameData } from '#lib/data/load';
 import { buildGameData, type GameDataType, type RawGameDataType } from '#lib/data/indexes';
 import { ALT_OFFSET } from '#lib/data/enums';
-import { squadRequired as computeSquadRequired, studentRequiredItems } from '#lib/deck/compute';
+import {
+	applyUniversalBlueprints,
+	squadRequired as computeSquadRequired,
+	studentRequiredItems
+} from '#lib/deck/compute';
 import { setDirtyNotifier } from '#lib/deck/mutate';
 import { normalizeDeck } from '#lib/deck/normalize';
 import {
@@ -73,10 +77,15 @@ export class AppState {
 
 	readonly selectedSquad = $derived(this.deck?.squads[this.deck.selectedSquadId]);
 
-	/** Aggregated requirements of the selected squad (alt & duplicate ids skipped). */
+	/** Aggregated requirements of the selected squad (alt & duplicate ids skipped).
+	 *  With the universal-blueprints option on, deficits are substituted per
+	 *  category before downstream consumers see them. */
 	readonly squadRequired = $derived.by(() => {
 		if (!this.deck || !this.game || !this.selectedSquad) return new Map<number, number>();
-		return computeSquadRequired(this.selectedSquad, this.deck, this.game);
+		const raw = computeSquadRequired(this.selectedSquad, this.deck, this.game);
+		return this.deck.options.useUniversalBlueprints
+			? applyUniversalBlueprints(raw, this.deck.stocks, this.game)
+			: raw;
 	});
 
 	/** Per-student requirements for the selected squad (alt entries included). */

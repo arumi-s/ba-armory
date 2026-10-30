@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { ELIGMA_ID, EQUIPMENT_OFFSET } from '#lib/data/enums';
 import {
+	applyUniversalBlueprints,
 	studentRequiredItems,
 	arenaForecast,
 	favorTiers,
@@ -328,6 +329,220 @@ describe('recommendStages', () => {
 		});
 		const required = new Map([[4001, 100]]);
 		expect(recommendStages(required, {}, g, false).length).toBe(20);
+	});
+});
+
+describe('applyUniversalBlueprints', () => {
+	// Badge: T1 body 5000, T2 equipment 5001 (recipe → not a blueprint row),
+	// T2 blueprint 105001, T9 blueprint 105008, universal 505000 (tier 0);
+	// Hat mirror set for the multi-category case.
+	const BODY = 5000 + EQUIPMENT_OFFSET;
+	const BP2 = 105001 + EQUIPMENT_OFFSET;
+	const BP9 = 105008 + EQUIPMENT_OFFSET;
+	const UNI = 505000 + EQUIPMENT_OFFSET;
+	const HBP2 = 106001 + EQUIPMENT_OFFSET;
+	const HUNI = 501000 + EQUIPMENT_OFFSET;
+
+	function blueprintGame(overrides: FixtureOverrides = {}) {
+		return buildFixtureGame({
+			equipments: [
+				equipmentRaw(5000, 'Badge', 1),
+				equipmentRaw(5001, 'Badge', 2, { Recipe: [[105001, 15]] }),
+				equipmentRaw(105001, 'Badge', 2),
+				equipmentRaw(105008, 'Badge', 9),
+				equipmentRaw(505000, 'Badge', 0),
+				equipmentRaw(6000, 'Hat', 1),
+				equipmentRaw(6001, 'Hat', 2, { Recipe: [[106001, 15]] }),
+				equipmentRaw(106001, 'Hat', 2),
+				equipmentRaw(501000, 'Hat', 0)
+			],
+			...overrides
+		});
+	}
+
+	it('returns an equal map and leaves the input untouched when no universal exists', () => {
+		const g = blueprintGame({
+			equipments: [
+				equipmentRaw(5000, 'Badge', 1),
+				equipmentRaw(5001, 'Badge', 2, { Recipe: [[105001, 15]] }),
+				equipmentRaw(105001, 'Badge', 2)
+			]
+		});
+		const required = new Map([[BP2, 20]]);
+		const result = applyUniversalBlueprints(required, {}, g);
+		expect([...result]).toEqual([[BP2, 20]]);
+		expect(required.get(BP2)).toBe(20); // pure: input not modified
+	});
+
+	it('with zero universal stock the universal row equals the category deficit', () => {
+		const g = blueprintGame();
+		const required = new Map([[BP2, 20]]);
+		const result = applyUniversalBlueprints(required, {}, g);
+		expect(result.get(UNI)).toBe(20); // D = 20
+		expect(result.get(BP2)).toBe(20); // specific rows unchanged
+	});
+
+	it('covers the highest tier first (greedy DESC: T9 before T2)', () => {
+		const g = blueprintGame();
+		const required = new Map([
+			[BP2, 20],
+			[BP9, 50]
+		]);
+		const stocks = { [BP2]: 5, [UNI]: 12 };
+		const result = applyUniversalBlueprints(required, stocks, g);
+		expect(result.get(BP9)).toBe(38); // 50 − 12 covered first
+		expect(result.get(BP2)).toBe(20); // pool exhausted → low tier keeps its deficit
+		expect(result.get(UNI)).toBe(65); // D = 15 + 50
+		// dual view: Σ specific residual = universal residual = D − U = 53
+		const residual = [BP2, BP9].reduce(
+			(sum, id) => sum + Math.max(0, result.get(id)! - (stocks[id] ?? 0)),
+			0
+		);
+		expect(residual).toBe(65 - 12);
+	});
+
+	it('leaves the residual on lower tiers when the pool runs out mid-way', () => {
+		const g = blueprintGame();
+		const required = new Map([
+			[BP9, 50],
+			[BP2, 20],
+			[BODY, 3]
+		]);
+		const stocks = { [BP9]: 10, [UNI]: 48 };
+		const result = applyUniversalBlueprints(required, stocks, g);
+		// D = 40 + 20 + 3 = 63; greedy: BP9 ← 40 (pool 8), BP2 ← 8 (pool 0), BODY ← 0
+		expect(result.get(BP9)).toBe(10); // == stock → surplus row
+		expect(result.get(BP2)).toBe(12);
+		expect(result.get(BODY)).toBe(3); // T1 body is covered last
+		expect(result.get(UNI)).toBe(63);
+		const residual = [BODY, BP2, BP9].reduce(
+			(sum, id) => sum + Math.max(0, result.get(id)! - (stocks[id] ?? 0)),
+			0
+		);
+		expect(residual).toBe(63 - 48); // Σ residual = D − U
+	});
+
+	it('U ≥ D turns every specific row surplus and the universal row absorbs the deficit', () => {
+		const g = blueprintGame();
+		const required = new Map([[BP2, 20]]);
+		const stocks = { [UNI]: 70 };
+		const result = applyUniversalBlueprints(required, stocks, g);
+		for (const id of g.blueprintsByCategory.get('Badge')!) {
+			expect(result.get(id) ?? 0).toBeLessThanOrEqual(stocks[id] ?? 0); // surplus
+		}
+		expect(result.get(UNI)).toBe(20); // D
+		expect(stocks[UNI]! - result.get(UNI)!).toBe(50); // universal surplus = U − D
+	});
+
+	it('substitutes each category independently', () => {
+		const g = blueprintGame();
+		const required = new Map([
+			[BP2, 20],
+			[HBP2, 30]
+		]);
+		const stocks = { [UNI]: 5, [HUNI]: 40 };
+		const result = applyUniversalBlueprints(required, stocks, g);
+		// Badge: D = 20, U = 5 → residual 15 stays on BP2
+		expect(result.get(BP2)).toBe(15);
+		expect(result.get(UNI)).toBe(20);
+		// Hat: D = 30, U = 40 ≥ D → fully covered
+		expect(result.get(HBP2)).toBe(0);
+		expect(result.get(HUNI)).toBe(30);
+	});
+
+	it('passes SecretStone and Eligma requirements through untouched', () => {
+		const g = blueprintGame();
+		const required = new Map<number, number>([
+			[BP2, 20],
+			[10000, 340], // own eleph (SecretStone)
+			[ELIGMA_ID, 120]
+		]);
+		const result = applyUniversalBlueprints(required, { [UNI]: 5 }, g);
+		expect(result.get(10000)).toBe(340);
+		expect(result.get(ELIGMA_ID)).toBe(120);
+		expect(result.get(BP2)).toBe(15); // only category rows are substituted
+		expect(result.get(UNI)).toBe(20);
+	});
+});
+
+describe('recommendStages with universal substitution', () => {
+	const BP9 = 105008 + EQUIPMENT_OFFSET;
+	const UNI = 505000 + EQUIPMENT_OFFSET;
+
+	function game(stages: Record<string, unknown>[]) {
+		return buildFixtureGame({
+			equipments: [
+				equipmentRaw(5000, 'Badge', 1),
+				equipmentRaw(5001, 'Badge', 2, { Recipe: [[105001, 15]] }),
+				equipmentRaw(105008, 'Badge', 9),
+				equipmentRaw(505000, 'Badge', 0)
+			],
+			stages
+		});
+	}
+
+	/** BP9 deficit 50, universal stock 12 → universal row 50, residual gap D−U = 38. */
+	function substituted(g: ReturnType<typeof game>) {
+		const stocks = { [UNI]: 12 };
+		return {
+			stocks,
+			required: applyUniversalBlueprints(new Map([[BP9, 50]]), stocks, g)
+		};
+	}
+
+	it('weights universal-dropping stages by the residual gap (D−U) × chance', () => {
+		const g = game([
+			stageRaw(1, {
+				EntryCost: [[5, 10]],
+				Rewards: [{ Type: 'Equipment', Id: 505000, Chance: 0.5 }]
+			}),
+			stageRaw(2, {
+				EntryCost: [[5, 10]],
+				Rewards: [{ Type: 'Equipment', Id: 105008, Chance: 1 }]
+			})
+		]);
+		const { required, stocks } = substituted(g);
+		const result = recommendStages(required, stocks, g, false);
+		// specific stage weight 38×1/10 = 3.8 > universal stage 38×0.5/10 = 1.9
+		expect(result.map((r) => r.id)).toEqual([2, 1]);
+		expect(result[0]?.amount).toBe(38); // ceil(38 / 1)
+		expect(result[1]?.amount).toBe(76); // ceil(38 / 0.5)
+	});
+
+	it('halves universal drop weight on hard stages (scale 0.5, like specific blueprints)', () => {
+		const g = game([
+			stageRaw(1, {
+				EntryCost: [[5, 10]],
+				Rewards: [{ Type: 'Equipment', Id: 505000, Chance: 0.5 }]
+			}),
+			stageRaw(2, {
+				Difficulty: 1,
+				EntryCost: [[5, 10]],
+				Rewards: [{ Type: 'Equipment', Id: 505000, Chance: 0.5 }]
+			})
+		]);
+		const { required, stocks } = substituted(g);
+		expect(recommendStages(required, stocks, g, false).map((r) => r.id)).toEqual([1]);
+		const withHard = recommendStages(required, stocks, g, true);
+		// normal weight 38×0.5/10 = 1.9; hard 38×0.5×0.5/10 = 0.95 → normal first
+		expect(withHard.map((r) => r.id)).toEqual([1, 2]);
+		expect(withHard.every((r) => r.amount === 76)).toBe(true);
+	});
+
+	it('drops the whole category from recommendations once U ≥ D', () => {
+		const g = game([
+			stageRaw(1, {
+				EntryCost: [[5, 10]],
+				Rewards: [{ Type: 'Equipment', Id: 505000, Chance: 0.5 }]
+			}),
+			stageRaw(2, {
+				EntryCost: [[5, 10]],
+				Rewards: [{ Type: 'Equipment', Id: 105008, Chance: 1 }]
+			})
+		]);
+		const stocks = { [UNI]: 70 };
+		const required = applyUniversalBlueprints(new Map([[BP9, 50]]), stocks, g);
+		expect(recommendStages(required, stocks, g, true)).toEqual([]);
 	});
 });
 

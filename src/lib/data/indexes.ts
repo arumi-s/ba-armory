@@ -69,6 +69,8 @@ export interface GameDataType {
 	stockables: readonly number[];
 	equipmentsByCategory: ReadonlyMap<ItemCategoryType, ReadonlyMap<number, number>>;
 	equipmentCategoryMaxTier: ReadonlyMap<ItemCategoryType, number>;
+	universalBlueprintByCategory: ReadonlyMap<ItemCategoryType, number>;
+	blueprintsByCategory: ReadonlyMap<ItemCategoryType, readonly number[]>;
 	campaigns: readonly CampaignType[];
 	localization: Localization;
 	commonFavorItemTags: readonly string[];
@@ -102,6 +104,8 @@ export function buildGameData(raw: RawGameDataType, region: RegionId): GameDataT
 	const stockables: number[] = [];
 	const equipmentsByCategory = new Map<ItemCategoryType, Map<number, number>>();
 	const equipmentCategoryMaxTier = new Map<ItemCategoryType, number>();
+	const universalBlueprintByCategory = new Map<ItemCategoryType, number>();
+	const blueprintsByCategory = new Map<ItemCategoryType, number[]>();
 
 	const equipmentCategorySet = new Set<string>(Object.keys(EquipmentCategory));
 
@@ -118,11 +122,29 @@ export function buildGameData(raw: RawGameDataType, region: RegionId): GameDataT
 		}
 		if (equipment.recipe == null && equipmentCategorySet.has(equipment.category)) {
 			stockables.push(equipment.id);
+			// Universal (tier 0) vs specific (tier ≥ 1) blueprints per category.
+			if (equipment.tier === 0) {
+				universalBlueprintByCategory.set(equipment.category as ItemCategoryType, equipment.id);
+			} else {
+				const list = blueprintsByCategory.get(equipment.category as ItemCategoryType);
+				if (list) list.push(equipment.id);
+				else blueprintsByCategory.set(equipment.category as ItemCategoryType, [equipment.id]);
+			}
 		}
 	}
 
 	for (const [category, categoryMap] of equipmentsByCategory) {
 		equipmentCategoryMaxTier.set(category, Math.max(...categoryMap.keys()));
+	}
+
+	// Specific blueprints in substitution order: DESC by (tier, id) — the
+	// universal pool covers the highest tiers first (T10 → T1).
+	for (const list of blueprintsByCategory.values()) {
+		list.sort((a, b) => {
+			const ea = equipments.get(a)!;
+			const eb = equipments.get(b)!;
+			return eb.tier - ea.tier || b - a;
+		});
 	}
 
 	// Then items (materials, elephs, favors).
@@ -165,6 +187,8 @@ export function buildGameData(raw: RawGameDataType, region: RegionId): GameDataT
 		stockables,
 		equipmentsByCategory,
 		equipmentCategoryMaxTier,
+		universalBlueprintByCategory,
+		blueprintsByCategory,
 		campaigns,
 		localization,
 		commonFavorItemTags: raw.config.commonFavorItemTags as string[],

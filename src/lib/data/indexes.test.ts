@@ -57,6 +57,47 @@ describe('buildGameData', () => {
 		expect(game.equipmentsByCategory.has('Shoes')).toBe(false);
 	});
 
+	it('builds universal/specific blueprint indexes with blueprints DESC by (tier, id)', () => {
+		const game = buildGameData(
+			buildRaw({
+				equipments: [
+					EquipmentSchema.parse(equipmentRaw(5000, 'Badge', 1)),
+					EquipmentSchema.parse(equipmentRaw(5001, 'Badge', 2, { Recipe: [[105001, 15]] })),
+					EquipmentSchema.parse(equipmentRaw(105001, 'Badge', 2)),
+					EquipmentSchema.parse(equipmentRaw(105003, 'Badge', 4)),
+					EquipmentSchema.parse(equipmentRaw(105008, 'Badge', 9)),
+					EquipmentSchema.parse(equipmentRaw(505000, 'Badge', 0))
+				]
+			}),
+			0
+		);
+		expect(game.universalBlueprintByCategory.get('Badge')).toBe(505000 + EQUIPMENT_OFFSET);
+		// Substitution order: T9 → T4 → T2 → T1 (recipe'd T2 equipment excluded).
+		expect(game.blueprintsByCategory.get('Badge')).toEqual([
+			105008 + EQUIPMENT_OFFSET,
+			105003 + EQUIPMENT_OFFSET,
+			105001 + EQUIPMENT_OFFSET,
+			5000 + EQUIPMENT_OFFSET
+		]);
+	});
+
+	it('region-gates the blueprint indexes on IsReleased (CN-only releases)', () => {
+		const raw = buildRaw({
+			equipments: [
+				EquipmentSchema.parse(equipmentRaw(5000, 'Badge', 1, { IsReleased: [false, false, true] })),
+				EquipmentSchema.parse(
+					equipmentRaw(505000, 'Badge', 0, { IsReleased: [false, false, true] })
+				)
+			]
+		});
+		const jp = buildGameData(raw, 0);
+		expect(jp.universalBlueprintByCategory.has('Badge')).toBe(false);
+		expect(jp.blueprintsByCategory.has('Badge')).toBe(false);
+		const cn = buildGameData(raw, 2);
+		expect(cn.universalBlueprintByCategory.get('Badge')).toBe(505000 + EQUIPMENT_OFFSET);
+		expect(cn.blueprintsByCategory.get('Badge')).toEqual([5000 + EQUIPMENT_OFFSET]);
+	});
+
 	it('stockables: recipe-less released equipments first, then eligible items', () => {
 		const game = buildGameData(buildRaw(), 0);
 		expect(game.stockables).toEqual([
